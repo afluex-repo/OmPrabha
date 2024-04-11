@@ -1,0 +1,205 @@
+﻿@model OmPrabha.Models.Permisssions
+
+@{
+    ViewBag.Title = "SetPermission";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("SetPermission", "Permission", FormMethod.Post, new { @id = "form1" }))
+{
+
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Permissions</li>
+            <li class="breadcrumb-item">Set Permission</li>
+        </ul>
+    </section>
+
+
+    <div class="section-body">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Set Permission</h4>
+
+                    <p style="color: red">
+                        @TempData["Permission"]
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="input-field col m4 s12">
+                            Select User<span style="color:red">*</span>
+                            @Html.DropDownListFor(m => m.Fk_UserId, new SelectList(ViewBag.ddluser, "Value", "Text"), new { @class = "form-control" })
+
+                        </div>
+                        <div class="input-field col m4 s12">
+                            Select Main Menu<span style="color:red">*</span>
+                            @Html.DropDownListFor(m => m.Fk_FormTypeId, new SelectList(ViewBag.ddlformtype, "Value", "Text"), new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-md-3" style="margin-top:25px">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <input type="submit" id="GetDetails" name="GetDetails" class="btn btn-primary" onclick="return Validate();" value="Get Details" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12 table-responsive">
+                            <table id="example23333" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Sr No.</th>
+                                        <th>Form</th>
+                                        <th>Form View</th>
+                                        <th>Form Save</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstpermission != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var item in Model.lstpermission)
+                                            {
+                                                <tr>
+                                                    <td>@i</td>
+                                                    <td>
+                                                        @Html.DisplayFor(m => item.FormName)
+                                                    </td>
+                                                    <td>
+                                                        <input type="hidden" name="hdFormtypeId_ @i" id="hdFormtypeId_ @i" value="@item.Fk_FormTypeId" />
+                                                        <input type="hidden" name="hdFormId_ @i" id="hdFormId_ @i" value="@item.Fk_FormId" />
+                                                        <input type="hidden" name="hdLoginid_ @i" id="hdLoginid_ @i" value="@item.Fk_UserId" />
+                                                        <input type="checkbox" name="chkSelect_ @i" id="chkSelect_ @i" @item.SelectedValue />
+                                                    </td>
+                                                    <td><input type="checkbox" name="chkSave_ @i" id="chkSave_ @i" @item.FormSave /> </td>
+                                                    <td><input type="checkbox" name="chkEdit_ @i" id="chkEdit_ @i" @item.FormUpdate /> </td>
+                                                    <td><input type="checkbox" name="chkDelete_ @i" id="chkDelete_ @i" @item.FormDelete /> </td>
+                                                </tr>
+                                                i++;
+                                            }
+                                            <input type="hidden" id="hdRows" name="hdRows" value="@i" />
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <input type="hidden" id="UserType" value="@Session["UserType"]" />
+                            <input type="hidden" id="UserTypeName" value="@Session["UserTypeName"]" />
+
+                        </div>
+                    </div>
+
+                    <br />
+                    @if (Model != null)
+                    {
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <input type="submit" id="Save" name="Save" class="btn btn-success" value="Update" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+        var UserType = $('#UserType').val();
+        var UserTypeName = $('#UserTypeName').val();
+        if (UserType == 'Admin' && UserTypeName != 'Admin' && UserTypeName != "") {
+            GetMenuDetails();
+        }
+    });
+    function GetMenuDetails() {
+        debugger
+        var URL = "/Master/SetPermission";
+        $.ajax({
+            type: "POST",
+            url: "/Master/GetMenuDetails",
+            data: { URL: URL },
+            dataType: "json",
+            //contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var obj = jQuery.parseJSON(data);
+                console.log(obj)
+                for (var i = 0; i < obj.length; i++) {
+                    if (obj[i].FormSave == true) {
+                        $('#Save').show();
+
+                        $("#Save").removeAttr('disabled');
+                    }
+                    else {
+                        $('#Save').hide();
+
+                        $("#Save").attr('disabled', 'disabled');
+                    }
+                    debugger
+                }
+            },
+            error: function () {
+                alert("Error occured!!")
+            }
+        });
+    }
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+    function Validate() {
+        $("#divload").css({ 'display': '' });
+        $(".errortext").removeClass("errortext");
+        if ($('#Fk_UserId').val() == '0') {
+            $("#Fk_UserId").addClass('errortext');
+            $('#Fk_UserId').focus();
+            return false;
+        }
+        if ($('#Fk_FormTypeId').val() == '0') {
+            $("#Fk_FormTypeId").addClass('errortext');
+            $('#Fk_FormTypeId').focus();
+            return false;
+        }
+        else
+        {
+            return true
+        }
+    }
+</script>
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+
+

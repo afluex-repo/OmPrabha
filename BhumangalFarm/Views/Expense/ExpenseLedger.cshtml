@@ -1,0 +1,190 @@
+﻿@model OmPrabha.Models.Expenses
+
+@{
+    ViewBag.Title = "ExpenseLedger";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="loader" id="divload"></div>
+@using (Html.BeginForm("ExpenseLedger", "Expense", FormMethod.Post, new { @id = "form1" }))
+{
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Reports</li>
+            <li class="breadcrumb-item">Expense Ledger</li>
+        </ul>
+    </section>
+    <div class="section-body">
+
+        <div class="card">
+            <div class="card-header">
+                <h4>Expense Ledger</h4>
+
+                <p style="color: red;font-size: 17px;font-family: -webkit-body;">@TempData["CrExpenseList"] </p>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- HTML5 Export Buttons table start -->
+
+                        <div class="form-group row">
+                            <div class="input-field col m3 s12">
+                                Expense Type
+                                @Html.DropDownListFor(m => m.ExpenseID, new SelectList(ViewBag.ExpenseType, "Value", "Text"), new { @class = "ExpenseType form-control select2", @onchange = "return onExpeseTypeChange();" })
+                            </div>
+                            <div class="input-field col m3 s12">
+                                Expense Name
+                                @Html.DropDownListFor(m => m.ExpenseName, new SelectList(ViewBag.ddlexpensename, "Value", "Text"), new { @class = "ExpenseName form-control select2" })
+                             
+                            </div>
+                            <div class="input-field col m3 s12">
+                             Type
+                                @Html.DropDownListFor(m => m.Type, new SelectList(ViewBag.EntryType, "Value", "Text"), new { @class = "form-control" })
+
+                            </div>
+                            <div class="input-field col m3 s12">
+                               Bank Name
+                             @Html.DropDownListFor(m => m.TransactionID, new SelectList(ViewBag.ddlTransactionType, "Value", "Text"), new { @class = "TransactionID form-control select2" })
+                           
+                            </div>
+                            <div class="input-field col m3 s12">
+                                From Date
+                                @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "From Date", @readonly = "true" })
+                            </div>
+                            <div class="input-field col m3 s12">
+                                To Date
+                                @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "To Date", @readonly = "true" })
+                            </div>
+                            <div class="input-field col m3 s12">
+                                <input style="margin-top:24px;" class="btn btn-success" type="submit" value="Search" id="btnSearch" name="btnSearch" />
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-md" data-page-length='50' id="table-1" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>S No.</th>
+                                        <th>Date</th>
+                                        <th>Expense Type</th>
+                                        <th>Expense Name</th>
+                                        <th>Transaction Type</th>
+                                        <th>Ledger Type</th>
+                                        <th>Cr Amount</th>
+                                        <th>Dr Amount</th>
+                                        <th>Balance</th>
+                                        <th>Cheque Status</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.CrExpenseList != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var Item in Model.CrExpenseList)
+                                            {
+                                                <tr class="text-left">
+                                                    <td>@i</td>
+                                                    <td>@Item.Date</td>
+                                                    <td>@Item.ExpenseID</td>
+                                                    <td>@Item.ExpenseName</td>
+                                                    <td>@Item.TransactionTy</td>
+                                                    <td>
+                                                       @if (Item.Type == "Cr")
+                                                       {
+                                                        <strong><span style="color:#527552">@Item.Type</span></strong>
+                                                       }
+                                                       else
+                                                       {
+                                                        <strong>
+                                                            <span style="color:red">@Item.Type</span>
+                                                        </strong>
+                                                       }
+</td>
+                                                    <td style="color:#527552"><strong>@Item.CrAmount</strong></td>
+                                                    <td style="color:red"><strong>@Item.DrAmount</strong></td>
+                                                    <td>@Item.BalanceAmount</td>
+                                                    <td>@Item.ChequeStatus</td>
+                                                  <td>@Item.Remarks</td>
+                                                </tr>
+                                                i++;
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+
+    });
+    function onExpeseTypeChange() {
+        $("#divload").css({ 'display': '' });
+        var value = $('#ExpenseID').val();
+        var tr = [];
+        $.ajax({
+            url: "GetExpenseDetails",
+            Type: "Get",
+            DataType: "JSON",
+            data: { ExpenseID: value },
+            success: function (data) {
+                debugger
+                $("#divload").css({ 'display': 'none' });
+                var j = 1;
+                console.log(data)
+                if (data.Result == "yes") {
+                    $("#ExpenseName").html(""); // clear before appending new list
+                    $("#ExpenseName").empty();
+                    $("#ExpenseName").append(
+                          $('<option></option>').val(0).html('Select Expense Name'));
+                    $.each(data.ddlexpensename, function (index, Expensecount) {
+                        $("#ExpenseName").append(
+                              $('<option></option>').val(Expensecount.Value).html(Expensecount.Text));
+
+                    });
+
+                }
+                else {
+                    $("#ExpenseName").empty();
+
+                }
+
+
+            }
+
+        });
+
+    }
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+
+    });
+</script>

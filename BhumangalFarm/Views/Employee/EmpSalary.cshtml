@@ -1,0 +1,107 @@
+﻿@model OmPrabha.Models.Employee
+
+@{
+    ViewBag.Title = "EmpSalary";
+    Layout = "~/Views/Shared/_EmpLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("EmpSalary", "Employee", FormMethod.Post, new { @id = "form1" }))
+{
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">HRM</li>
+            <li class="breadcrumb-item">Employee Salary</li>
+        </ul>
+    </section>
+
+
+    <div class="section-body">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Employee Salary</h4>
+
+                    <p style="color: red">
+                        @TempData["EmpSalary"]
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="row ">
+                        <div class="col-md-4 col-lg-4">
+                            Name<span style="color:red">*</span>
+                                @Html.DropDownListFor(m => m.Fk_UserId, new SelectList(ViewBag.ddluser, "Value", "Text"), new { @class = "form-control" })
+                            </div>
+                    
+                        <div class="col-md-4 col-lg-4">
+                            Salary<span style="color:red">*</span>
+                            @Html.TextBoxFor(m => m.Salary, new { @class = "form-control", @Placeholder = "Enter Monthly Salary here.." })
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            Salary Date<span style="color:red">*</span>
+                            @Html.TextBoxFor(m => m.Salarydate, new { @class = "form-control", @Placeholder = "Select Salary Date.." })
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            Remark
+                            @Html.TextAreaFor(m => m.Remark, new { @class = "form-control", @Placeholder = "Enter Remark here.. " })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group row">
+                        <div class="col-md-4 col-lg-4">
+                            @if (Model.UserID == null)
+                            {
+                                <input class="btn btn-success pull-left" type="submit" onclick="return validate();" value="Save" id="Save" name="Save" />
+                            }
+                            else
+                            {
+                                @Html.HiddenFor(m => m.UserID, new { @Value = @Model.UserID })
+                                <input class="btn btn-success pull-left" type="submit" onclick="return validate();" value="Update" id="Update" name="Update" />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script>
+    $('#Salarydate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+    function validate() {
+        $(".errortext").removeClass("errortext");
+        if ($('#Fk_UserId').val =='0') {
+            $("#Fk_UserId").addClass('errortext');
+            $('#Fk_UserId').focus();
+            return false;
+        }
+        if ($('#Salary').val() == '') {
+            $("#Salary").addClass('errortext');
+            $('#Salary').focus();
+            return false;
+        }
+        if ($('#Salarydate').val() == '') {
+            $("#Salarydate").addClass('errortext');
+            $('#Salarydate').focus();
+            return false;
+        }
+        //if ($('#Remark').val() == '') {
+        //    $("#Remark").addClass('errortext');
+        //    $('#Remark').focus();
+        //    return false;
+        //}
+       
+        return true;
+    }
+</script>

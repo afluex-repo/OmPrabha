@@ -1,0 +1,212 @@
+﻿@model OmPrabha.Models.AssociateBooking
+
+@{
+    ViewBag.Title = "KYCDocuments";
+    Layout = "~/Views/Shared/AssociateLayout.cshtml";
+}
+@using (Html.BeginForm("KYCDocuments", "AssociateDashboard", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">My Profile</li>
+            <li class="breadcrumb-item">Upload KYC Documents</li>
+        </ul>
+    </section>
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Upload KYC Documents</h4>
+                        <p style="color: red">
+                            @TempData["PayoutReq"]
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-md-4 col-lg-4">
+                                @if (Model.AdharStatus == "Status : Approved")
+                                {
+                                    <label>Adhar Number</label>
+                                        @Html.TextBoxFor(m => m.AdharNumber, new { @class = "form-control", @onclick = "return isNumberOrDecimal(event);", @maxlength = "12", @minlength = "12", @readonly = "readonly" })
+                                        @Html.DisplayFor(m => m.AdharStatus, new { @class = "form-control" })
+                                        <br />
+                                        <br />
+
+                                                <br />
+                                    if (Model.AdharImage == "/images/noimage.jpg")
+                                    {
+
+                                        <img src="~/images/aadhar_new.png" height="120" width="180" />
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                    <img src="@Url.Content(Model.AdharImage)" height="120" width="180" />
+                                                <br />
+                                }
+                                else
+                                {
+                                    <label>Adhar Number <span style="color: red">*</span></label>
+                                        @Html.TextBoxFor(m => m.AdharNumber, new { @class = "form-control", @onclick = "return isNumberOrDecimal(event);", @maxlength = "12", @minlength = "12" })
+                                        @Html.DisplayFor(m => m.AdharStatus, new { @class = "form-control" })
+                                        <br />
+                                        <br />
+                                                <input type="file" name="postedFile" />
+                                                <br />
+                                    if (Model.AdharImage == "/images/noimage.jpg")
+                                    {
+
+                                        <img src="~/images/aadhar_new.png" height="120" width="180" />
+                                    }
+                                    else
+                                    {
+                                        <img src="@Url.Content(Model.AdharImage)" height="120" width="180" />
+                                    }
+
+                                    <br />
+                                                    <br />
+                                                    <input type="submit" id="btnUpdateAdhar" class="btn btn-success pull-left" name="btnUpdateAdhar" value="Update Adhar" />
+                                }
+                            </div>
+                            <div class="col-12 col-md-4 col-lg-4">
+                                @if (Model.PanStatus == "Status : Approved")
+                                {
+                                    <label>Adhar Number </label>
+                                    @Html.TextBoxFor(m => m.PanNumber, new { @class = "form-control", @onclick = "return isNumberOrDecimal(event);", @maxlength = "12", @minlength = "12", @readonly = "readonly" })
+                                    @Html.DisplayFor(m => m.PanStatus, new { @class = "form-control" })
+                                    <br />
+                                    <br />
+
+                                    <br />
+                                    if (Model.PanImage == "/images/noimage.jpg")
+                                    {
+                                        <img src="~/images/pancard_new.png" height="120" width="180" />
+                                    }
+                                    else
+                                    {
+                                        <img src="@Url.Content(Model.PanImage)" height="120" width="180" />
+                                    }
+
+                                    <br />
+                                }
+                                else
+                                {
+                                    <label>Pan Number <span style="color: red">*</span></label>
+                                    @Html.TextBoxFor(m => m.PanNumber, new { @class = "form-control", @minlength = "10" })
+                                    @Html.DisplayFor(m => m.PanStatus, new { @class = "form-control" })
+                                    <br />
+                                    <br />
+                                    <input type="file" name="postedFile" />
+                                    <br />
+                                    if (Model.PanImage == "/images/noimage.jpg")
+                                    {
+                                        <img src="~/images/pancard_new.png" height="120" width="180" />
+                                    }
+                                    else
+                                    {
+                                        <img src="@Url.Content(Model.PanImage)" height="120" width="180" />
+                                    }
+
+                                    <br />
+                                    <br />
+                                    <input type="submit" id="btnUpdatePan" class="btn btn-success pull-left" name="btnUpdatePan" value="Update Pan" />
+                                }
+                            </div>
+                            <div class="col-12 col-md-4 col-lg-4">
+                                @if (Model.DocumentStatus == "Status : Approved")
+                                {
+                                    <label>Document Number </label>
+                                    @Html.TextBoxFor(m => m.DocumentNumber, new { @class = "form-control", @onclick = "return isNumberOrDecimal(event);", @maxlength = "12", @minlength = "12", @readonly = "readonly" })
+                                    @Html.DisplayFor(m => m.DocumentStatus, new { @class = "form-control" })
+                                    <br />
+                                    <br />
+
+                                    <br />
+                                    if (Model.DocumentImage == "/images/noimage.jpg")
+                                    {
+                                        <img src="~/images/documents_new.png" height="120" width="180" />
+                                    }
+                                    else
+                                    {
+                                        <img src="@Url.Content(Model.DocumentImage)" height="120" width="180" />
+                                    }
+
+                                    <br />
+
+                                }
+                                else
+                                {
+                                    <label>Document Number</label>
+                                    @Html.TextBoxFor(m => m.DocumentNumber, new { @class = "form-control" })
+                                    @Html.DisplayFor(m => m.DocumentStatus, new { @class = "form-control" })
+                                    <br />
+                                    <br />
+                                    <input type="file" name="postedFile" />
+                                    <br />
+                                    if (Model.DocumentImage == "/images/noimage.jpg")
+                                    {
+
+                                        <img src="~/images/documents_new.png" height="120" width="180" />
+                                    }
+                                    else
+                                    {
+                                        <img src="@Url.Content(Model.DocumentImage)" height="120" width="180" />
+                                    }
+                                    <br />
+                                    <br />
+                                    <input type="submit" id="btnUpdateDoc" class="btn btn-success mr-1btn" name="btnUpdateDoc" value="Update Document" />
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+
+        if ($('#AdharNumber').val() == '') {
+            $("#AdharNumber").addClass('errortext');
+            $('#AdharNumber').focus();
+            return false;
+        }
+
+        if ($('#PanNumber').val() == '') {
+            $("#PanNumber").addClass('errortext');
+            $('#PanNumber').focus();
+            return false;
+        }
+        return true;
+    }
+
+</script>
+
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>

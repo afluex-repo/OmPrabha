@@ -1,0 +1,383 @@
+﻿@model OmPrabha.Models.Home
+
+@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+<br />
+@using (Html.BeginForm("Registration", "Admin", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div id="divload" class="loader"></div>
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Associate</li>
+            <li class="breadcrumb-item">Associate Registration</li>
+        </ul>
+    </section>
+
+
+    <div class="section-body">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                @if (Model.UserID == null)
+                { <div class="card-header">
+                    <h4>Associate Registration</h4>
+                </div>
+                }
+                else
+                {
+                    <div class="card-header">
+                        <h4>Update Associate</h4>
+                    </div>
+
+                }
+                <div class="card-body">
+                    <div class="row ">
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                                Sponsor Id <span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.SponsorId, new { @class = "form-control", @onchange = "getsponsordetails(this);" })
+                                @Html.HiddenFor(m => m.LoginId)
+                            </div>
+                        </div>
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                                Sponsor Name <span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.SponsorName, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="input-field col m3 s12">
+                                <div class="form-group">
+                                    Leg <span style="color: red">*</span> &nbsp;&nbsp;
+                                    <input type="radio" value="Left" checked="checked" id="left" name="Leg" />
+                                    Left &nbsp;&nbsp;
+                                    <input type="radio" value="Right" id="right" name="Leg" />
+                                    Right
+                                </div>
+                            </div>
+                    </div>
+                    <div class="row ">
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                                First Name <span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @Placeholder = "First Name" })
+                            </div>
+                        </div>
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                                Last Name
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @Placeholder = "Last Name" })
+                            </div>
+                        </div>
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                                Email Id
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @Placeholder = "Email id" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                                Mobile No <span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control", @Placeholder = "Mobile No", @Maxlength = "10", @onkeypress = "return isNumberKey(event);" })
+                            </div>
+                        </div>
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                                Gender
+                                @Html.DropDownListFor(m => m.Gender, new SelectList(ViewBag.ddlgender, "Value", "Text"), new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                                Pan Card
+                                @Html.TextBoxFor(m => m.PanCard, new { @class = "form-control", @Placeholder = "Pan Card", @Maxlength = "10"/*, @onchange = "return validatepan(event);"*/})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="input-field col m12 s12">
+                            <div class="form-group">
+                                Address
+                                @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @Placeholder = "Address" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                                Pincode
+                                @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control", @Placeholder = "PinCode", @onchange = "return getstatecity();" })
+                            </div>
+                        </div>
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                                State
+                                @Html.TextBoxFor(m => m.State, new { @class = "form-control", @Placeholder = "State"})
+                            </div>
+                        </div>
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                                City
+                                @Html.TextBoxFor(m => m.City, new { @class = "form-control", @Placeholder = "City"})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-6 form-group">
+
+                            @if (Model.UserID == null)
+                            {
+                                <input type="button" id="Confirm" onclick="return confirmregistration();" class="btn btn-success" name="Confirm" value="Confirm">
+                                <input type="button" id="Register" onclick="return saveregistration();" class="btn btn-success" style="display: none" name="Register" value="Register">
+
+                            }
+                            else
+                            {
+                                @Html.HiddenFor(m => m.UserID, new { @Value = @Model.UserID })
+                                @*<input type="button" id="Confirm" onclick="return confirmregistration();" class="btn btn-success" name="Confirm" value="Confirm">*@
+
+                                <input type="submit" id="btnUpdate" class="btn btn-success" name="btnUpdate" value="Update" onclick="return editProfile()" />
+
+                            }
+
+
+                            <input type="button" id="Edit" onclick="editregistration();" style="display: none" class="btn btn-info" name="Edit" value="Edit">
+                            <br />
+
+                        </div>
+                        <br />
+                        <p style="color: red">@TempData["Registration"] </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+<script src="./../AdminPanelCss/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../../vendor/jquery/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+    });
+    function editProfile() {
+        $(".errortext").removeClass("errortext");
+        if ($('#FirstName').val() == '') {
+            $("#FirstName").addClass('errortext');
+            $('#FirstName').focus();
+            return false;
+        }
+        if ($('#Mobile').val() == '') {
+            $("#Mobile").addClass('errortext');
+            $('#Mobile').focus();
+            return false;
+        }
+        //if ($('#AccountNumber').val() == '') {
+        //    $("#AccountNumber").addClass('errortext');
+        //    $('#AccountNumber').focus();
+        //    return false;
+        //}
+        //if ($('#IFSC').val() == '') {
+        //    $("#IFSC").addClass('errortext');
+        //    $('#IFSC').focus();
+        //    return false;
+        //}
+        //if ($('#BankName').val() == '') {
+        //    $("#BankName").addClass('errortext');
+        //    $('#BankName').focus();
+        //    return false;
+        //}
+        //if ($('#BankBranch').val() == '') {
+        //    $("#BankBranch").addClass('errortext');
+        //    $('#BankBranch').focus();
+        //    return false;
+        //}
+        return true;
+    }
+
+    function validatepan(event) {
+        $(".errortext").removeClass("errortext");
+        var regExp = /[a-zA-z]{5}\d{4}[a-zA-Z]{1}/;
+        var txtpan = $('#PanCard').val();
+        if (txtpan.length == 10) {
+            if (txtpan.match(regExp)) {
+
+            }
+            else {
+                $("#PanCard").addClass('errortext');
+                $('#PanCard').focus();
+                $('#PanCard').val('');
+                alert('Please enter valid PanNo');
+
+            }
+        }
+        else {
+            $("#PanCard").addClass('errortext');
+            $('#PanCard').focus();
+            $('#PanCard').val('');
+            alert('Please enter 10 digits for a valid PAN number');
+
+        }
+    }
+
+    function getstatecity() {
+        $(".errortext").removeClass("errortext");
+        $.ajax({
+            url: "/Admin/GetStateCity",
+            Type: "Get",
+            DataType: "JSON",
+            data: { Pincode: $("#Pincode").val() },
+            success: function (data) {
+                if (data.Result == "1") {
+                    $("#State").val(data.State);
+                    $("#City").val(data.City);
+                }
+                else {
+                    $("#State").val('');
+                    $("#City").val('');
+                    $("#Pincode").val('');
+                    $("#Pincode").addClass('errortext');
+                    $('#Pincode').focus();
+                    alert(data.Result);
+
+                }
+
+
+            }
+
+        });
+    }
+
+    function confirmregistration() {
+        $(".errortext").removeClass("errortext");
+        if ($('#SponsorId').val() == '') {
+            $("#SponsorId").addClass('errortext');
+            $('#SponsorId').focus();
+            return false;
+        }
+        if ($('#FirstName').val() == '') {
+            $("#FirstName").addClass('errortext');
+            $('#FirstName').focus();
+            return false;
+        }
+        if ($('#MobileNo').val() == '') {
+            $("#MobileNo").addClass('errortext');
+            $('#MobileNo').focus();
+            return false;
+        }
+
+        $("#PaymentMethod").attr("disabled", "disabled");
+        $("#Commitment").attr("disabled", "disabled");
+        $("#MobileNo").attr("disabled", "disabled");
+        $("#FirstName").attr("disabled", "disabled");
+        $("#SponsorId").attr("disabled", "disabled");
+        $("#Email").attr("disabled", "disabled");
+        $("#LastName").attr("disabled", "disabled");
+        $("#Gender").attr("disabled", "disabled");
+        $("#PanCard").attr("disabled", "disabled");
+        $("#Address").attr("disabled", "disabled");
+        $("#Pincode").attr("disabled", "disabled");
+        $('#Confirm').hide();
+        $('#Edit').show();
+        $('#Register').show();
+    }
+
+    function editregistration() {
+        $("#PaymentMethod").attr("disabled", false);
+        $("#Commitment").attr("disabled", false);
+        $("#MobileNo").attr("disabled", false);
+        $("#FirstName").attr("disabled", false);
+        $("#SponsorId").attr("disabled", false);
+        $("#Email").attr("disabled", false);
+        $("#LastName").attr("disabled", false);
+        $("#Gender").attr("disabled", false);
+        $("#PanCard").attr("disabled", false);
+        $("#Address").attr("disabled", false);
+        $("#Pincode").attr("disabled", false);
+        $('#Confirm').show();
+        $('#Edit').hide();
+        $('#Register').hide();
+
+    }
+
+    function saveregistration() {
+        $("#divload").css({ 'display': '' });
+        var Leg = "";
+        if ($('#left').prop('checked')) {
+            Leg = "L";
+        }
+        else {
+            Leg = "R";
+        }
+        $.ajax({
+            url: "/Admin/RegistrationAction",
+            Type: "Get",
+            DataType: "JSON",
+            data: { SponsorId: $("#SponsorId").val(), FirstName: $("#FirstName").val(), LastName: $("#LastName").val(), Email: $("#Email").val(), MobileNo: $("#MobileNo").val(), PanCard: $("#PanCard").val(), Address: $("#Address").val(), Gender: $("#Gender").val(), OTP: $("#OTP").val(), Pincode: $("#Pincode").val(), Leg: Leg },
+            success: function (data) {
+                if (data.Response == "1") {
+                    window.location.href = '@Url.Action("ConfirmRegistration", "Admin")';
+                }
+                else {
+                    $("#divload").css({ 'display': 'none' });
+                    alert(data.Response);
+                }
+
+
+            }
+
+        });
+    }
+
+
+    function isNumberKey(evt) {
+
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+    function getsponsordetails(obj) {
+        $("#divload").css({ 'display': '' });
+        $(".errortext").removeClass("errortext");
+        $.ajax({
+            url: '/Admin/GetSponserDetails',
+            type: 'GET',
+            dataType: 'JSON',
+            data: { 'ReferBy': $(obj).val() },
+            success: function (response) {
+                if (response.Result == "Yes") {
+                    $("#divload").css({ 'display': 'none' });
+                    $('#SponsorName').val(response.DisplayName);
+                }
+                else {
+                    $("#divload").css({ 'display': 'none' });
+                    $("#SponsorId").addClass('errortext');
+                    $('#SponsorName').val('');
+                    $('#SponsorId').val('');
+                    $('#SponsorId').focus();
+                    alert(response.Result);
+                }
+            }
+        })
+    }
+</script>

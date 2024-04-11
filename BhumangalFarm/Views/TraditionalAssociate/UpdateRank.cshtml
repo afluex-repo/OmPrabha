@@ -1,0 +1,156 @@
+﻿@model OmPrabha.Models.TraditionalAssociate
+
+@{
+    ViewBag.Title = "UpdateRank";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("UpdateRank", "TraditionalAssociate", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div id="divload" class="loader"></div>
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Associate</li>
+            <li class="breadcrumb-item">Update Associate Rank</li>
+        </ul>
+    </section>
+    <div class="section-body">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Update Associate Rank</h4>
+
+                    <p style="color: red">
+                        @TempData["UpdateRank"]
+                        @*<br />
+                        @TempData["AssociateDetails"]*@
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="input-field col m3 s12">
+                          <label> Name</label>
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @Placeholder = "Name", @disabled="disabled" })
+                        </div>
+
+                        <div class="input-field col m3 s12">
+                           <label> Old Designation</label>
+                            @Html.TextBoxFor(m => m.OldDesignation, new { @class = "form-control", @Placeholder = "Old Designation", @disabled = "disabled" })
+                            @Html.HiddenFor(m => m.PK_DesignationID)
+                        </div>
+
+                        <div class="input-field col m3 s12">
+                            <label> Designation<span style="color:red">*</span></label>
+                            @Html.DropDownListFor(m => m.DesignationID, new SelectList(ViewBag.ddlDesignation, "Value", "Text"), new { @class = "form-control", @onchange = "return onSiteChange();" })
+                        </div>
+
+                        @*<div class="input-field col m3 s12">
+                            Remark<span style="color:red">*</span>
+                             @Html.TextBoxFor(m => m.Remark, new { @class = "form-control", @Placeholder = "Remark" })
+                         </div>*@
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="input-field col m6 s12 mt-3">
+                                @Html.HiddenFor(m => m.UserID, new { @Value = @Model.UserID })
+                                <input class="btn btn-success" type="submit" onclick="return validateform();" value="Update" id="update" name="update" />
+                            <a class="btn btn-info" href="/TraditionalAssociate/AssociateList">Back To List</a>
+                        </div>
+                        <input type="hidden" id="UserType" value="@Session["UserType"]" />
+                        <input type="hidden" id="UserTypeName" value="@Session["UserTypeName"]" />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+        var UserType = $('#UserType').val();
+        var UserTypeName = $('#UserTypeName').val();
+        if (UserType == 'Admin' && UserTypeName != 'Admin' && UserTypeName != "") {
+            GetMenuDetails();
+        }
+    });
+    function GetMenuDetails() {
+        debugger
+        var URL = "/TraditionalAssociate/AssociateRegistration";
+        $.ajax({
+            type: "POST",
+            url: "/Master/GetMenuDetails",
+            data: { URL: URL },
+            dataType: "json",
+            //contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var obj = jQuery.parseJSON(data);
+                console.log(obj)
+                for (var i = 0; i < obj.length; i++) {
+                    if (obj[i].FormSave == true) {
+                        $('#btnRegistration').show();
+
+                        $("#btnRegistration").removeAttr('disabled');
+                    }
+                    else {
+                        $('#btnRegistration').hide();
+
+                        $("#btnRegistration").attr('disabled', 'disabled');
+                    }
+                    debugger
+                    if (obj[i].FormUpdate == true && $('#PlotSizeID').val() != "") {
+                        $('#btnUpdate').show();
+
+                        $("#btnUpdate").removeAttr('disabled');
+                    }
+                    else {
+                        $('#btnUpdate').hide();
+                        $("#btnUpdate").attr('disabled', 'disabled');
+                    }
+                }
+            },
+            error: function () {
+                alert("Error occured!!")
+            }
+        });
+    }
+  
+
+
+    function validateform() {
+        debugger;
+       // $("#divload").css({ 'display': '' });
+        $(".errortext").removeClass("errortext");
+      
+        if ($('#DesignationID').val() == '0') {
+            $("#DesignationID").addClass('errortext');
+            $('#DesignationID').focus();
+            alert('Please choose designation for update !!')
+            return false;
+        }
+        else {
+            alert('Are you sure you want to update associate designation ?');
+        }
+        //if ($('#Remark').val() == '') {
+        //    $("#Remark").addClass('errortext');
+        //    $('#Remark').focus();
+        //    return false;
+        //}
+        return true;
+    }
+</script>
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+

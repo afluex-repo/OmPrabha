@@ -1,0 +1,178 @@
+﻿@model OmPrabha.Models.Transaction
+
+@{
+    ViewBag.Title = "AssociateLogin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("AssociateLogin", "Transaction", FormMethod.Post, new { @id = "form1" }))
+{
+
+
+
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            @*<li class="breadcrumb-item">Permission</li>*@
+            <li class="breadcrumb-item">Login Associate</li>
+        </ul>
+    </section>
+
+
+    <div class="section-body">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Login Associate</h4>
+
+                    <p style="color: red">
+                        @TempData["T"]
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="row ">
+                        <div class="input-field col m6 s12">
+                            LoginId
+                            @*      <input type="radio" id="loginid" onclick="getSearchBy('loginid')" name="searchbyid" />*@
+                            <input name="searchbyid" type="radio" id="loginid" onclick="getSearchBy('loginid')" />
+
+                        </div>
+
+                        <div class="input-field col m6 s12">
+                            First Name
+                            <input type="radio" id="firstname" onclick="getSearchBy('FirstName')" name="searchbyid" />
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col m6 s12">
+                            Last Name
+                            <input type="radio" id="lastname" onclick="getSearchBy('LastName')" name="searchbyid" />
+                        </div>
+                        <div class="input-field col m6 s12">
+                            Mobile
+                            <input type="radio" id="Mobile" onclick="getSearchBy('Mobile')" name="searchbyid" />
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="input-field col m3 s12">
+                            Pan No.
+                            <input type="radio" id="PAN" onclick="getSearchBy('PanNumber')" name="searchbyid" />
+                        </div>
+
+                        <div class="input-field col m3 s12">
+                            @Html.TextBoxFor(m => m.Search, new { @class = "form-control", @placeholder = "Search By .." })
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="input-field col m3 s12">
+                            <br />
+                            <input type="submit" name="Search" value="Search" id="btnSearch" class="btn btn-success" onclick="return validateform();" />
+                        </div>
+                    </div>
+                        <br />
+                    <div class="dt-responsive table-responsive">
+                        <table id="basic-btn" class="table table-striped table-bordered nowrap">
+                            <thead>
+                                <tr>
+                                    <th>S No.</th>
+                                    <th>Login Id</th>
+                                    <th>Associate Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    if (Model.lstTrad != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var Item in Model.lstTrad)
+                                        {
+                                            <tr class="text-left">
+                                                <td>@i</td>
+                                                <td>@Item.LoginID</td>
+                                                <td>@Item.AssociateName</td>
+                                                <td>
+                                                    <a href="/Transaction/LoginAssociate?Id=@Item.EncryptKey" class="btn btn-info btn-sm">Login</a>
+
+
+                                                </td>
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>S No.</th>
+                                    <th>Login Id</th>
+                                    <th>Associate Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+
+
+
+
+
+
+
+
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+<script>
+
+    function getSearchBy(value) {
+        $('#SearchBy').val(value);
+    }
+
+    function validateform() {
+
+        $(".errortext").removeClass("errortext");
+
+        if ($('#Search').val() == '') {
+            $("#Search").addClass('errortext');
+            $('#Search').focus();
+            return false;
+        }
+
+        var radios = document.getElementsByName("searchbyid");
+        var formValid = false;
+
+        var i = 0;
+        while (!formValid && i < radios.length) {
+            if (radios[i].checked) formValid = true;
+            i++;
+        }
+
+        if (!formValid) alert("Must check some option!");
+
+        return true;
+    }
+
+</script>
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>

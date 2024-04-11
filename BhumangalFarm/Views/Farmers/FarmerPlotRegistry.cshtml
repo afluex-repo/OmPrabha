@@ -1,0 +1,411 @@
+﻿@model OmPrabha.Models.Farmer
+
+@{
+    ViewBag.Title = "FarmerPlotRegistry";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("FarmerPlotRegistry", "Farmers", FormMethod.Post, new { @id = "form1" }))
+{
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Farmer</li>
+            <li class="breadcrumb-item">Farmer Plot Registry</li>
+        </ul>
+    </section>
+    <div class="section-body">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Farmer Plot Registry</h4>
+                    <p style="color: red">
+                        @TempData["Plotregistry"]
+                        @TempData["RecieptNumber"]
+                    
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Select Branch <span style="color: red">*</span>
+                                @Html.DropDownListFor(m => m.BranchID, new SelectList(ViewBag.ddlBranch, "Value", "Text"), new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Select Site <span style="color: red">*</span>
+                                @Html.DropDownListFor(m => m.SiteID, new SelectList(ViewBag.ddlSite, "Value", "Text"), new { @class = "form-control", @onchange = "return onSiteChange();" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Select Sector <span style="color: red">*</span>
+                                @Html.DropDownListFor(m => m.SectorID, new SelectList(ViewBag.ddlSector, "Value", "Text"), new { @class = "form-control", @onchange = "return onSectorChange();" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Select Block <span style="color: red">*</span>
+                                @Html.DropDownListFor(m => m.BlockID, new SelectList(ViewBag.ddlBlock, "Value", "Text"), new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Plot Number <span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.PlotNumber, new { @class = "form-control", @Placeholder = "Plot Number", @onchange = "return CheckPlotStatus();", @style = "text-transform:uppercase" })
+                                @Html.HiddenFor(m => m.PlotID)
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Customer Name
+                                @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control", @Placeholder = "Customer Name"})
+                                @Html.HiddenFor(m => m.CustomerId)
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Registry Through <span style="color:red">*</span>
+                                @Html.DropDownListFor(m=>m.RegistryId,new SelectList(ViewBag.ddlRegistry, "Value", "Text"), new { @class="form-control"})
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Farmer name <span style="color:red">*</span>
+                                @Html.DropDownListFor(m => m.PK_Farmerid, new SelectList(ViewBag.ddlfarmer, "Value", "Text"), new { @class = "form-control select2", @onchange = "return onFarmerChange();" })
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Gata/Khasara No.
+                                @Html.TextBoxFor(m => m.GataKhasaraN, new { @class = "form-control", @Placeholder = "Gata/Khasara No.", @readonly = true })
+                                <input type="hidden" id="sqft" name="sqft" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Date of Registry. <span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.RegistryDate, new { @class = "form-control", @Placeholder = "DD//MM/YYYY" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Plot Size 
+                                @Html.TextBoxFor(m => m.PlotSize, new { @class = "form-control", @Placeholder = "Plot Size", @readonly = true })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Remaining Area 
+                                @Html.TextBoxFor(m => m.RemainingArea, new { @class = "form-control", @Placeholder = "Remaining Area", @readonly = true  })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Is Registry By Company
+                                <input type="checkbox" id="IsRegistryByCompany" name="IsRegistryByCompany"  value="@Model.IsRegistryByCompany" />
+                                <input name="IsRegistryByCompany" type="hidden" value="@Model.IsRegistryByCompany" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                    <input class="btn btn-success pull-left" type="submit" onclick="return validateform();" value="Save" id="btnSave" name="btnSave" />
+                                <a class="btn btn-info" href="/Farmers/FarmerPlotRegistrylist" style="margin-left:5px;">Back To List</a>
+                            </div>
+                          
+
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+        debugger;
+      
+        var IsRegistryBy = 0;
+        debugger;
+        var IsRegistryBy = 0;
+        if ($("#IsRegistryByCompany").is(":checked") == true) {
+            IsRegistryBy = "1";
+        }
+        else {
+            IsRegistryBy = "0";
+            
+        }
+
+        $("input").attr("autocomplete", "off");
+
+        var cityuse = [];
+        $("#loader").css({ 'display': '' });
+        $.ajax({
+            url: '/Plot/CustomerListForAutoSearch',
+            type: 'Post',
+            success: function (response) {
+                if (response != null) {
+                    $(response).each(function (index, item) {
+                        cityuse.push(item.UserName + "(" + item.LoginIDD + ")");
+                    });
+                    debugger
+                    $('#CustomerName').autocomplete({
+                        source: cityuse,
+                        select: function (event, ui) {
+                            var str = ui.item.label;
+                            var strsplit = str.split("(");
+                            $('#CustomerId').val(strsplit[1].substr(0, strsplit[1].length - 1));
+                        }
+                    })
+                }
+            }, error: function () {
+                alert('Some Thing wrong!');
+                $("#loader").css({ 'display': 'none' });
+            }
+        });
+    });
+    function onSiteChange() {
+        $("#divload").css({ 'display': '' });
+        var value = $('#SiteID').val();
+        var values = $('#SectorID').val();
+        var tr = [];
+        $.ajax({
+            url: "/Master/GetSiteDetailsForPlotBooking",
+            Type: "Get",
+            DataType: "JSON",
+            data: { SiteID: value },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                var j = 1;
+                if (data.Result == "yes") {
+                    $('#Rate').val(data.Rate);
+                    $("#SectorID").html(""); // clear before appending new list
+                    $("#SectorID").empty();
+                    $("#SectorID").append(
+                          $('<option></option>').val(0).html('Select Sector'));
+                    $.each(data.ddlSector, function (index, Sectorcount) {
+                        $("#SectorID").append(
+                              $('<option></option>').val(Sectorcount.Value).html(Sectorcount.Text));
+
+                    });
+                }
+                else {
+                    $("#SectorID").empty();
+                    $('#Rate').val('');
+                }
+            }
+
+        });
+
+    }
+    function validateform() {
+        debugger
+        $("#divload").css({ 'display': '' });
+
+        $(".errortext").removeClass("errortext");
+
+        if ($('#BranchID').val() == '0') {
+            $("#BranchID").addClass('errortext');
+            $('#BranchID').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#SiteID').val() == '0') {
+            $("#SiteID").addClass('errortext');
+            $('#SiteID').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#SectorID').val() == '0') {
+            $("#SectorID").addClass('errortext');
+            $('#SectorID').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#BlockID').val() == '0') {
+            $("#BlockID").addClass('errortext');
+            $('#BlockID').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#PlotNumber').val() == '') {
+            $("#PlotNumber").addClass('errortext');
+            $('#PlotNumber').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#CustomerID').val() == '') {
+            $("#CustomerID").addClass('errortext');
+            $('#CustomerID').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#RegistryId').val() == '0') {
+            $("#RegistryId").addClass('errortext');
+            $('#RegistryId').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#PK_Farmerid').val() == '0') {
+            $("#PK_Farmerid").addClass('errortext');
+            $('#PK_Farmerid').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#RegistryDate').val() == '') {
+            $("#RegistryDate").addClass('errortext');
+            $('#RegistryDate').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        
+        $("#divload").css({ 'display': '' });
+
+        return true;
+    }
+    function onFarmerChange() {
+        $("#divload").css({ 'display': '' });
+        var value = $('#PK_Farmerid').val();
+        $.ajax({
+            url: "FarmerDetailsById",
+            Type: "Get",
+            DataType: "JSON",
+            data: { FarmerId: value },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                if (data.Result == "yes") {
+                    $("#GataKhasaraN").val(data.GataKhasaraN);
+                    $("#sqft").val(data.SQFT);
+                    if ($('#PlotSize').val() == "" || $('#PlotSize').val() == 0)
+                    {
+                        $("#PlotNumber").addClass('errortext');
+                        $('#PlotNumber').focus();
+                        $('#PK_Farmerid').val('0');
+                        $('#select2-PK_Farmerid-container').text('Select Farmer');
+                        $("#divload").css({ 'display': 'none' });
+                    }
+                    else {
+                        var sqft = parseFloat($('#sqft').val()).toFixed(2);
+                        var size = parseFloat($('#PlotSize').val()).toFixed(2);
+                        $('#RemainingArea').val((sqft - size) + ' SQFT');
+                    }
+                }
+                else {
+                    $("#GataKhasaraN").val(0);
+                    $("#sqft").val(0);
+                }
+            }
+
+        });
+
+    }
+    function onSectorChange() {
+
+        $("#divload").css({ 'display': '' });
+        var siteID = $('#SiteID').val();
+        var sectorID = $('#SectorID').val();
+        $.ajax({
+            url: '/Master/GetBlockList', type: 'post', dataType: 'json',
+            data: { 'SiteID': siteID, 'sectorID': sectorID },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                $("#BlockID").html(""); // clear before appending new list
+                $("#BlockID").empty();
+                $("#BlockID").append(
+                      $('<option></option>').val(0).html('Select Block'));
+                $.each(data.lstBlock, function (index, BlockCount) {
+                    $("#BlockID").append(
+                          $('<option></option>').val(BlockCount.Value).html(BlockCount.Text));
+                });
+
+            }
+
+        });
+    }
+    function CheckPlotStatus() {
+        debugger
+        $("#divload").css({ 'display': '' });
+        var siteID = $('#SiteID').val();
+        var sectorID = $('#SectorID').val();
+        var block = $('#BlockID').val();
+        var plotno = $('#PlotNumber').val();
+
+        $.ajax({
+            url: 'checkplotnumberforfarmerplotregistry', type: 'get', dataType: 'json',
+            data: { 'SiteID': siteID, 'SectorID': sectorID, 'BlockID': block, 'PlotNumber': plotno },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                if (data.Result == "1") {
+                    $("#PlotNumber").removeClass('errortext');
+                    $("#PlotID").val(data.PlotID);
+                    $("#PlotSize").val(data.PlotSize);
+                    $("#CustomerName").val(data.CustomerName);
+                    $("#CustomerId").val(data.CustomerId);
+                    
+                  
+                }
+                else if (data.Result == "Invalid Plot Number") {
+                    alert('Invalid Plot Number !');
+                    $("#PlotNumber").addClass('errortext');
+                    $('#PlotNumber').focus();
+                    $("#PlotNumber").val('');
+                    $("#PlotSize").val('');
+                    $("#PlotID").val('');
+                    $("#CustomerName").val('');
+                    $("#CustomerId").val('');
+                }
+                else if (data.Result == "This plot registry already has been done !!") {
+                    alert('Invalid Plot Number !');
+                    $("#PlotNumber").addClass('errortext');
+                    $('#PlotNumber').focus();
+                    $("#PlotNumber").val('');
+                    $("#PlotSize").val('');
+                    $("#PlotID").val('');
+                    $("#CustomerName").val('');
+                    $("#CustomerId").val('');
+                }
+                else {
+                    alert('Plot not available !');
+                    $("#PlotNumber").addClass('errortext');
+                    $("#PlotNumber").val('');
+                    $("#PlotAmount").val('');
+                    $("#PlotSize").val('');
+                    $("#PlotID").val('');
+                    $("#CustomerName").val('');
+                    $("#CustomerId").val('');
+                }
+            }
+
+        });
+
+    }
+   
+    $('#RegistryDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        maxDate: 0,
+        changeYear: true,
+        changeMonth: true
+    });
+</script>
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>

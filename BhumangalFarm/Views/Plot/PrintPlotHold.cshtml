@@ -1,0 +1,317 @@
+﻿@model OmPrabha.Models.Plot
+
+@{
+    ViewBag.Title = "PrintPlotHold";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>PrintPlotHold</title>
+    <style>
+        table, th, td {
+            font-size: medium;
+            /*border: 1px solid black;*/
+            border-collapse: collapse;
+        }
+
+        th, td {
+            font-size: medium;
+            padding: 5px;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="print-area-2" class="print-area">
+        <div style="text-align:right;">
+
+        </div>
+
+        <div style="border:3px solid #a20e0e;padding-left:10px;padding-right:10px;">
+            <table style="border: 0px none black;text-align:center">
+                <tr style="border: 0px none black;">
+
+                    <td>
+                        <img src="~/WebsiteCss/assets/images/Afluex.png" class="img-fluid" alt="logo1" style="max-width:100px;" />
+                        @*<img src="~/AssociatePanelcss/assets/img/radhekunj.png" class="img-fluid" alt="logo1" style="max-width:28%;" />*@
+                        @*<br /><br /><B>CIN : U74999UP2019PTC116517</B>*@
+                    </td>
+                    <td style="padding-left:500px;">
+                        <a class="btn btn-sm btn-primary pull-right no-print" href="javascript:printDiv('print-area-2');">Print</a>
+                    </td>
+                    <td style="border: 0px none black;"></td>
+
+                    <td>
+                        @*<img src="~/AssociatePanelcss/assets/img/blossom.png" class="img-fluid" alt="logo1" style="max-width: 16%;" />
+                            <br /><br /><B>CIN : U70200UP2019PTC116042</B>*@
+                    </td>
+                </tr>
+
+            </table>
+            <br />
+
+            <table style="width:100%;background:#a20e0e;color:white;">
+                <tr>
+                    <td style="text-align:center">
+                        Office Copy
+                    </td>
+                </tr>
+            </table>
+            <br />
+
+            <table style="width: 100%;" class="table table-striped">
+                <tr>
+                    <td style="border: 1px solid black;"><b>Hold For:    </b>@ViewBag.SiteName</td>
+                    <td colspan="2" style="border: 1px solid black;"><b>Date :    </b>@DateTime.Now.ToString("dd/MM/yyyy")</td>
+                    <td style="border: 1px solid black;"><b>Receipt No.    </b>@ViewBag.ReceiptNo</td>
+                </tr>
+            </table>
+            <br />
+            <table style="width: 100%;" class="table table-striped">
+
+                <tr>
+                    <td style="border: 1px solid black;" colspan="3"><b>Name :    </b>@ViewBag.CustomerName</td>
+                    <td style="border: 1px solid black;" colspan="3"><b>Mobile :    </b>@ViewBag.Mobile</td>
+                </tr>
+
+            </table>
+            <br />
+            <table style="width: 100%;" class="table table-striped">
+                <tr>
+
+                    <td style="border: 1px solid black;" colspan="2"><b> Site:    </b>@ViewBag.SiteName</td>
+                    <td style="border: 1px solid black;"><b>Sector:    </b>@ViewBag.SectorName</td>
+                    <td style="border: 1px solid black;"><b>Block:    </b>@ViewBag.BlockName</td>
+                    <td style="border: 1px solid black;"><b> Plot No:    </b>@ViewBag.PlotNo</td>
+                </tr>
+
+                <tr>
+                    <td style="border: 1px solid black;" colspan="2"><b>Hold Amount:     </b>@ViewBag.HoldAmount /-</td>
+                    <td style="border: 1px solid black;" colspan="2"><b>In Words:     </b>@ViewBag.Amountwords</td>
+                    <td style="border: 1px solid black;"><b>Area:    </b>@ViewBag.PlotArea</td>
+
+
+                </tr>
+
+
+
+                <tr>
+                    <td style="border: 1px solid black;" colspan="5"><b>Remark:     </b>@ViewBag.Remark</td>
+
+                </tr>
+
+            </table>
+
+            <br />
+
+            <br />
+            <br />
+
+
+            <table style="width: 100%;" class="table table-striped">
+                <tr>
+                    <td style="text-align:left;" colspan="2"><b>  Note :-   </b></td>
+
+                </tr>
+                <tr>
+                    <td style="text-align:left;" colspan="2">1.Booking will be valid only for three months.</td>
+
+                </tr>
+                <tr>
+                    <td style="text-align:left;" colspan="2">2.Booking receipt will be valid only till Registry.</td>
+
+                </tr>
+                <tr>
+                    <td style="text-align:left;" colspan="2"> 3.Possession will be given after Registry.</td>
+
+                </tr>
+                <tr>
+                    <td style="text-align:left;"> 4.Receipt valid subject to realisation of cheque.</td>
+                    <td style="text-align:right;margin-right:100px;"><b style="margin-right: 40px;">Director Sign    </b></td>
+                </tr>
+            </table>
+            <br />
+            <table style="width: 100%;text-align:center">
+                <tr>
+                    <td>
+                        <b>LandLine no-</b>@ViewBag.LandLine
+                    </td>
+                    <td><b>Contact no-</b>@ViewBag.ContactNo</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Website:</b>   @ViewBag.Website
+
+                    </td>
+                    <td><b>Email : </b>@ViewBag.EmailID</td>
+                </tr>
+            </table>
+            <br />
+            <table style="width:100%;background:#a20e0e;color:white;">
+                <tr>
+                    <td style="text-align:center">
+                        @ViewBag.CompanyAddress
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <br />
+
+        </div>
+
+
+        <p style="page-break-after: always;">&nbsp;</p>
+
+        <div style="border:3px solid #a20e0e;padding-left:10px;padding-right:10px;">
+            <table style="border: 0px none black;text-align:center">
+                <tr style="border: 0px none black;">
+                    <td>
+                        <img src="~/WebsiteCss/assets/images/Afluex.png" class="img-fluid" alt="logo1" style="max-width:100px;" />
+                        @*<img src="~/AssociatePanelcss/assets/img/radhekunj.png" class="img-fluid" alt="logo1" style="max-width:28%;" />*@
+                        <br /><br /><B>CIN : U749xxxxxxxxxxxxxxx17</B>
+                    </td>
+                    <td style="border: 0px none black;"></td>
+
+                    <td>
+                        @*<img src="~/AssociatePanelcss/assets/img/blossom.png" class="img-fluid" alt="logo1" style="max-width: 16%;" />*@
+                        <br /><br /><B>@*CIN : U70200UP2019PTC116042*@</B>
+                    </td>
+                </tr>
+
+            </table>
+            <br />
+
+            <table style="width:100%;background:#a20e0e;color:white;">
+                <tr>
+                    <td style="text-align:center">
+                        Customer Copy
+                    </td>
+                </tr>
+            </table>
+            <br />
+
+            <table style="width: 100%;" class="table table-striped">
+                <tr>
+                    <td style="border: 1px solid black;"><b>Hold For:    </b>@ViewBag.SiteName</td>
+                    <td colspan="2" style="border: 1px solid black;"><b>Date :    </b>@DateTime.Now.ToString("dd/MM/yyyy")</td>
+                    <td style="border: 1px solid black;"><b>Receipt No.    </b>@ViewBag.ReceiptNo</td>
+                </tr>
+            </table>
+            <br />
+            <table style="width: 100%;" class="table table-striped">
+
+                <tr>
+                    <td style="border: 1px solid black;" colspan="3"><b>Name :    </b>@ViewBag.CustomerName</td>
+                    <td style="border: 1px solid black;" colspan="3"><b>Mobile :    </b>@ViewBag.Mobile</td>
+                </tr>
+
+            </table>
+            <br />
+            <table style="width: 100%;" class="table table-striped">
+                <tr>
+
+                    <td style="border: 1px solid black;" colspan="2"><b> Site:    </b>@ViewBag.SiteName</td>
+                    <td style="border: 1px solid black;"><b>Sector:    </b>@ViewBag.SectorName</td>
+                    <td style="border: 1px solid black;"><b>Block:    </b>@ViewBag.BlockName</td>
+                    <td style="border: 1px solid black;"><b> Plot No:    </b>@ViewBag.PlotNo</td>
+                </tr>
+
+                <tr>
+                    <td style="border: 1px solid black;" colspan="2"><b>Hold Amount:     </b>@ViewBag.HoldAmount /-</td>
+                    <td style="border: 1px solid black;" colspan="2"><b>In Words:     </b>@ViewBag.Amountwords</td>
+                    <td style="border: 1px solid black;"><b>Area:    </b>@ViewBag.PlotArea</td>
+
+
+                </tr>
+
+
+
+                <tr>
+                    <td style="border: 1px solid black;" colspan="5"><b>Remark:     </b>@ViewBag.Remark</td>
+
+                </tr>
+
+            </table>
+
+            <br />
+
+            <br />
+            <br />
+
+
+            <table style="width: 100%;" class="table table-striped">
+                <tr>
+                    <td style="text-align:left;" colspan="2"><b>  Note :-   </b></td>
+
+                </tr>
+                <tr>
+                    <td style="text-align:left;" colspan="2">1.Booking will be valid only for three months.</td>
+
+                </tr>
+                <tr>
+                    <td style="text-align:left;" colspan="2">2.Booking receipt will be valid only till Registry.</td>
+
+                </tr>
+                <tr>
+                    <td style="text-align:left;" colspan="2"> 3.Possession will be given after Registry.</td>
+
+                </tr>
+                <tr>
+                    <td style="text-align:left;"> 4.Receipt valid subject to realisation of cheque.</td>
+                    <td style="text-align:right;margin-right:100px;"><b style="margin-right: 40px;">Director Sign    </b></td>
+                </tr>
+            </table>
+
+            <br />
+
+            <table style="width: 100%;text-align:center">
+                <tr>
+                    <td>
+
+                        <b>LandLine no-</b>@ViewBag.LandLine
+
+                    </td>
+                    <td><b>Contact no-</b>@ViewBag.ContactNo</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Website:</b>   @ViewBag.Website
+
+                    </td>
+                    <td><b>Email : </b>@ViewBag.EmailID</td>
+                </tr>
+            </table>
+            <br />
+            <table style="width:100%;background:#a20e0e;color:white;">
+                <tr>
+                    <td style="text-align:center">
+                        @ViewBag.CompanyAddress
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <br />
+
+        </div>
+    </div>
+</body>
+</html>
+<textarea id="printing-css" style="display:none;">html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}body{font:normal normal .8125em/1.4 Arial,Sans-Serif;background-color:white;color:#333}strong,b{font-weight:bold}cite,em,i{font-style:italic}a{text-decoration:none}a:hover{text-decoration:underline}a img{border:none}abbr,acronym{border-bottom:1px dotted;cursor:help}sup,sub{vertical-align:baseline;position:relative;top:-.4em;font-size:86%}sub{top:.4em}small{font-size:86%}kbd{font-size:80%;border:1px solid #999;padding:2px 5px;border-bottom-width:2px;border-radius:3px}mark{background-color:#ffce00;color:black}p,blockquote,pre,table,figure,hr,form,ol,ul,dl{margin:1.5em 0}hr{height:1px;border:none;background-color:#666}h1,h2,h3,h4,h5,h6{font-weight:bold;line-height:normal;margin:1.5em 0 0}h1{font-size:200%}h2{font-size:180%}h3{font-size:160%}h4{font-size:140%}h5{font-size:120%}h6{font-size:100%}ol,ul,dl{margin-left:3em}ol{list-style:decimal outside}ul{list-style:disc outside}li{margin:.5em 0}dt{font-weight:bold}dd{margin:0 0 .5em 2em}input,button,select,textarea{font:inherit;font-size:100%;line-height:normal;vertical-align:baseline}textarea{display:block;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}pre,code{font-family:"Courier New",Courier,Monospace;color:inherit}pre{white-space:pre;word-wrap:normal;overflow:auto}blockquote{margin-left:2em;margin-right:2em;border-left:4px solid #ccc;padding-left:1em;font-style:italic}table[border="1"] th,table[border="1"] td,table[border="1"] caption{border:1px solid;padding:.5em 1em;text-align:left;vertical-align:top}th{font-weight:bold}table[border="1"] caption{border:none;font-style:italic}.no-print{display:none}</textarea>
+<iframe id="printing-frame" name="print_frame" src="about:blank" style="display:none;"></iframe>
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+    function printDiv(elementId) {
+        var a = document.getElementById('printing-css').value;
+        var b = document.getElementById(elementId).innerHTML;
+        window.frames["print_frame"].document.title = document.title;
+        window.frames["print_frame"].document.body.innerHTML = '<style>' + a + '</style>' + b;
+        window.frames["print_frame"].window.focus();
+        window.frames["print_frame"].window.print();
+    }
+</script>

@@ -1,0 +1,78 @@
+﻿@model OmPrabha.Models.Home
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="" content="">
+    <!-- css file -->
+    <link rel="stylesheet" href="/Website/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Website/css/fontawesome.css">
+    <link rel="stylesheet" href="/Website/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/Website/css/ud-custom-spacing.css">
+    <link rel="stylesheet" href="/Website/css/style.css">
+    <!-- Responsive stylesheet -->
+    <link rel="stylesheet" href="/Website/css/responsive.css">
+    <!-- Title -->
+    <title>OmPrabha</title>
+    <link href="/Website/images/Afluex.png" sizes="128x128" rel="shortcut icon" />
+</head>
+<body class="bgc-f7">
+    <div class="wrapper ovh">
+        <div class="preloader"></div>
+        <div class="body_content">
+            <!-- Our Compare Area -->
+            <section class="our-compare pt40 pb10">
+                <img src="/Website/images/icon/register-page-icon.svg" alt="" class="login-bg-icon wow fadeInLeft" data-wow-delay="300ms">
+                <div class="container">
+                    @using (Html.BeginForm("LoginAction", "Home", FormMethod.Post, new { @id = "signupForm" }))
+                    {
+                        <div class="row wow fadeInRight" data-wow-delay="300ms">
+                            <div class="col-lg-6">
+                                <div class="log-reg-form signup-modal form-style1 bgc-white p50 p30-sm default-box-shadow2 bdrs12">
+                                    <div class="text-center mb40">
+                                        <img class="mb25" src="/Website/images/Afluex.png" style="height: 150px;" alt="">
+                                       
+                                        <h5>Please login to your account</h5>
+                                        <p style="color:red"> @TempData["Login"] </p>
+                                    </div>
+                                    <div class="mb25">
+                                        <label>Login Id </label>
+                                        @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Login Id", @required = "required" })
+                                    </div>
+                                    <div class="mb15">
+                                        <label>Password</label>
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @Placeholder = "Password", @required = "required" })
+                                    </div>
+                                    <div class="d-grid mb20">
+                                        @*<input type="submit" id="Login" class="ud-btn btn-thm" name="Login" value="Sign In">*@
+                                        <input type="submit" id="Login" class="ud-btn btn-thm" name="Login" value="Sign In" style="background: rgb(255,189,0);background: linear-gradient(90deg, rgba(255,189,0,1) 0%, rgba(255,106,0,1) 64%);
+">
+                                    </div>
+                                    <div class="hr_content mb20">
+                                        <a href="~/Home/ForgetPassword">Forgot Password?</a> 
+                                    </div>
+                                    <div class="text-center">
+                                        <a href="/Website/Index" class="text-uppercase"><i class="fa fa-home"></i> Back to home</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- Wrapper End -->
+    <script src="/Website/js/jquery-3.6.4.min.js"></script>
+    <!-- Custom script for all pages -->
+    <script src="/Website/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+﻿@model OmPrabha.Models.Master
+
+@{
+    Layout = null;
+}
+<link href="../../WebsiteCss/css/bootstrap.css" rel="stylesheet">
+<link href="../../WebsiteCss/css/style.css" rel="stylesheet">
+<link href="../../WebsiteCss/css/responsive.css" rel="stylesheet">
+<!--Color Switcher Mockup-->
+<link href="../../WebsiteCss/css/color-switcher-design.css" rel="stylesheet">
+<!--Color Themes-->
+<link id="theme-color-file" href="../../WebsiteCss/css/color-themes/default-theme.css" rel="stylesheet">
+
+<link rel="shortcut icon" href="../../WebsiteCss/images/favicon.png" type="image/x-icon">
+<link rel="icon" href="../../WebsiteCss/images/favicon.png" type="image/x-icon">
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+<div class="registration-page">
+    <div class="auto-container">
+        <!--Checkout Details-->
+        <div class="checkout-form">
+            <h1 class="panel-heading">
+                Plot Availability
+            </h1>
+            <form method="post">
+                <div class="row clearfix">
+                    <!--Column-->
+                    <div class="column col-lg-12 col-md-12 col-sm-12">
+                        <div class="row clearfix">
+                            @using (Html.BeginForm("PlotAvailability", "Home", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="panel panel-default">
+
+                                            <!-- /.panel-heading -->
+                                            <div class="panel-body">
+                                                <div class="card-block">
+
+
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-12">
+                                                            <div class="row">
+
+                                                                <div class="col-md-3">
+                                                                    <div class="form-group">
+                                                                        Select Site <span style="color: red">*</span>
+                                                                        @Html.DropDownListFor(m => m.SiteID, new SelectList(ViewBag.ddlSite, "Value", "Text"), new { @class = "form-control", @onchange = "return onSiteChange();" })
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-group">
+                                                                        Select Phase <span style="color: red">*</span>
+                                                                        @Html.DropDownListFor(m => m.SectorID, new SelectList(ViewBag.ddlSector, "Value", "Text"), new { @class = "form-control", @onchange = "return onSectorChange();" })
+                                                                    </div>
+                                                                </div>
+                                                                @*<div class="col-md-3">
+                                                                        <div class="form-group">
+                                                                            Select Block <span style="color: red">*</span>
+                                                                            @Html.DropDownListFor(m => m.BlockID, new SelectList(ViewBag.ddlBlock, "Value", "Text"), new { @class = "form-control" })
+                                                                        </div>
+                                                                    </div>*@
+                                                                <div class="col-md-3">
+                                                                    <div class="form-group">
+                                                                        Plot Number <span style="color: red">*</span>
+                                                                        @Html.TextBoxFor(m => m.PlotNumber, new { @class = "form-control", @placeholder = "Plot Number" })
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-3">
+                                                                    <br />
+                                                                    <div class="form-group">
+                                                                        <input type="submit" name="Search" value="Search" id="btnSearchPlot" class="btn btn-success" onclick="return GetDetails(); " />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12" id="DivPlots">
+                                                                <div class="col-md-12">
+                                                                    <label style="color: black;"><b><u>Availability Status</u></b></label>
+                                                                    <br />
+                                                                    <div class="col-md-2 float-left">
+                                                                        <div style="border:solid; border-color:#d60808; background-color:#d60808; height:20px; width:20px; float:left"></div>
+                                                                        - Booked
+                                                                    </div>
+                                                                    <div class="col-md-2.5 float-left">
+                                                                        <div style="border:solid; border-color:#69ce69; background-color:#69ce69; height:20px; width:20px; float:left"></div>
+                                                                        - Available
+                                                                    </div>
+                                                                    <div class="col-md-2 float-left">
+                                                                        <div style="border:solid; border-color:yellow; background-color:yellow; height:20px; width:20px; float:left"></div>
+                                                                        - Allotted
+                                                                    </div>
+                                                                    @*<div class="col-md-2 float-left">
+                                                                            <div style="border:solid; border-color: #e470e4; background-color: #e470e4; height:20px; width:20px; float:left"></div>
+                                                                            - Allotted
+                                                                        </div>*@
+                                                                </div>
+
+                                                                <br />
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                    <div class="row">
+                                                        @if (Model != null)
+                                                        {
+                                                            if (Model.lstPlot != null)
+                                                            {
+                                                                foreach (var Item in Model.lstPlot)
+                                                                {
+                                                                    @*<a href="#" data-toggle="tooltip" title="Plot Amount :@Item.PlotAmount ; Plot Area :@Item.PlotArea">*@
+                                                                    <div style="margin-left:0.5%;color:black;background: @Item.ColorCSS; border:Solid; float:left; height:100px; margin-bottom:0.5%; text-align:center; padding-top:0.5%">
+                                                                        <input type="hidden" value="@Item.PlotID" />
+                                                                        <input type="hidden" value="@Item.SiteID" />
+                                                                        <input type="hidden" value="@Item.SectorID" />
+                                                                        <b>Plot Number : </b>@Item.PlotNumber
+                                                                        <br />
+                                                                        <b>Plot Area : </b>@Item.PlotArea
+                                                                        @*<b>Plot Area : </b>@Item.PlotArea
+                                                                            <br />*@
+                                                                        (@Item.SectorName@*,@Item.BlockName*@)
+                                                                    </div>
+                                                                    @*</a>*@
+                                                                }
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                    <!--Column-->
+                </div>
+            </form>
+        </div>
+        <!--End Checkout Details-->
+
+
+    </div>
+</div>
+<script src="../../WebsiteCss/js/script.js"></script>
+<!-- Color Setting -->
+<script src="../../WebsiteCss/js/color-settings.js"></script>
+<!--Clients Section-->
+
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+    });
+
+    function GetDetails() {
+
+        $(".errortext").removeClass("errortext");
+
+        if ($('#SiteID').val() == '0') {
+            $("#SiteID").addClass('errortext');
+            $('#SiteID').focus();
+            return false;
+        }
+        if ($('#SectorID').val() == '0') {
+            $("#SectorID").addClass('errortext');
+            $('#SectorID').focus();
+            return false;
+        }
+        //if ($('#BlockID').val() == '0') {
+        //    $("#BlockID").addClass('errortext');
+        //    $('#BlockID').focus();
+        //    return false;
+        //}
+        if ($('#PlotNumber').val() == '') {
+            $("#PlotNumber").addClass('errortext');
+            $('#PlotNumber').focus();
+            return false;
+        }
+        return true;
+    }
+
+    function onSiteTypeChange() {
+        //  $("#divload").css({ 'display': '' });
+
+        var value = $('#SiteTypeID').val();
+        var values = $('#SiteID').val();
+        var tr = [];
+        $.ajax({
+            url: "/Home/GetSiteBySiteType",
+            Type: "Get",
+            DataType: "JSON",
+            data: { SiteTypeID: value },
+            success: function (data) {
+                var j = 1;
+
+                //   $("#divload").css({ 'display': 'none' });
+
+                $("#SiteID").html(""); // clear before appending new list
+                $("#SiteID").empty();
+                $("#SiteID").append(
+                      $('<option></option>').val(0).html('Select Site'));
+                $.each(data.ddlSite, function (index, Sectorcount) {
+                    $("#SiteID").append(
+                          $('<option></option>').val(Sectorcount.Value).html(Sectorcount.Text));
+                });
+
+            }
+
+        });
+
+    }
+    function onSiteChange() {
+        $("#divload").css({ 'display': '' });
+
+        var value = $('#SiteID').val();
+        var values = $('#SectorID').val();
+        var tr = [];
+        $.ajax({
+            url: "/Home/GetSiteDetails",
+            Type: "Get",
+            DataType: "JSON",
+            data: { SiteID: value },
+            success: function (data) {
+                var j = 1;
+                if (data.Result == "yes") {
+                    $("#divload").css({ 'display': 'none' });
+                    $('#Rate').val(data.Rate);
+                    $("#SectorID").html(""); // clear before appending new list
+                    $("#SectorID").empty();
+                    $("#SectorID").append(
+                          $('<option></option>').val(0).html('Select Phase'));
+                    $.each(data.ddlSector, function (index, Sectorcount) {
+                        $("#SectorID").append(
+                              $('<option></option>').val(Sectorcount.Value).html(Sectorcount.Text));
+                    });
+
+                }
+                else {
+                    $("#SectorID").empty();
+                    $('#Rate').val('');
+                }
+            }
+
+        });
+
+    }
+
+    function onSectorChange() {
+
+        $("#divload").css({ 'display': '' });
+        var siteID = $('#SiteID').val();
+        var sectorID = $('#SectorID').val();
+        $.ajax({
+            url: '/Home/GetBlockList', type: 'post', dataType: 'json',
+            data: { 'SiteID': siteID, 'sectorID': sectorID },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                $("#BlockID").html(""); // clear before appending new list
+                $("#BlockID").empty();
+                $("#BlockID").append(
+                      $('<option></option>').val(0).html('Select Block'));
+                $.each(data.lstBlock, function (index, BlockCount) {
+                    $("#BlockID").append(
+                          $('<option></option>').val(BlockCount.Value).html(BlockCount.Text));
+                });
+
+            }
+
+        });
+    }
+
+
+</script>
+
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+
+
+
+

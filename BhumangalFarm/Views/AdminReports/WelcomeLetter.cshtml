@@ -1,0 +1,230 @@
+﻿@model OmPrabha.Models.TraditionalAssociate
+
+@{
+    ViewBag.Title = "WelcomeLetter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("WelcomeLetter", "AdminReports", FormMethod.Post, new { @id = "form1" }))
+{
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Reports</li>
+            <li class="breadcrumb-item">Welcome Letter</li>
+        </ul>
+    </section>
+
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Welcome Letter</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-3 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    Associate Login ID/Name
+                                    @Html.TextBoxFor(m => m.AssociateLoginID, new { @class = "form-control", @Placeholder = "Search by Associate ID" })
+                                    @Html.HiddenFor(m => m.AssociateID)
+                                </div>
+                            </div>
+                            @*<div class="col-3 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    Associate Name
+                                    @Html.TextBoxFor(m => m.AssociateName, new { @class = "form-control", @Placeholder = "Associate Name" })
+                                </div>
+                            </div>*@
+                            <div class="col-3 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    Sponsor Login ID
+                                    @Html.TextBoxFor(m => m.SponsorID, new { @class = "form-control", @Placeholder = "Sponsor LoginID" })
+                                </div>
+                            </div>
+                            <div class="col-3 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    Sponsor Name
+                                    @Html.TextBoxFor(m => m.SponsorName, new { @class = "form-control", @Placeholder = "Sponsor Name" })
+                                </div>
+                            </div>
+                            <div class="col-3 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    Joining From Date
+                                    @Html.TextBoxFor(m => m.JoiningFromDate, new { @class = "form-control", @Placeholder = "From Date", @readonly = true })
+                                </div>
+                            </div>
+                            <div class="col-3 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    Joining To Date
+                                    @Html.TextBoxFor(m => m.JoiningToDate, new { @class = "form-control", @Placeholder = "To Date",@readonly=true })
+                                </div>
+                            </div>
+                            <div class="col-3 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    <br />
+                                    <input class="btn btn-success" type="submit" value="Search" id="btnSearchCustomer" name="btnSearchCustomer" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-md" data-page-length='50' id="tableExport" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th hidden>PK_UserId</th>
+                                        <th>S No.</th>
+                                        <th>Branch</th>
+                                        <th>Associate ID</th>
+                                        <th>Associate Name</th>
+                                        <th>Sponsor ID </th>
+                                        <th>Sponsor Name</th>
+                                        <th>Designation</th>
+                                        @*<th>Name</th>*@
+                                        <th>Mobile Number</th>
+                                        <th>Email</th>
+                                        <th>PAN Number</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstTrad != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var Item in Model.lstTrad)
+                                            {
+                                                <tr class="text-left">
+                                                    <td hidden>
+                                                        @Item.UserID
+                                                        @Item.AssociateID
+                                                    </td>
+                                                    <td>@i</td>
+                                                    <td>@Item.BranchName</td>
+                                                    <td>@Item.AssociateID</td>
+                                                    <td>@Item.AssociateName</td>
+                                                    <td>@Item.SponsorID</td>
+                                                    <td>@Item.SponsorName </td>
+                                                    <td>@Item.DesignationName</td>
+                                                    @*<td>@Item.FirstName</td>*@
+                                                    <td>@Item.Contact</td>
+                                                    <td>@Item.Email</td>
+                                                    <td>@Item.PanNo</td>
+
+                                                    <td>
+                                                        <a href="/AdminReports/PrintWelcomeLetter?id=@Item.EncryptKey" class="btn btn-success btn-sm" target="_blank">Print Letter</a>
+                                                        @* <a href="/AdminReports/PrintIDCard?id=@Item.EncryptKey" class="btn btn-success btn-sm" target="_blank">Card</a>*@
+
+                                                    </td>
+                                                </tr>
+                                                i++;
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+
+<script>
+    $(document).ready(function () {
+        //alert("hiiiiiiiiiiii");
+        debugger;
+        var cityuse = [];
+        $('#dataTables-example').DataTable({
+            responsive: true,
+        });
+        var AssociateList = [];
+        $("#loader").css({ 'display': '' });
+        $.ajax({
+            url: '/Plot/GetUserList',
+            type: 'Post',
+            success: function (response) {
+                if (response != null) {
+                    $(response).each(function (index, item) {
+                        AssociateList.push(item.UserName + "(" + item.LoginIDD + ")");
+                    });
+                    debugger
+                    $('#AssociateLoginID').autocomplete({
+                        source: AssociateList,
+                        select: function (event, ui) {
+                            var str = ui.item.label;
+                            var strsplit = str.split("(");
+
+                            $('#AssociateID').val(strsplit[1].substr(0, strsplit[1].length - 1));
+                        }
+                    })
+                }
+            }, error: function () {
+                alert('Some Thing wrong!');
+                $("#loader").css({ 'display': 'none' });
+            }
+        });
+    });
+
+    $('#JoiningFromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+    $('#JoiningToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+
+    function CancelPlot() {
+        $.ajax({
+            url: "/Plot/CancelPlotBooking",
+            Type: "Get",
+            DataType: "JSON",
+            data: { PK_BookingId: $("#PK_BookingId").val() },
+            success: function (response) {
+                debugger;
+                alert(response.Result);
+                window.location.href = '@Url.Action("PlotBooking", "Plot")';
+                if (response != null) {
+                    debugger;
+                    $(response).each(function (index, item) {
+                        cityuse.push(item.UserName + "(" + item.LoginIDD + ")");
+                    });
+                    debugger;
+                    $('#SponsorID').autocomplete({
+                        source: cityuse,
+                        select: function (event, ui) {
+                            debugger;
+                            var str = ui.item.label;
+                            var strsplit = str.split("(");
+                            $('#CustomerID').val(strsplit[1].substr(0, strsplit[1].length - 1));
+                        }
+                    })
+                }
+            }
+        });
+    }
+
+
+
+
+</script>
+

@@ -1,0 +1,142 @@
+﻿@model OmPrabha.Models.Reports
+
+@{
+    ViewBag.Title = "DownLine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("Downline", "AdminReports", FormMethod.Post, new { @id = "form1" }))
+{
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Team</li>
+            <li class="breadcrumb-item">Downline List</li>
+        </ul>
+    </section>
+
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Downline List</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                LoginId
+                                @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @placeholder = "Login Id", @required = "required" })
+                            </div>
+                            <div class="col-md-3">
+                                Name
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Name" })
+                            </div>
+                            <div class="col-md-3">
+                                From Date
+                                @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @placeholder = "From Date",@readonly="readonly" })
+                            </div>
+                            <div class="col-md-3">
+                                To Date
+                                @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @placeholder = "To Date", @readonly = "readonly" })
+                            </div>
+                            <div class="col-md-3">
+                                Leg
+                                @Html.DropDownListFor(m => m.Leg, new SelectList(ViewBag.ddlleg, "Value", "Text"), new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-3">
+                                Status
+                                @Html.DropDownListFor(m => m.Status, new SelectList(ViewBag.ddlStatus, "Value", "Text"), new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-3">
+                                <br />
+                                <input type="submit" class="btn btn-info" value="Get Details" name="GetDetails" />
+                            </div>
+                        </div>
+
+
+                        <br />
+                        <table class="table table-bordered table-md" data-page-length='50' id="tableExport" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>Sr No.</th>
+
+                                    <th>Login Id</th>
+                                    @*<th>Password</th>*@
+                                    <th>Name</th>
+                                    <th>Leg</th>
+                                    <th>Joining Date</th>
+                                    <th>Status</th>
+                                    <th>Activation Date</th>
+                                    @*<th>Mobile No</th>*@
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    if (Model.lstassociate != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var Item in Model.lstassociate)
+                                        {
+                                            <tr class="text-left">
+                                                <td>@i</td>
+
+                                                <td>@Item.LoginId</td>
+                                                @*<td>@Item.Password</td>*@
+                                                <td>@Item.Name</td>
+                                                <td>@Item.Leg</td>
+                                                <td>@Item.JoiningDate</td>
+                                                <td>@Item.Mobile</td>
+                                                <td>@Item.PermanentDate</td>
+                                                @*<td>@Item.Mobile</td>*@
+
+                                                <td>@Item.Status</td>
+
+                                            </tr>
+                                            i++;
+                                        }
+
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script>
+
+    $('#FromDate').datepicker({
+        autoclose: true,
+        format: "yyyy-mm-dd",
+        immediateUpdates: true,
+        todayBtn: true,
+        todayHighlight: true
+    }).datepicker("setDate", "0");
+    $('#ToDate').datepicker({
+        autoclose: true,
+        format: "yyyy-mm-dd",
+        immediateUpdates: true,
+        todayBtn: true,
+        todayHighlight: true
+    }).datepicker("setDate", "0");
+</script>
+

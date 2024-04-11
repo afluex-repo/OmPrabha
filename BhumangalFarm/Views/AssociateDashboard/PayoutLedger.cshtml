@@ -1,0 +1,120 @@
+﻿@model OmPrabha.Models.AssociateBooking
+
+@{
+    ViewBag.Title = "PayoutLedger";
+    Layout = "~/Views/Shared/AssociateLayout.cshtml";
+}
+@using (Html.BeginForm("PayoutLedger", "AssociateDashboard", FormMethod.Post, new { @id = "form1" }))
+{
+
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Payout</li>
+            <li class="breadcrumb-item">Payout Ledger</li>
+        </ul>
+    </section>
+
+    <div class="section-body">
+        <div class="card">
+            <div class="card-header">
+                <h4>Payout Ledger</h4>
+            </div>
+            <div class="card-body">
+                @*<div class="row">
+                    <div class="col-4 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label>PayOut No.</label>
+                            @Html.TextBoxFor(m => m.PayOutNo, new { @class = "form-control", @Placeholder = "Search by PayOutNo" })
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label>From Date</label>
+                            @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @readonly = "ds" })
+
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label>To Date</label>
+                            @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @readonly = "ds" })
+
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <br />
+                            <input class="btn btn-primary mr-1" type="submit" value="Search" id="btnSearch" name="Search" />
+                        </div>
+                    </div>
+                </div>*@
+                <table class="table table-bordered table-md" data-page-length='50' id="tableExport" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>S No.</th>
+                            <th>Transaction Date</th>
+                            <th>Narration</th>
+                            <th>Credit Amount</th>
+                            <th>Debit</th>
+                         
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            if (Model.lstPlot != null)
+                            {
+                                int i = 1;
+                                foreach (var Item in Model.lstPlot)
+                                {
+                                    <tr class="text-left">
+                                        <td>@i</td>
+                                        <td>@Item.TransactionDate</td>
+                                        <td>@Item.Narration</td>
+                                        <td>@Item.Credit</td>
+                                        <td>@Item.Debit</td>
+                                    </tr>
+
+                                    i++;
+                                }
+                            }
+                        }
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>Total</th>
+                            <th>@ViewBag.Credit</th>
+                            <th>@ViewBag.Debit</th>
+                        </tr>
+                        
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script>
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+    });
+
+</script>

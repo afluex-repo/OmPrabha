@@ -1,0 +1,219 @@
+﻿@model OmPrabha.Models.Reports
+
+@{
+    ViewBag.Title = "ApproveAssociateList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="loader" id="divload"></div>
+@using (Html.BeginForm("ApproveAssociateList", "AdminReports", FormMethod.Post, new { @id = "form1" }))
+{
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Associate</li>
+            <li class="breadcrumb-item">Associate Approvel</li>
+        </ul>
+    </section>
+
+
+    <div class="section-body">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Associate Approvel</h4>
+                    <p style="color: red">
+                        @TempData["Approved"]
+                        @TempData["BlockUnblock"]
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="row ">
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                                Login Id
+                                @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Login Id" })
+                            </div>
+                        </div>
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                                FromDate
+                                @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "From Date" })
+                            </div>
+                        </div>
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                                To Date
+                                @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "To Date" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                          
+                                <input class="btn btn-success pull-left" type="submit" value="Search" id="btnSearch" name="GetList" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-md" data-page-length='50' id="tableExport" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>Sr No.</th>
+                                    <th>LoginId</th>
+                                    <th>Name</th>
+                                    <th>PaymentMode</th>
+                                    <th>Entry Date</th>
+                                    <th>Transaction Date</th>
+                                    <th>TransactionNo</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                           
+                                @if (Model != null)
+                                {
+                                    if (Model.lstassociate != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var Item in Model.lstassociate)
+                                        {
+                                            <tr class="text-left">
+                                                <td>@i</td>
+                                                <td>@Item.LoginId</td>
+                                                <td>@Item.Name</td>
+                                                <td>@Item.PaymentMode</td>
+                                                <td>@Item.PaymentDate</td>
+                                                <td>@Item.TransactionDate</td>
+                                                <td>@Item.TransactionNo</td>
+                                                <td>
+                                                    @if (Item.Status == "Pending")
+                                                    {
+                                                        <a href="/AdminReports/Approved?FK_UserID=@Item.AssociateID" class="btn btn-danger" onclick="return confirm('Sure you want to Approve this User ?')">
+                                                            Pending
+                                                        </a>
+                                                        <a href="/AdminReports/RejetAssociate?FK_UserID=@Item.AssociateID" class="btn btn-danger" onclick="return confirm('Sure you want to Reject this User ?')">
+                                                            Reject
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+
+                                                           @Item.Status
+                                                      
+                                                    }
+                                                   
+                                                </td>
+                                            </tr>
+                                            i++;
+                                        }
+
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+}
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+    });
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+
+
+    function onSiteChange() {
+        $("#divload").css({ 'display': '' });
+        var value = $('#SiteID').val();
+        var values = $('#SectorID').val();
+        var tr = [];
+        $.ajax({
+            url: "/Plot/GetSiteDetails",
+            Type: "Get",
+            DataType: "JSON",
+            data: { SiteID: value },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                var j = 1;
+                if (data.Result == "yes") {
+                    $('#Rate').val(data.Rate);
+                    $("#SectorID").html(""); // clear before appending new list
+                    $("#SectorID").empty();
+                    $("#SectorID").append(
+                          $('<option></option>').val(0).html('Select Phase'));
+                    $.each(data.ddlSector, function (index, Sectorcount) {
+                        $("#SectorID").append(
+                              $('<option></option>').val(Sectorcount.Value).html(Sectorcount.Text));
+
+                    });
+                    $("#SectorID").formSelect();
+                }
+                else {
+                    $("#SectorID").empty();
+                    $('#Rate').val('');
+                }
+
+
+            }
+
+        });
+
+    }
+
+    function onSectorChange() {
+
+        $("#divload").css({ 'display': '' });
+        var siteID = $('#SiteID').val();
+        var sectorID = $('#SectorID').val();
+        $.ajax({
+            url: '/Plot/GetBlockList', type: 'post', dataType: 'json',
+            data: { 'SiteID': siteID, 'sectorID': sectorID },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                $("#BlockID").html(""); // clear before appending new list
+                $("#BlockID").empty();
+                $("#BlockID").append(
+                      $('<option></option>').val(0).html('Select Block'));
+                $.each(data.lstBlock, function (index, BlockCount) {
+                    $("#BlockID").append(
+                          $('<option></option>').val(BlockCount.Value).html(BlockCount.Text));
+                });
+                $("#BlockID").formSelect();
+            }
+
+        });
+    }
+</script>
