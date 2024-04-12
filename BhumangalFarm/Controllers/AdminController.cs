@@ -9,6 +9,8 @@ using OmPrabha.Models;
 using OmPrabha.Filter;
 using System.Web.UI.WebControls;
 using System.Web.UI;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace OmPrabha.Controllers
 {
@@ -2532,7 +2534,145 @@ namespace OmPrabha.Controllers
             return View();
         }
 
+        [HttpPost]
+        public JsonResult save(Plot obj, string dataValue, string SiteID, string AssociateID, string AssociateName, string Amount, string VisiteDate)
+        {
 
+            obj.VisitDate = string.IsNullOrEmpty(VisiteDate) ? null : Common.ConvertToSystemDate(VisiteDate, "dd/MM/yyyy");
+            bool status = false;
+            var isValidModel = TryUpdateModel(obj);
+            var jss = new JavaScriptSerializer();
+            var jdv = jss.Deserialize<dynamic>(dataValue);
+
+            //var serializeData = JsonConvert.DeserializeObject<List<Customer>>(empdata);
+            //System.Globalization.CultureInfo ci = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
+            DataTable VisitorDetails = new DataTable();
+
+            VisitorDetails = JsonConvert.DeserializeObject<DataTable>(jdv["AddData"]);
+            obj.dtVisitorDetails = VisitorDetails;
+            obj.AddedBy = Session["Pk_AdminId"].ToString();
+
+            DataSet ds = new DataSet();
+            ds = obj.SaveVisitorDetails();
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                {
+                    TempData["Visitor"] = "Visitor Details saved successfully";
+                    status = true;
+                }
+                else if (ds.Tables[0].Rows[0][0].ToString() == "0")
+                {
+                    TempData["Visitor"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                }
+            }
+            else
+            {
+                TempData["DrExpenses"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+            }
+            return new JsonResult { Data = new { status = status } };
+        }
+
+
+        public ActionResult VisitorList()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ActionName("VisitorList")]
+        [OnAction(ButtonName = "Search")]
+        public ActionResult VisitorList(Plot model)
+        {
+
+            List<Plot> Visitorlist = new List<Plot>();
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+            model.Downline = model.IsDownline == true ? "1" : "0";
+            DataSet ds = model.VisitorList();
+            ViewBag.Total = "0";
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Plot obj = new Plot();
+                    obj.AssociateLoginID = r["LoginId"].ToString();
+                    obj.EncryptKey = Crypto.Encrypt(r["PK_VisitorID"].ToString());
+                    obj.AssociateName = r["AssociateName"].ToString();
+                    //obj.Mobile = r["Mobile"].ToString();
+                    //obj.CustomerName = r["CustomerName"].ToString();
+                    obj.SiteName = r["SiteName"].ToString();
+                    //obj.Address = r["Address"].ToString();
+                    obj.VisitDate = r["VisitDate"].ToString();
+                    obj.Amount = r["Amount"].ToString();
+                    Visitorlist.Add(obj);
+                    ViewBag.Total = Convert.ToDecimal(ViewBag.Total) + Convert.ToDecimal(r["Amount"].ToString());
+                }
+                model.lstVistor = Visitorlist;
+            }
+            return View(model);
+        }
+
+        public ActionResult PrintVisitor(string Id)
+        {
+            Plot newdata = new Plot();
+            List<Plot> lstvisitor = new List<Plot>();
+            newdata.PK_VisitorId = Crypto.Decrypt(Id);
+            DataSet ds = newdata.VisitorListById();
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                ViewBag.PK_VisitorID = ds.Tables[0].Rows[0]["PK_VisitorID"].ToString();
+                ViewBag.SiteName = ds.Tables[0].Rows[0]["SiteName"].ToString();
+                ViewBag.LoginId = ds.Tables[0].Rows[0]["LoginId"].ToString();
+                ViewBag.AssociateName = ds.Tables[0].Rows[0]["AssociateName"].ToString();
+                ViewBag.Amount = ds.Tables[0].Rows[0]["Amount"].ToString();
+                ViewBag.VisitDate = ds.Tables[0].Rows[0]["VisitDate"].ToString();
+
+                if (ds.Tables[1].Rows.Count > 0)
+                {
+                    foreach (DataRow r in ds.Tables[1].Rows)
+                    {
+                        Plot obj = new Plot();
+                        obj.CustomerName = r["CustomerName"].ToString();
+                        obj.Mobile = r["Mobile"].ToString();
+                        obj.Address = r["Address"].ToString();
+                        lstvisitor.Add(obj);
+                    }
+                }
+                newdata.lstVistor = lstvisitor;
+            }
+            return View(newdata);
+        }
+
+        public ActionResult DeleteVisitor(string Id)
+        {
+            string FormName = "";
+            string Controller = "";
+            try
+            {
+                Plot model = new Plot();
+                model.PK_VisitorId = Crypto.Decrypt(Id);
+                model.AddedBy = Session["Pk_AdminId"].ToString();
+                DataSet ds = model.DeleteVisitor();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
+                    {
+                        TempData["VisitMsg"] = "Visitor deleted successfully !";
+                    }
+                    else
+                    {
+                        TempData["VisitMsg"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["VisitMsg"] = ex.Message;
+            }
+            FormName = "VisitorList";
+            Controller = "Admin";
+            return RedirectToAction(FormName, Controller);
+        }
 
     }
 }
