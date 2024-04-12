@@ -37,7 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\DELL\AppData\Local\Temp\vs2946.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\MULTIL~1\AppData\Local\Temp\vs353B.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -46,7 +46,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\DELL\AppData\Local\Temp\vs2946.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\MULTIL~1\AppData\Local\Temp\vs353B.tmp\Release\</IntermediateOutputPath>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
@@ -359,13 +359,11 @@
     <Content Include="AssetsWeb\img\figure\shape8.svg" />
     <Content Include="AssetsWeb\img\figure\shape9.png" />
     <Content Include="AssetsWeb\img\figure\shape9.svg" />
-    <Content Include="AssetsWeb\img\layout-logo.jpg" />
     <Content Include="AssetsWeb\img\listing-label.png" />
     <Content Include="AssetsWeb\img\listing-label.svg" />
     <Content Include="AssetsWeb\img\logo-light.png" />
     <Content Include="AssetsWeb\img\logo-lightOLD.png" />
     <Content Include="AssetsWeb\img\logo.png" />
-    <Content Include="AssetsWeb\img\logoletter.png" />
     <Content Include="AssetsWeb\img\preloader.png" />
     <Content Include="AssetsWeb\img\property\0001.jpg" />
     <Content Include="AssetsWeb\img\property\0002.jpg" />
@@ -7837,6 +7835,7 @@
     <Content Include="AssetsWeb\webfonts\Quentin.woff" />
     <Content Include="AssetsWeb\webfonts\Quentin.woff2" />
     <None Include="Properties\PublishProfiles\OmPrabha.pubxml" />
+    <None Include="Properties\PublishProfiles\Om_Prabha.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -8123,8 +8122,6 @@
     <Content Include="WebsiteCss\assets-old\fonts\slick.woff" />
     <Content Include="WebsiteCss\assets-old\fonts\slickd41d.eot" />
     <Content Include="Views\Admin\VisitorForm.cshtml" />
-    <Content Include="Views\Admin\VisitorList.cshtml" />
-    <Content Include="Views\Admin\PrintVisitor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -8172,7 +8169,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>24415</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:24420/</IISUrl>
+          <IISUrl>http://localhost:24417/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
