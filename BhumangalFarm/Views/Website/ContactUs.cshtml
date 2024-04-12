@@ -4,108 +4,94 @@
     ViewBag.Title = "ContactUs";
     Layout = "~/Views/Shared/WebsiteLayout.cshtml";
 }
-
-
-
-<div class="page-title" style="background:#f4f4f4 url(../../webAssets/img/slider-4.jpg);" data-overlay="5">
+<div class="breadcrumb-wrap">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-
-                <div class="breadcrumbs-wrap position-relative z-1">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
-                    </ol>
-                    <h2 class="breadcrumb-title">Contact Us</h2>
-                </div>
-
-            </div>
-        </div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/Website/Index">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Contact Page</li>
+            </ol>
+        </nav>
     </div>
 </div>
 
-<section class="pt-0">
+<section class="contact-wrap">
     <div class="container">
-        <div class="row align-items-center pretio_top">
-
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <div class="contact-box shadow">
-                    <i class="ti-shopping-cart text-danger"></i>
-                    <h4>Contact Sales</h4>
-                    <p>sales@support.co</p>
-                    <span>+91 7310000413</span>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <div class="contact-box shadow">
-                    <i class="ti-user text-danger"></i>
-                    <h4>Contact HR</h4>
-                    <p>hr@gmail.com</p>
-                    <span>+91 7310000413</span>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <div class="contact-box shadow">
-                    <i class="ti-comment-alt text-danger"></i>
-                    <h4>Contact Manager</h4>
-                    <p>manager@gmail.com</p>
-                    <span>+91 7310000413</span>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- row Start -->
         <div class="row">
-            <div class="col-lg-8 col-md-7">
-                <div class="property_block_wrap">
-
-                    <div class="property_block_wrap_header">
-                        <h3 class="property_block_title mb-3">Fillup The Form</h3>
+            <div class="col-lg-12">
+                <div class="contact-box1">
+                    <div class="contact-img">
+                        <img src="~/AssetsWeb/img/blog/contact1.jpg" alt="contact" height="502" width="607">
                     </div>
-
-                    <div class="block-body">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input type="text" class="form-control simple">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" class="form-control simple">
-                                </div>
-                            </div>
+                    <div class="contact-content">
+                        <h3 class="contact-title">Office Information</h3>
+                        <div class="contact-list">
+                            <ul>
+                                <li>1/163, Vibhav Khand, Near Mantri Awas,</li>
+                                <li> Gomti Nagar, Lucknow - 226010</li>
+                            </ul>
                         </div>
-
-                        <div class="form-group">
-                            <label>Subject</label>
-                            <input type="text" class="form-control simple">
+                        <div class="phone-box">
+                            <div class="item-lebel">Call :</div>
+                            <div class="phone-number">+91 9119966928</div>
+                            <div class="item-icon"><i class="fas fa-phone-alt"></i></div>
                         </div>
-
-                        <div class="form-group">
-                            <label>Message</label>
-                            <textarea class="form-control simple"></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <button class="btn btn-danger" type="submit">Submit Request</button>
+                        <div class="social-box">
+                            <div class="item-lebel">Social Share :</div>
+                            <ul class="item-social">
+                                <li><a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="https://twitter.com/"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="https://vimeo.com/"><i class="fab fa-vimeo-v"></i></a></li>
+                                <li><a href="https://www.pinterest.com/"><i class="fab fa-pinterest-p"></i></a></li>
+                                <li><a href="https://web.whatsapp.com/"><i class="fab fa-whatsapp"></i></a></li>
+                            </ul>
+                            <div class="item-icon"><i class="fas fa-share-alt"></i></div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
-            <div class="col-lg-4 col-md-5">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.283158414495!2d80.99435017511951!3d26.86274336223677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399be3ad67cf86c1%3A0xe090e6813b2b28b9!2sAfluex%20Multiservices%20LLP%20-%20Software%20Development%20Company%20%26%20advertising-agency!5e0!3m2!1sen!2sin!4v1710827396162!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-
         </div>
-        <!-- /row -->
+    </div>
+
+</section>
+
+<section class="contact-wrap" id="contact">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 card shadow">
+                <div class="contact-box2 p-4">
+                    <div class="contact-content" style="margin-left:0px">
+                        <h3 class="contact-title">Enquire Now</h3>
+                        <p>
+                            Enquire now and discover how we can meet your needs and exceed your expectations.
+                        </p>
+                        <form class="contact-box rt-contact-form">
+                            <div class="row">
+                                <div class="form-group col-lg-4">
+                                    <label>Name *</label>
+                                    <input type="text" class="form-control" name="fname" placeholder="Name*">
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label>Phone *</label>
+                                    <input type="text" class="form-control" name="phone" placeholder="Phone*">
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label>Email *</label>
+                                    <input type="text" class="form-control" name="phone" placeholder="Email*">
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Message *</label>
+                                    <textarea name="comment" id="message" class="form-text"
+                                              placeholder="Message" cols="30" rows="5"></textarea>
+                                </div>
+                                <div class="form-group col-lg-3 m-auto">
+                                    <button type="submit" class="item-btn">Send message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
