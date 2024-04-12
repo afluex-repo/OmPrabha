@@ -37,7 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\DELL\AppData\Local\Temp\vs2946.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\DELL\AppData\Local\Temp\vs9A88.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -46,7 +46,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\DELL\AppData\Local\Temp\vs2946.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\DELL\AppData\Local\Temp\vs9A88.tmp\Release\</IntermediateOutputPath>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
@@ -7837,6 +7837,7 @@
     <Content Include="AssetsWeb\webfonts\Quentin.woff" />
     <Content Include="AssetsWeb\webfonts\Quentin.woff2" />
     <None Include="Properties\PublishProfiles\OmPrabha.pubxml" />
+    <None Include="Properties\PublishProfiles\Om_Prabha.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -8123,8 +8124,8 @@
     <Content Include="WebsiteCss\assets-old\fonts\slick.woff" />
     <Content Include="WebsiteCss\assets-old\fonts\slickd41d.eot" />
     <Content Include="Views\Admin\VisitorForm.cshtml" />
-    <Content Include="Views\Admin\VisitorList.cshtml" />
     <Content Include="Views\Admin\PrintVisitor.cshtml" />
+    <Content Include="Views\Admin\VisitorList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
