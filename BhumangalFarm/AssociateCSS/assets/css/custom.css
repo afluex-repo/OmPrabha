@@ -6,12 +6,12 @@
 }
 .main-sidebar .sidebar-brand a .header-logo {
     height: 55px;
-    box-shadow: 0px 0px 10px 6px #fff;
+    box-shadow: 0px 0px 4px 6px #fff;
     background: #fff;
     width: 65px;
 }
 .theme-white .navbar {
-    background: linear-gradient(153deg, #d12057  0%, #b08902 100%);
+    background: linear-gradient(153deg, #13b4d1 0%, #b72235 100%);
     box-shadow: 15px 9px 25px 0 rgb(0 0 0 / 10%);
 }
 .main-sidebar {
@@ -20,7 +20,7 @@
     top: 0;
     height: 100%;
     width: 250px;
-    background: linear-gradient(153deg, #d12057  0%, #b08902 100%);
+    background:linear-gradient(153deg, #13b4d1 0%, #b72235 100%);
     /*background-color:#036936;*/
     z-index: 880;
     left: 0;
@@ -52,7 +52,7 @@
     text-decoration: none;
 }
 .main-sidebar .sidebar-menu li a:hover {
-    background-color: #d2b828;
+    background-color: #1099cb;
 }
 .main-sidebar .sidebar-menu li ul.dropdown-menu li a {
     color: #fbeeee;

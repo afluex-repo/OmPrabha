@@ -417,14 +417,14 @@ namespace OmPrabha.Models
     public class SoftwareDetails 
     {
         public static  string CompanyName = "OmPrabha Infratech Pvt. Ltd.";
-        public static string CompanyAddress = "D-54, 2nd Floor Arjun Tower Near Ola Office, Vibhuti Khand, Lucknow, Uttar Pradesh 226010 ";
+        public static string CompanyAddress = "1/163, Vibhav Khand, Near Mantri Awas, Gomti Nagar, Lucknow - 226010";
         public static string Pin1 = "226010";
         public static string State1="UP";
         public static string City1= "Lucknow";
-        public static string ContactNo= "7310000413";
-        public static string LandLine = "7310000413";
-        public static string Website= "http://OmPrabha.com/";
-        public static string EmailID= "admin@OmPrabha.com";
+        public static string ContactNo= "+91 9119966928";
+        public static string LandLine = "+91 9119966928";
+        public static string Website= "https://omprabhainfratech.in/";
+        public static string EmailID= "omprabhainfratech.pvt.ltd@gmail.com";
     }
 }
 
