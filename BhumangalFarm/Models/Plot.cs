@@ -25,6 +25,9 @@ namespace OmPrabha.Models
         public string AllotmentRemark { get; set; }
         public bool IsDownline { get; set; }
         public string Downline { get; set; }
+        public DataTable dtVisitorDetails { get; set; }
+        public List<Plot> lstVistor { get; set; }
+        public string PK_VisitorId { get; set; }
 
         #region Properties
         public string Type { get; set; }
@@ -987,7 +990,54 @@ namespace OmPrabha.Models
         public string Rate { get; set; }
         public string Months { get; internal set; }
         #endregion
-        
+
+        public DataSet SaveVisitorDetails()
+        {
+            SqlParameter[] para = {
+                                      new SqlParameter("@FK_SiteID", SiteID),
+                                       new SqlParameter("@AssociateID", AssociateID),
+                                       new SqlParameter("@Amount", Amount),
+                                        new SqlParameter("@AddedBy", AddedBy),
+                                       new SqlParameter("@VisiteDate", VisitDate),
+                                      new SqlParameter("@DtVisitorDetail",dtVisitorDetails)
+                                  };
+            DataSet ds = Connection.ExecuteQuery("SaveVisitor", para);
+            return ds;
+        }
+
+        public DataSet VisitorList()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("AssociateId",AssociateLoginID),
+                new SqlParameter("@IsDownline",Downline),
+                new SqlParameter("@FromDate",FromDate),
+                new SqlParameter("@ToDate",ToDate)
+            };
+            DataSet ds = Connection.ExecuteQuery("VisitorList", para);
+            return ds;
+        }
+
+        public DataSet VisitorListById()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@PK_VisitorId",PK_VisitorId),
+            };
+            DataSet ds = Connection.ExecuteQuery("VisitorListById", para);
+            return ds;
+        }
+
+        public DataSet DeleteVisitor()
+        {
+            SqlParameter[] para = {
+                new SqlParameter("@VisitorId", PK_VisitorId),
+                 new SqlParameter("@DeletedBy", AddedBy)
+
+            };
+            DataSet ds = Connection.ExecuteQuery("DeleteVisitor", para);
+            return ds;
+        }
     }
 }
 

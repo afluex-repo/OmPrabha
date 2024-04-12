@@ -137,41 +137,41 @@ namespace OmPrabha.Controllers
                 DataSet dsRegistration = model.CustomerRegistration();
                 if (dsRegistration.Tables[0].Rows[0][0].ToString() == "1")
                 {
-                    if (model.Email != null)
-                    {
-                        string mailbody = "";
-                        try
-                        {
-                            mailbody = "Dear  " + dsRegistration.Tables[0].Rows[0]["Name"].ToString() + ",You have been successfully registered as RealEstateDemo Customer.Given below are your login details .!<br/>  <b>Login ID</b> :  " + dsRegistration.Tables[0].Rows[0]["LoginId"].ToString() + "<br/> <b>Passoword</b>  : " + Crypto.Decrypt(dsRegistration.Tables[0].Rows[0]["Password"].ToString());
+                    //if (model.Email != null)
+                    //{
+                    //    string mailbody = "";
+                    //    try
+                    //    {
+                    //        mailbody = "Dear  " + dsRegistration.Tables[0].Rows[0]["Name"].ToString() + ",You have been successfully registered as Om Prabha Infratech Customer.Given below are your login details .!<br/>  <b>Login ID</b> :  " + dsRegistration.Tables[0].Rows[0]["LoginId"].ToString() + "<br/> <b>Passoword</b>  : " + Crypto.Decrypt(dsRegistration.Tables[0].Rows[0]["Password"].ToString());
 
-                            //var fromAddress = new MailAddress("prakher.afluex@gmail.com");
-                            //var toAddress = new MailAddress(model.Email);
+                    //        //var fromAddress = new MailAddress("prakher.afluex@gmail.com");
+                    //        //var toAddress = new MailAddress(model.Email);
 
-                            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient
-                            {
-                                Host = "smtp.gmail.com",
-                                Port = 587,
-                                EnableSsl = true,
-                                DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network,
-                                UseDefaultCredentials = false,
-                                Credentials = new NetworkCredential("tejinfrazone@gmail.com", "awneesh1")
+                    //        System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient
+                    //        {
+                    //            Host = "smtp.gmail.com",
+                    //            Port = 587,
+                    //            EnableSsl = true,
+                    //            DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network,
+                    //            UseDefaultCredentials = false,
+                    //            Credentials = new NetworkCredential("tejinfrazone@gmail.com", "awneesh1")
 
-                            };
+                    //        };
 
-                            using (var message = new MailMessage("tejinfrazone@gmail.com", model.Email)
-                            {
-                                IsBodyHtml = true,
-                                Subject = "Customer Registration",
-                                Body = mailbody
-                            })
-                                smtp.Send(message);
-                            TempData["Message"] = "Registration Successfull !";
-                        }
-                        catch (Exception ex)
-                        {
+                    //        using (var message = new MailMessage("tejinfrazone@gmail.com", model.Email)
+                    //        {
+                    //            IsBodyHtml = true,
+                    //            Subject = "Customer Registration",
+                    //            Body = mailbody
+                    //        })
+                    //            smtp.Send(message);
+                    //        TempData["Message"] = "Registration Successfull !";
+                    //    }
+                    //    catch (Exception ex)
+                    //    {
 
-                        }
-                    }
+                    //    }
+                    //}
                 }
                 if (dsRegistration != null && dsRegistration.Tables.Count > 0)
                 {

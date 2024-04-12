@@ -37,7 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\DELL\AppData\Local\Temp\vsF5BF.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\DELL\AppData\Local\Temp\vs2946.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -46,7 +46,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\DELL\AppData\Local\Temp\vsF5BF.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\DELL\AppData\Local\Temp\vs2946.tmp\Release\</IntermediateOutputPath>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
@@ -256,6 +256,169 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminLevelTree.aspx" />
+    <Content Include="AssetsWeb\css\all.min.css" />
+    <Content Include="AssetsWeb\css\animate.min.css" />
+    <Content Include="AssetsWeb\css\bootstrap.min.css" />
+    <Content Include="AssetsWeb\css\flaticon\font\flaticon.css" />
+    <Content Include="AssetsWeb\css\flaticon\font\flaticon8134.svg" />
+    <Content Include="AssetsWeb\css\jquery-ui.css" />
+    <Content Include="AssetsWeb\css\magnific-popup.css" />
+    <Content Include="AssetsWeb\css\nice-select.css" />
+    <Content Include="AssetsWeb\css\pannellum.css" />
+    <Content Include="AssetsWeb\css\swiper-bundle.min.css" />
+    <Content Include="AssetsWeb\img\about.jpg" />
+    <Content Include="AssetsWeb\img\amenities\35-feet-Road.jpg" />
+    <Content Include="AssetsWeb\img\amenities\CCTV-Camera.jpg" />
+    <Content Include="AssetsWeb\img\amenities\Commercial-Complex..jpg" />
+    <Content Include="AssetsWeb\img\amenities\Gated-Colony.jpg" />
+    <Content Include="AssetsWeb\img\amenities\Gated-Colony01.jpg" />
+    <Content Include="AssetsWeb\img\amenities\Guest-Parking.jpg" />
+    <Content Include="AssetsWeb\img\amenities\Park-with-Jogging-Track.jpg" />
+    <Content Include="AssetsWeb\img\amenities\Security-guard.jpg" />
+    <Content Include="AssetsWeb\img\amenities\StreetLight.jpg" />
+    <Content Include="AssetsWeb\img\amenities\underground.png" />
+    <Content Include="AssetsWeb\img\banner\banner1.png" />
+    <Content Include="AssetsWeb\img\banner\banner2.jpg" />
+    <Content Include="AssetsWeb\img\banner\banner24.jpg" />
+    <Content Include="AssetsWeb\img\banner\banner2Mobile.jpeg" />
+    <Content Include="AssetsWeb\img\banner\banner2OLD.jpg" />
+    <Content Include="AssetsWeb\img\banner\banner3.png" />
+    <Content Include="AssetsWeb\img\banner\banner4.png" />
+    <Content Include="AssetsWeb\img\banner\banner5.png" />
+    <Content Include="AssetsWeb\img\banner\banner6.png" />
+    <Content Include="AssetsWeb\img\blog\A1.jpg" />
+    <Content Include="AssetsWeb\img\blog\A2.jpg" />
+    <Content Include="AssetsWeb\img\blog\A3.jpg" />
+    <Content Include="AssetsWeb\img\blog\about9.jpg" />
+    <Content Include="AssetsWeb\img\blog\contact1.jpg" />
+    <Content Include="AssetsWeb\img\favicon.png" />
+    <Content Include="AssetsWeb\img\figure\action1.jpg" />
+    <Content Include="AssetsWeb\img\figure\banner2.png" />
+    <Content Include="AssetsWeb\img\figure\banner3.png" />
+    <Content Include="AssetsWeb\img\figure\banner5.png" />
+    <Content Include="AssetsWeb\img\figure\banner6.png" />
+    <Content Include="AssetsWeb\img\figure\banner7.png" />
+    <Content Include="AssetsWeb\img\figure\counter-bg-2.png" />
+    <Content Include="AssetsWeb\img\figure\error1.png" />
+    <Content Include="AssetsWeb\img\figure\floor_plan.jpg" />
+    <Content Include="AssetsWeb\img\figure\home-calculator-1.png" />
+    <Content Include="AssetsWeb\img\figure\home-calculator-1.svg" />
+    <Content Include="AssetsWeb\img\figure\home_dollar-1-3.png" />
+    <Content Include="AssetsWeb\img\figure\home_dollar-1.svg" />
+    <Content Include="AssetsWeb\img\figure\listing-label.png" />
+    <Content Include="AssetsWeb\img\figure\quote-left.png" />
+    <Content Include="AssetsWeb\img\figure\quote-left2.png" />
+    <Content Include="AssetsWeb\img\figure\Secure-Payment-1.png" />
+    <Content Include="AssetsWeb\img\figure\Secure-Payment-1.svg" />
+    <Content Include="AssetsWeb\img\figure\shape10.svg" />
+    <Content Include="AssetsWeb\img\figure\shape11.svg" />
+    <Content Include="AssetsWeb\img\figure\shape12.svg" />
+    <Content Include="AssetsWeb\img\figure\shape13.png" />
+    <Content Include="AssetsWeb\img\figure\shape13.svg" />
+    <Content Include="AssetsWeb\img\figure\shape14.png" />
+    <Content Include="AssetsWeb\img\figure\shape14.svg" />
+    <Content Include="AssetsWeb\img\figure\shape15.png" />
+    <Content Include="AssetsWeb\img\figure\shape15.svg" />
+    <Content Include="AssetsWeb\img\figure\shape16.svg" />
+    <Content Include="AssetsWeb\img\figure\shape17.svg" />
+    <Content Include="AssetsWeb\img\figure\shape18.svg" />
+    <Content Include="AssetsWeb\img\figure\shape19.svg" />
+    <Content Include="AssetsWeb\img\figure\shape20.svg" />
+    <Content Include="AssetsWeb\img\figure\shape21.svg" />
+    <Content Include="AssetsWeb\img\figure\shape22.svg" />
+    <Content Include="AssetsWeb\img\figure\shape23.svg" />
+    <Content Include="AssetsWeb\img\figure\shape24.svg" />
+    <Content Include="AssetsWeb\img\figure\shape25.png" />
+    <Content Include="AssetsWeb\img\figure\shape25.svg" />
+    <Content Include="AssetsWeb\img\figure\shape26.png" />
+    <Content Include="AssetsWeb\img\figure\shape26.svg" />
+    <Content Include="AssetsWeb\img\figure\shape27.png" />
+    <Content Include="AssetsWeb\img\figure\shape28.png" />
+    <Content Include="AssetsWeb\img\figure\shape28.svg" />
+    <Content Include="AssetsWeb\img\figure\shape29.png" />
+    <Content Include="AssetsWeb\img\figure\shape29.svg" />
+    <Content Include="AssetsWeb\img\figure\shape3.png" />
+    <Content Include="AssetsWeb\img\figure\shape3.svg" />
+    <Content Include="AssetsWeb\img\figure\shape30.svg" />
+    <Content Include="AssetsWeb\img\figure\shape31.svg" />
+    <Content Include="AssetsWeb\img\figure\shape32.svg" />
+    <Content Include="AssetsWeb\img\figure\shape33.svg" />
+    <Content Include="AssetsWeb\img\figure\shape34.svg" />
+    <Content Include="AssetsWeb\img\figure\shape35.svg" />
+    <Content Include="AssetsWeb\img\figure\shape36.svg" />
+    <Content Include="AssetsWeb\img\figure\shape37.svg" />
+    <Content Include="AssetsWeb\img\figure\shape38.svg" />
+    <Content Include="AssetsWeb\img\figure\shape39.svg" />
+    <Content Include="AssetsWeb\img\figure\shape4.png" />
+    <Content Include="AssetsWeb\img\figure\shape4.svg" />
+    <Content Include="AssetsWeb\img\figure\shape5.png" />
+    <Content Include="AssetsWeb\img\figure\shape6.svg" />
+    <Content Include="AssetsWeb\img\figure\shape7.png" />
+    <Content Include="AssetsWeb\img\figure\shape7.svg" />
+    <Content Include="AssetsWeb\img\figure\shape8.png" />
+    <Content Include="AssetsWeb\img\figure\shape8.svg" />
+    <Content Include="AssetsWeb\img\figure\shape9.png" />
+    <Content Include="AssetsWeb\img\figure\shape9.svg" />
+    <Content Include="AssetsWeb\img\layout-logo.jpg" />
+    <Content Include="AssetsWeb\img\listing-label.png" />
+    <Content Include="AssetsWeb\img\listing-label.svg" />
+    <Content Include="AssetsWeb\img\logo-light.png" />
+    <Content Include="AssetsWeb\img\logo-lightOLD.png" />
+    <Content Include="AssetsWeb\img\logo.png" />
+    <Content Include="AssetsWeb\img\logoletter.png" />
+    <Content Include="AssetsWeb\img\preloader.png" />
+    <Content Include="AssetsWeb\img\property\0001.jpg" />
+    <Content Include="AssetsWeb\img\property\0002.jpg" />
+    <Content Include="AssetsWeb\img\property\0003.jpg" />
+    <Content Include="AssetsWeb\img\property\0004.jpg" />
+    <Content Include="AssetsWeb\img\property\001.jpg" />
+    <Content Include="AssetsWeb\img\property\002.jpg" />
+    <Content Include="AssetsWeb\img\property\01.jpg" />
+    <Content Include="AssetsWeb\img\property\02.jpg" />
+    <Content Include="AssetsWeb\img\property\03.jpg" />
+    <Content Include="AssetsWeb\img\property\04.jpg" />
+    <Content Include="AssetsWeb\img\property\05.jpg" />
+    <Content Include="AssetsWeb\img\property\06.jpg" />
+    <Content Include="AssetsWeb\img\team\team17.png" />
+    <Content Include="AssetsWeb\img\team\team18.png" />
+    <Content Include="AssetsWeb\img\team\team19.png" />
+    <Content Include="AssetsWeb\img\team\team20.png" />
+    <Content Include="AssetsWeb\img\villas\01.jpg" />
+    <Content Include="AssetsWeb\img\villas\02.jpg" />
+    <Content Include="AssetsWeb\img\villas\03.jpg" />
+    <Content Include="AssetsWeb\img\villas\04.jpg" />
+    <Content Include="AssetsWeb\img\villas\05.jpg" />
+    <Content Include="AssetsWeb\img\villas\06.jpg" />
+    <Content Include="AssetsWeb\img\villas\07.jpg" />
+    <Content Include="AssetsWeb\img\villas\08.jpg" />
+    <Content Include="AssetsWeb\js\appear.min.js" />
+    <Content Include="AssetsWeb\js\bootstrap.min.js" />
+    <Content Include="AssetsWeb\js\imagesloaded.pkgd.min.js" />
+    <Content Include="AssetsWeb\js\isotope.pkgd.min.js" />
+    <Content Include="AssetsWeb\js\jquery-3.6.0.min.js" />
+    <Content Include="AssetsWeb\js\jquery.appear.min.js" />
+    <Content Include="AssetsWeb\js\jquery.magnific-popup.min.js" />
+    <Content Include="AssetsWeb\js\jquery.nice-select.min.js" />
+    <Content Include="AssetsWeb\js\jquery.zoom.min.js" />
+    <Content Include="AssetsWeb\js\main.js" />
+    <Content Include="AssetsWeb\js\pannellum.js" />
+    <Content Include="AssetsWeb\js\parallaxie.js" />
+    <Content Include="AssetsWeb\js\popper.min.js" />
+    <Content Include="AssetsWeb\js\swiper-bundle.min.js" />
+    <Content Include="AssetsWeb\js\tween-max.js" />
+    <Content Include="AssetsWeb\js\validator.min.js" />
+    <Content Include="AssetsWeb\js\wow.min.js" />
+    <Content Include="AssetsWeb\style.css" />
+    <Content Include="AssetsWeb\vendor\noUiSlider\nouislider.min.css" />
+    <Content Include="AssetsWeb\vendor\noUiSlider\nouislider.min.js" />
+    <Content Include="AssetsWeb\vendor\noUiSlider\wNumb.js" />
+    <Content Include="AssetsWeb\vendor\owlcarousel\owl.carousel.min.css" />
+    <Content Include="AssetsWeb\vendor\owlcarousel\owl.carousel.min.js" />
+    <Content Include="AssetsWeb\vendor\owlcarousel\owl.theme.default.min.css" />
+    <Content Include="AssetsWeb\vendor\owlcarousel\owl.video.play.png" />
+    <Content Include="AssetsWeb\webfonts\fa-brands-400.svg" />
+    <Content Include="AssetsWeb\webfonts\fa-regular-400.svg" />
+    <Content Include="AssetsWeb\webfonts\fa-solid-900.svg" />
     <Content Include="AssociateCSS\assets\bundles\amcharts4\animated.js" />
     <Content Include="AssociateCSS\assets\bundles\amcharts4\charts.js" />
     <Content Include="AssociateCSS\assets\bundles\amcharts4\core.js" />
@@ -7659,6 +7822,20 @@
     <Content Include="AssociateCSS\assets\bundles\weather-icon\font\weathericons-regular-webfont.woff" />
     <Content Include="AssociateCSS\assets\bundles\weather-icon\font\weathericons-regular-webfont.woff2" />
     <Content Include="WebsiteCss\vendors.min.js" />
+    <Content Include="AssetsWeb\css\flaticon\font\flaticon8134.ttf" />
+    <Content Include="AssetsWeb\css\flaticon\font\flaticon8134.woff" />
+    <Content Include="AssetsWeb\css\flaticon\font\flaticon8134.woff2" />
+    <Content Include="AssetsWeb\webfonts\fa-brands-400.ttf" />
+    <Content Include="AssetsWeb\webfonts\fa-brands-400.woff" />
+    <Content Include="AssetsWeb\webfonts\fa-brands-400.woff2" />
+    <Content Include="AssetsWeb\webfonts\fa-regular-400.ttf" />
+    <Content Include="AssetsWeb\webfonts\fa-regular-400.woff" />
+    <Content Include="AssetsWeb\webfonts\fa-regular-400.woff2" />
+    <Content Include="AssetsWeb\webfonts\fa-solid-900.ttf" />
+    <Content Include="AssetsWeb\webfonts\fa-solid-900.woff" />
+    <Content Include="AssetsWeb\webfonts\fa-solid-900.woff2" />
+    <Content Include="AssetsWeb\webfonts\Quentin.woff" />
+    <Content Include="AssetsWeb\webfonts\Quentin.woff2" />
     <None Include="Properties\PublishProfiles\OmPrabha.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -7946,6 +8123,8 @@
     <Content Include="WebsiteCss\assets-old\fonts\slick.woff" />
     <Content Include="WebsiteCss\assets-old\fonts\slickd41d.eot" />
     <Content Include="Views\Admin\VisitorForm.cshtml" />
+    <Content Include="Views\Admin\VisitorList.cshtml" />
+    <Content Include="Views\Admin\PrintVisitor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
