@@ -1,31 +1,30 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Customer Dashboard</title>
+    <title>@ViewBag.Title</title>
     <!-- General CSS Files -->
-    <link href="~/AssociateCSS/assets/bundles/datatables/datatables.min.css" rel="stylesheet" />
-
-    <link href="~/AssociateCSS/assets/bundles/datatables/DataTables-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../AssociateCSS/assets/css/app.min.css">
     <!-- Template CSS -->
+    <link rel="stylesheet" href="../AssociateCSS/assets/bundles/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="../AssociateCSS/assets/bundles/jquery-selectric/selectric.css">
+    <link rel="stylesheet" href="../AssociateCSS/assets/bundles/datatables/datatables.min.css">
+    <link rel="stylesheet" href="../AssociateCSS/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../AssociateCSS/assets/css/style.css">
     <link rel="stylesheet" href="../AssociateCSS/assets/css/components.css">
     <link rel="stylesheet" href="../AssociateCSS/assets/bundles/jqvmap/dist/jqvmap.min.css">
+    @*<link href="http://localhost:23917/WebsiteCSS/select2/dist/css/select2.min.css" rel="stylesheet" />*@
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="../AssociateCSS/assets/css/custom.css">
     <link rel='shortcut icon' type='image/x-icon' href="~/AssetsWeb/img/layout-logo.jpg" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style>
-        .main-sidebar .sidebar-brand a {
-            text-decoration: none;
-            text-transform: uppercase;
-            /* letter-spacing: 3px; */
-            font-weight: 700;
-            font-size: 17px;
-            vertical-align: bottom;
-            color: #f80909;
+        .errortext {
+            border: 1px solid red !important;
+            background-color: #fff0f0 !important;
         }
     </style>
 </head>
@@ -60,9 +59,9 @@
                         <div class="dropdown-menu dropdown-menu-right pullDown">
                             <div class="dropdown-title">Hello -: @Session["LoginId"]</div>
                             @*<a href="/CustomerDashboard/EditProfile" class="dropdown-item has-icon">
-                                <i class="far
-										fa-user"></i> Profile
-                            </a>*@
+                                    <i class="far
+                                            fa-user"></i> Profile
+                                </a>*@
                             <div class="dropdown-divider"></div>
                             <a href="/website/index" class="dropdown-item has-icon text-danger">
                                 <i class="fas fa-sign-out-alt"></i>
@@ -76,14 +75,14 @@
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
                         <a href="~/CustomerDashboard/CustomerDashboard">
-                            <img class="header-logo" alt="@Session["FullName"]" src="~/AssetsWeb/img/layout-logo.jpg" title="@Session["FullName"]"/>
-                           
+                            <img class="header-logo" alt="@Session["FullName"]" src="~/AssetsWeb/img/layout-logo.jpg" title="@Session["FullName"]" />
+
                         </a>
                     </div>
                     <div class="sidebar-user">
                         <div class="sidebar-user-picture">
-                                <img alt="image" title="@Session["LoginId"]" src="@Session["ProfilePic"]">
-                            </div>
+                            <img alt="image" title="@Session["LoginId"]" src="@Session["ProfilePic"]">
+                        </div>
                         <div class="sidebar-user-details">
                             <div class="user-name">@Session["FullName"]</div>
                         </div>
@@ -142,23 +141,16 @@
             </footer>
         </div>
     </div>
-    <script src="~/AssociateCSS/assets/js/app.min.js"></script>
+
+
+
+    <!-- General JS Scripts -->
+    <script src="../AssociateCSS/assets/js/app.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- JS Libraies -->
-    <script src="~/AssociateCSS/assets/bundles/chartjs/chart.min.js"></script>
-    <script src="~/AssociateCSS/assets/bundles/jquery.sparkline.min.js"></script>
-    <script src="~/AssociateCSS/assets/bundles/apexcharts/apexcharts.min.js"></script>
-    <script src="~/AssociateCSS/assets/bundles/jqvmap/dist/jquery.vmap.min.js"></script>
-    <script src="~/AssociateCSS/assets/bundles/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-    <script src="~/AssociateCSS/assets/bundles/jqvmap/dist/maps/jquery.vmap.indonesia.js"></script>
-
     <!-- Page Specific JS File -->
-    <script src="~/AssociateCSS/assets/js/page/widget-chart.js"></script>
-    <!-- Template JS File -->
-    <script src="~/AssociateCSS/assets/js/scripts.js"></script>
-
-    <!-- Custom JS File -->
-    <script src="~/AssociateCSS/assets/js/custom.js"></script>
-    <!-- Page Specific JS File -->
+    <script src="../AssociateCSS/assets/bundles/select2/dist/js/select2.full.min.js"></script>
+    <script src="../AssociateCSS/assets/bundles/jquery-selectric/jquery.selectric.min.js"></script>
     <script src="../AssociateCSS/assets/bundles/datatables/datatables.min.js"></script>
     <script src="../AssociateCSS/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
     <script src="../AssociateCSS/assets/bundles/datatables/export-tables/dataTables.buttons.min.js"></script>
@@ -169,9 +161,11 @@
     <script src="../AssociateCSS/assets/bundles/datatables/export-tables/buttons.print.min.js"></script>
     <script src="../AssociateCSS/assets/js/page/datatables.js"></script>
     <!-- Template JS File -->
-    <script src="../AssociateCSS/assets/js/scripts.js"></script>
+    <script src="~/AssociateCSS/assets/js/scripts.js"></script>
+    <script src="~/AssociateCSS/assets/bundles/izitoast/js/iziToast.min.js"></script>
+    <script src="~/AssociateCSS/assets/bundles/sweetalert/sweetalert.min.js"></script>
     <!-- Custom JS File -->
-    <script src="../AssociateCSS/assets/js/custom.js"></script>
+    <script src="~/AssociateCSS/assets/js/custom.js"></script>
     <!-- General JS Scripts -->
     <!-- JS Libraies -->
     <script src="../AssociateCSS/assets/bundles/apexcharts/apexcharts.min.js"></script>
@@ -179,7 +173,20 @@
     <script src="../AssociateCSS/assets/bundles/jqvmap/dist/maps/jquery.vmap.world.js"></script>
     <!-- Page Specific JS File -->
     <script src="../AssociateCSS/assets/js/page/index.js"></script>
+    <!-- Template JS File -->
+    <script src="../AssociateCSS/assets/js/scripts.js"></script>
+    <!-- Custom JS File -->
+    <script src="../AssociateCSS/assets/js/custom.js"></script>
+
+    <!-- Page Specific JS File -->
+    <script src="../AssociateCSS/assets/js/page/chart-apexcharts.js"></script>
+    <!-- Template JS File -->
+    <script src="../AssociateCSS/assets/js/scripts.js"></script>
+
+    <!-- Custom JS File -->
+    @RenderSection("script", required: false)
 
 </body>
 
 </html>
+

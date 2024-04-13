@@ -37,7 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\DELL\AppData\Local\Temp\vs8F75.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\User\AppData\Local\Temp\vs92DD.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -46,7 +46,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\DELL\AppData\Local\Temp\vs8F75.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\User\AppData\Local\Temp\vs92DD.tmp\Release\</IntermediateOutputPath>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
@@ -286,6 +286,7 @@
     <Content Include="AssetsWeb\img\banner\banner4.png" />
     <Content Include="AssetsWeb\img\banner\banner5.png" />
     <Content Include="AssetsWeb\img\banner\banner6.png" />
+    <Content Include="AssetsWeb\img\banner\hero_banner.jpg" />
     <Content Include="AssetsWeb\img\blog\A1.jpg" />
     <Content Include="AssetsWeb\img\blog\A2.jpg" />
     <Content Include="AssetsWeb\img\blog\A3.jpg" />
