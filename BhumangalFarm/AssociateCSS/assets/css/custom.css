@@ -25,6 +25,11 @@
     z-index: 880;
     left: 0;
 }
+@media (max-width:768px){
+    .main-sidebar {
+             top: 70px!important;
+    }
+}
 .theme-white .navbar .nav-link .feather {
     color: #ffffff;
 }

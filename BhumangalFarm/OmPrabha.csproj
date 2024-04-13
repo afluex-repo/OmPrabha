@@ -286,6 +286,7 @@
     <Content Include="AssetsWeb\img\banner\banner4.png" />
     <Content Include="AssetsWeb\img\banner\banner5.png" />
     <Content Include="AssetsWeb\img\banner\banner6.png" />
+    <Content Include="AssetsWeb\img\banner\hero_banner.jpg" />
     <Content Include="AssetsWeb\img\blog\A1.jpg" />
     <Content Include="AssetsWeb\img\blog\A2.jpg" />
     <Content Include="AssetsWeb\img\blog\A3.jpg" />
