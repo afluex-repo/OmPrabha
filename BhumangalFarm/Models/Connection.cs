@@ -10,7 +10,7 @@ namespace OmPrabha.Models
 {
     public class Connection
     {
-        public static string connectionString = string.Empty;
+        public static string connectionString = string.Empty; 
 
         static Connection()
         {
