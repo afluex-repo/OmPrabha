@@ -37,7 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\User\AppData\Local\Temp\vs59C5.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\User\AppData\Local\Temp\vs92DD.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -46,7 +46,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\User\AppData\Local\Temp\vs59C5.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\User\AppData\Local\Temp\vs92DD.tmp\Release\</IntermediateOutputPath>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
@@ -8170,7 +8170,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>24415</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:24417/</IISUrl>
+          <IISUrl>http://localhost:24420/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
