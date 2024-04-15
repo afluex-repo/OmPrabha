@@ -6909,6 +6909,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\aadharback.jpg" />
     <Content Include="images\aadhar_new.png" />
     <Content Include="images\Afluex.png" />
     <Content Include="images\Customerlogo.png" />

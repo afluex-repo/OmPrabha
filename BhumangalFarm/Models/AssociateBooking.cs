@@ -12,6 +12,7 @@ namespace OmPrabha.Models
     {
         #region Properties
         
+        public string AdharBackSideImage { get; set; }
         public string Abbreviation { get; set; }
         public string Fk_SponsorId { get; set; }
         public string ActiveStatus { get; set; }
@@ -576,15 +577,16 @@ namespace OmPrabha.Models
 
         public DataSet UploadKYCDocuments()
         {
-            SqlParameter[] para = { new SqlParameter("@FK_UserID",UserID ) ,
+            SqlParameter[] para = {
+                                      new SqlParameter("@FK_UserID",UserID ),
                                       new SqlParameter("@AdharNumber", AdharNumber) ,
                                       new SqlParameter("@AdharImage", AdharImage) ,
+                                      new SqlParameter("@AdharBackSideImage",AdharBackSideImage),
                                       new SqlParameter("@PanNumber", PanNumber),
                                       new SqlParameter("@PanImage", PanImage) ,
                                       new SqlParameter("@DocumentNumber", DocumentNumber) ,
                                       new SqlParameter("@DocumentImage", DocumentImage),
-                                        new SqlParameter("@Action", ActionStatus),
-                                      
+                                      new SqlParameter("@ProfilePic", ProfilePic)
                                   };
             DataSet ds = Connection.ExecuteQuery("UploadKYC", para);
             return ds;

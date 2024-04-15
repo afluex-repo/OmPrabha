@@ -347,6 +347,7 @@ namespace OmPrabha.Controllers
             {
                 obj.AdharNumber = ds.Tables[0].Rows[0]["AdharNumber"].ToString();
                 obj.AdharImage = ds.Tables[0].Rows[0]["AdharImage"].ToString();
+                obj.AdharBackSideImage = ds.Tables[0].Rows[0]["AdharBackSideImage"].ToString();
                 obj.AdharStatus = "Status : " + ds.Tables[0].Rows[0]["AdharStatus"].ToString();
                 obj.PanNumber = ds.Tables[0].Rows[0]["PanNumber"].ToString();
                 obj.PanImage = ds.Tables[0].Rows[0]["PanImage"].ToString();
@@ -354,137 +355,55 @@ namespace OmPrabha.Controllers
                 obj.DocumentNumber = ds.Tables[0].Rows[0]["DocumentNumber"].ToString();
                 obj.DocumentImage = ds.Tables[0].Rows[0]["DocumentImage"].ToString();
                 obj.DocumentStatus = "Status : " + ds.Tables[0].Rows[0]["DocumentStatus"].ToString();
+                obj.ProfilePic = ds.Tables[0].Rows[0]["ProfilePic"].ToString();
             }
             return View(obj);
         }
 
         [HttpPost]
         [ActionName("KYCDocuments")]
-        [OnAction(ButtonName = "btnUpdateAdhar")]
+        [OnAction(ButtonName = "btnUpdate")]
         public ActionResult KYCDocuments(IEnumerable<HttpPostedFileBase> postedFile, AssociateBooking obj)
         {
             string FormName = "";
             string Controller = "";
-
+            int count = 0;
             try
             {
                 foreach (var file in postedFile)
                 {
                     if (file != null && file.ContentLength > 0)
                     {
-                        //E:\BitBucket\TejInfraZone\TejInfra\files\assets\images\
-
-                        obj.AdharImage = "/KYCDocuments/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
-                        file.SaveAs(Path.Combine(Server.MapPath(obj.AdharImage)));
-
+                        if (count == 0)
+                        {
+                            obj.AdharImage = "/KYCDocuments/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
+                            file.SaveAs(Path.Combine(Server.MapPath(obj.AdharImage)));
+                        }
+                        if (count == 1)
+                        {
+                            obj.AdharBackSideImage = "/KYCDocuments/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
+                            file.SaveAs(Path.Combine(Server.MapPath(obj.AdharBackSideImage)));
+                        }
+                        if (count == 2)
+                        {
+                            obj.PanImage = "/KYCDocuments/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
+                            file.SaveAs(Path.Combine(Server.MapPath(obj.PanImage)));
+                        }
+                        if (count == 3)
+                        {
+                            obj.DocumentImage = "/KYCDocuments/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
+                            file.SaveAs(Path.Combine(Server.MapPath(obj.DocumentImage)));
+                        }
+                        if (count == 4)
+                        {
+                            obj.ProfilePic = "/images/ProfilePicture/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
+                            file.SaveAs(Path.Combine(Server.MapPath(obj.ProfilePic)));
+                        }
                     }
-
+                    count++;
                 }
-
                 obj.UserID = Session["Pk_userId"].ToString();
-                obj.ActionStatus = "Adhar";
-                DataSet ds = obj.UploadKYCDocuments();
-                if (ds != null && ds.Tables.Count > 0)
-                {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
-                    {
-                        TempData["DocumentUpload"] = "Document uploaded successfully..";
-                        FormName = "KYCDocuments";
-                        Controller = "AssociateDashboard";
-                    }
-                    else
-                    {
-                        TempData["DocumentUpload"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                        FormName = "KYCDocuments";
-                        Controller = "AssociateDashboard";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                TempData["DocumentUpload"] = ex.Message;
-                FormName = "KYCDocuments";
-                Controller = "AssociateDashboard";
-            }
-            return RedirectToAction(FormName, Controller);
-        }
-        [HttpPost]
-        [ActionName("KYCDocuments")]
-        [OnAction(ButtonName = "btnUpdatePan")]
-        public ActionResult KYCDocuments2(IEnumerable<HttpPostedFileBase> postedFile, AssociateBooking obj)
-        {
-            string FormName = "";
-            string Controller = "";
 
-            try
-            {
-                foreach (var file in postedFile)
-                {
-                    if (file != null && file.ContentLength > 0)
-                    {
-                        //E:\BitBucket\TejInfraZone\TejInfra\files\assets\images\
-
-                        obj.PanImage = "/KYCDocuments/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
-                        file.SaveAs(Path.Combine(Server.MapPath(obj.PanImage)));
-
-
-                    }
-
-                }
-
-                obj.UserID = Session["Pk_userId"].ToString();
-                obj.ActionStatus = "Pan";
-                DataSet ds = obj.UploadKYCDocuments();
-                if (ds != null && ds.Tables.Count > 0)
-                {
-                    if (ds.Tables[0].Rows[0][0].ToString() == "1")
-                    {
-                        TempData["DocumentUpload"] = "Document uploaded successfully..";
-                        FormName = "KYCDocuments";
-                        Controller = "AssociateDashboard";
-                    }
-                    else
-                    {
-                        TempData["DocumentUpload"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                        FormName = "KYCDocuments";
-                        Controller = "AssociateDashboard";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                TempData["DocumentUpload"] = ex.Message;
-                FormName = "KYCDocuments";
-                Controller = "AssociateDashboard";
-            }
-            return RedirectToAction(FormName, Controller);
-        }
-        [HttpPost]
-        [ActionName("KYCDocuments")]
-        [OnAction(ButtonName = "btnUpdateDoc")]
-        public ActionResult KYCDocuments3(IEnumerable<HttpPostedFileBase> postedFile, AssociateBooking obj)
-        {
-            string FormName = "";
-            string Controller = "";
-
-            try
-            {
-                foreach (var file in postedFile)
-                {
-                    if (file != null && file.ContentLength > 0)
-                    {
-                        //E:\BitBucket\TejInfraZone\TejInfra\files\assets\images\
-
-                        obj.DocumentImage = "/KYCDocuments/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
-                        file.SaveAs(Path.Combine(Server.MapPath(obj.DocumentImage)));
-
-
-                    }
-
-                }
-
-                obj.UserID = Session["Pk_userId"].ToString();
-                obj.ActionStatus = "Doc";
                 DataSet ds = obj.UploadKYCDocuments();
                 if (ds != null && ds.Tables.Count > 0)
                 {
