@@ -112,7 +112,7 @@ h6 {
   box-shadow: none;
 }
 .form-group input {
-  height: 50px;
+  height: 43px;
 }
 .form-group:last-child {
   margin-bottom: 0;
@@ -7015,14 +7015,14 @@ body.slidemenuon .sidebarBtn .bar:nth-child(4) {
   outline: 0 !important;
 }
 .rld-single-select .single-select {
-  height: 60px;
-  line-height: 60px;
-  width: 100%;
-  padding: 0 120px 0 20px;
-  -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
-  position: relative;
-  border: none;
+      height: 41px;
+    line-height: 37px;
+    width: 100%;
+    padding: 0 120px 0 20px;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    position: relative;
+    border: 1px solid #d5cdcd;
 }
 @media only screen and (max-width: 1199px) {
   .rld-single-select .single-select {
@@ -7043,7 +7043,7 @@ body.slidemenuon .sidebarBtn .bar:nth-child(4) {
 .rld-single-select:after {
   content: "";
   height: 100%;
-  width: 1px;
+  /*width: 1px;*/
   background-color: #e8e8e8;
   position: absolute;
   border: none;
