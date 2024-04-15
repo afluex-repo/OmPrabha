@@ -37,7 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\MULTIL~1\AppData\Local\Temp\vsA7D0.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\MULTIL~1\AppData\Local\Temp\vsB2C.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -46,7 +46,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\MULTIL~1\AppData\Local\Temp\vsA7D0.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\MULTIL~1\AppData\Local\Temp\vsB2C.tmp\Release\</IntermediateOutputPath>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
@@ -6917,6 +6917,7 @@
     <Content Include="images\loader.gif" />
     <Content Include="images\login_crm.jpg" />
     <Content Include="images\logo.png" />
+    <Content Include="images\noimage.jpg" />
     <Content Include="images\pancard_new.png" />
     <Content Include="images\Printer.png" />
     <Content Include="images\process.gif" />
