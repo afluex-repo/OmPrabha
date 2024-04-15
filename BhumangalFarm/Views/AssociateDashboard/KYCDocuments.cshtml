@@ -84,7 +84,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 mb-3">
-                                    <label>Account Number <span style="color:red">*</span></label>
+                                    <label>Cancelled Cheque/Bank Passbook <span style="color:red">*</span></label>
                                     @Html.TextBoxFor(m => m.DocumentNumber, new { @class = "form-control", @required = "required", @disabled = "true" })
                                     @Html.ValidationMessageFor(m => m.DocumentNumber)
                                 </div>
@@ -98,7 +98,7 @@
                                     <label class="d-block text-dark">Profile Picture<span style="color:red">*</span></label>
                                     <input type="file" name="postedFile" required="required" disabled />
                                     <img src="@Url.Content(Model.ProfilePic)" height="120" width="120" /> <br />
-                                    @*<label class="text-success mt-2">@Html.DisplayFor(m => m.DocumentStatus)</label>*@
+                                    <label class="text-success mt-2">@Html.DisplayFor(m => m.DocumentStatus)</label>
                                 </div>
                                 @*<div class="col-lg-4 col-md-4 mb-3">
                                         <input type="submit" id="btnUpdate" class="btn btn-success" name="btnUpdate" value="Update" />
@@ -167,7 +167,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 mb-3">
-                                    <label>Document Number <span style="color:red">*</span></label>
+                                    <label>Cancelled Cheque/Bank Passbook <span style="color:red">*</span></label>
                                     @Html.TextBoxFor(m => m.DocumentNumber, new { @class = "form-control", @required = "required" })
                                     @Html.ValidationMessageFor(m => m.DocumentNumber)
                                 </div>
@@ -183,7 +183,7 @@
                                     <label class="d-block text-dark">Profile Picture<span style="color:red">*</span></label>
                                     <input type="file" name="postedFile" required="required" />
                                     <img src="@Url.Content(Model.ProfilePic)" height="120" width="120" /> <br />
-                                    @*<label class="text-success mt-2">@Html.DisplayFor(m => m.DocumentStatus)</label>*@
+                                    <label class="text-success mt-2">@Html.DisplayFor(m => m.ProfileStatus)</label>
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 mb-3">

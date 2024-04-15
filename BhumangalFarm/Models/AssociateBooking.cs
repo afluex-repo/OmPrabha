@@ -12,6 +12,7 @@ namespace OmPrabha.Models
     {
         #region Properties
         
+        public string ProfileStatus { get; set; }
         public string AdharBackSideImage { get; set; }
         public string Abbreviation { get; set; }
         public string Fk_SponsorId { get; set; }

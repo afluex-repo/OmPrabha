@@ -6917,6 +6917,7 @@
     <Content Include="images\loader.gif" />
     <Content Include="images\login_crm.jpg" />
     <Content Include="images\logo.png" />
+    <Content Include="images\noimage.jpg" />
     <Content Include="images\pancard_new.png" />
     <Content Include="images\Printer.png" />
     <Content Include="images\process.gif" />
