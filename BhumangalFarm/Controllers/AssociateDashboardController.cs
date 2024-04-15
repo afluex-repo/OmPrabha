@@ -356,6 +356,7 @@ namespace OmPrabha.Controllers
                 obj.DocumentImage = ds.Tables[0].Rows[0]["DocumentImage"].ToString();
                 obj.DocumentStatus = "Status : " + ds.Tables[0].Rows[0]["DocumentStatus"].ToString();
                 obj.ProfilePic = ds.Tables[0].Rows[0]["ProfilePic"].ToString();
+                obj.ProfileStatus = "Status : " + ds.Tables[0].Rows[0]["ProfileStatus"].ToString();
             }
             return View(obj);
         }
@@ -396,7 +397,7 @@ namespace OmPrabha.Controllers
                         }
                         if (count == 4)
                         {
-                            obj.ProfilePic = "/images/ProfilePicture/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
+                            obj.ProfilePic = "/KYCDocuments/" + Guid.NewGuid() + Path.GetExtension(file.FileName);
                             file.SaveAs(Path.Combine(Server.MapPath(obj.ProfilePic)));
                         }
                     }
