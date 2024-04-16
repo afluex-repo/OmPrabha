@@ -35,7 +35,7 @@
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 mb-3">
                                     <label>Adhar Number <span style="color:red">*</span></label>
-                                    @Html.TextBoxFor(m => m.AdharNumber, new { @class = "form-control", @required = "required", @disabled = "true" })
+                                    @Html.TextBoxFor(m => m.AdharNumber, new { @class = "form-control",@minlength="12",@maxlength="12", @required = "required", @disabled = "true" })
                                     @Html.ValidationMessageFor(m => m.AdharNumber)
                                 </div>
                                 <div class="col-lg-4 col-md-4 mb-3">
@@ -50,7 +50,7 @@
                                     <input type="file" name="postedFile" required="required" disabled />
                                     <br />
                                     <img src="@Url.Content(Model.AdharBackSideImage)" height="120" width="180" /><br />
-                                    <label class="text-success mt-2">@Html.DisplayFor(m => m.AdharStatus)</label>
+                                    <label class="text-success mt-2">@Html.DisplayFor(m => m.AdharBackSideStatus)</label>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 mb-3">
                                     <label>Adhar Number <span style="color:red">*</span></label>
-                                    @Html.TextBoxFor(m => m.AdharNumber, new { @class = "form-control", @required = "required" })
+                                    @Html.TextBoxFor(m => m.AdharNumber, new { @class = "form-control", @minlength = "12", @maxlength = "12", @required = "required" })
                                     @Html.ValidationMessageFor(m => m.AdharNumber)
                                 </div>
                                 <div class="col-lg-4 col-md-4 mb-3">
@@ -133,7 +133,7 @@
                                     <input type="file" name="postedFile" required="required" />
                                     <br />
                                     <img src="@Url.Content(Model.AdharBackSideImage)" height="120" width="180" /><br />
-                                    <label class="text-success mt-2">@Html.DisplayFor(m => m.AdharStatus)</label>
+                                    <label class="text-success mt-2">@Html.DisplayFor(m => m.AdharBackSideStatus)</label>
                                 </div>
                             </div>
                         </div>
@@ -168,7 +168,7 @@
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 mb-3">
                                     <label>Cancelled Cheque/Bank Passbook <span style="color:red">*</span></label>
-                                    @Html.TextBoxFor(m => m.DocumentNumber, new { @class = "form-control", @required = "required" })
+                                    @Html.TextBoxFor(m => m.DocumentNumber, new { @class = "form-control", @required = "required"})
                                     @Html.ValidationMessageFor(m => m.DocumentNumber)
                                 </div>
                                 

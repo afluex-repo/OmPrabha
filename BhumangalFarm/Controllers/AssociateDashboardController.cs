@@ -349,6 +349,7 @@ namespace OmPrabha.Controllers
                 obj.AdharImage = ds.Tables[0].Rows[0]["AdharImage"].ToString();
                 obj.AdharBackSideImage = ds.Tables[0].Rows[0]["AdharBackSideImage"].ToString();
                 obj.AdharStatus = "Status : " + ds.Tables[0].Rows[0]["AdharStatus"].ToString();
+                obj.AdharBackSideStatus = "Status : " + ds.Tables[0].Rows[0]["AdharBackSideStatus"].ToString();
                 obj.PanNumber = ds.Tables[0].Rows[0]["PanNumber"].ToString();
                 obj.PanImage = ds.Tables[0].Rows[0]["PanImage"].ToString();
                 obj.PanStatus = "Status : " + ds.Tables[0].Rows[0]["PanStatus"].ToString();
