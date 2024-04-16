@@ -53,7 +53,7 @@
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown"
                            class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                            <img alt="image" src="~/AssociatePanelcss/assets/img/icon.png"
+                            <img alt="image" src="@Session["ProfilePicture"]"
                                  class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right pullDown">
@@ -80,7 +80,7 @@
                     </div>
                     <div class="sidebar-user">
                         <div class="sidebar-user-picture">
-                            <img alt="image" src="~/AssociatePanelcss/assets/img/icon.png" title="@Session["FullName"]" class="header-logo" />
+                            <img alt="image" src="@Session["ProfilePicture"]" title="@Session["FullName"]" class="header-logo" />
                             </div>
                         <div class="sidebar-user-details">
                             <div class="user-name">@Session["FullName"]</div>
