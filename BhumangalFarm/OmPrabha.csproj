@@ -37,7 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\MUTILE~1\AppData\Local\Temp\vsBC5.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\MUTILE~1\AppData\Local\Temp\vs57C0.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -46,7 +46,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\MUTILE~1\AppData\Local\Temp\vsBC5.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\MUTILE~1\AppData\Local\Temp\vs57C0.tmp\Release\</IntermediateOutputPath>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
@@ -6917,6 +6917,7 @@
     <Content Include="images\loader.gif" />
     <Content Include="images\login_crm.jpg" />
     <Content Include="images\logo.png" />
+    <Content Include="images\noimage.jpg" />
     <Content Include="images\pancard_new.png" />
     <Content Include="images\Printer.png" />
     <Content Include="images\process.gif" />
@@ -6944,6 +6945,7 @@
     <Content Include="images\TreeIcon\men-inactive.png" />
     <Content Include="images\user.png" />
     <Content Include="images\XwHw.gif" />
+    <Content Include="KYCDocuments\4e142cfc-39d3-4d88-a3c6-10ba86750044.png" />
     <Content Include="LevelTree.aspx" />
     <Content Include="Models\WebService\AgentServices.asmx" />
     <Content Include="Views\Master\UpdatePlotStatus.cshtml" />
@@ -8129,7 +8131,6 @@
     <Folder Include="AssociateCSS\assets\bundles\codemirror\bin\" />
     <Folder Include="FarmerPhotoandIdproof\" />
     <Folder Include="files\assets\pages\ace-editor\build\aui\" />
-    <Folder Include="KYCDocuments\" />
     <Folder Include="NewFolder1\" />
     <Folder Include="PlotHouseDocument\" />
     <Folder Include="Views\AdminDashboard\" />

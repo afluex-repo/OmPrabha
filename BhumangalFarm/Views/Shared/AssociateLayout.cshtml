@@ -53,7 +53,7 @@
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown"
                            class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                            <img alt="image" src="~/AssociatePanelcss/assets/img/icon.png"
+                            <img alt="image" src="@Session["ProfilePicture"]"
                                  class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right pullDown">
@@ -80,7 +80,7 @@
                     </div>
                     <div class="sidebar-user">
                         <div class="sidebar-user-picture">
-                            <img alt="image" src="~/AssociatePanelcss/assets/img/icon.png" title="@Session["FullName"]" class="header-logo" />
+                            <img alt="image" src="@Session["ProfilePicture"]" title="@Session["FullName"]" class="header-logo" />
                             </div>
                         <div class="sidebar-user-details">
                             <div class="user-name">@Session["FullName"]</div>
@@ -153,7 +153,7 @@
                                 @*<li><a class="nav-link" href="/UserReports/TopupList">Business Summary</a></li>*@
                                 @*<li><a class="nav-link" href="/UserReports/PayReport">EMI Report</a></li>*@
                                 <li><a class="nav-link" href="/AssociateDashboard/CustomerLedgerReport">Plot Ledger</a></li>
-                                <li><a class="nav-link" href="/AssociateDashboard/ReturnBenefitReport">Return Benefit Report</a></li>
+                                @*<li><a class="nav-link" href="/AssociateDashboard/ReturnBenefitReport">Return Benefit Report</a></li>*@
                                 @*<li><a class="nav-link" href="/AssociateDashboard/AssociateUplineDetail">Associate Upline</a></li>
                     <li><a class="nav-link" href="/AssociateDashboard/AssociateDownlineDetail">Associate Downline</a></li>*@
                                 @*<li><a class="nav-link" href="/AssociateDashboard/UnpaidIncome">Unpaid Income</a></li>*@

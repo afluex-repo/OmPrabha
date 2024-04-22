@@ -451,6 +451,7 @@ namespace OmPrabha.Controllers
                             Session["CssClass"] = ds.Tables[0].Rows[0]["StatusColor"].ToString();
                             Session["DesignationName"] = ds.Tables[0].Rows[0]["DesignationName"].ToString();
                             Session["Percentage"] = ds.Tables[0].Rows[0]["Percentage"].ToString();
+                            Session["ProfilePicture"] = ds.Tables[0].Rows[0]["ProfilePicture"].ToString();
                             FormName = "AssociateDashBoard";
                             Controller = "AssociateDashboard";
                         }
