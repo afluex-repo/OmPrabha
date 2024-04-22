@@ -37,7 +37,7 @@ namespace OmPrabha.Controllers
         }
         [HttpPost]
         [ActionName("ContactUs")]
-        [OnAction(ButtonName = "btnsave")]
+        [OnAction(ButtonName = "btnsendmessage")]
         public ActionResult ContactUs(Website model)
         {
             try
