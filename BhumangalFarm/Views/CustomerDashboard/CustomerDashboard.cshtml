@@ -103,7 +103,7 @@
                         <h4>Monthly Bookings</h4>
                     </div>
                     <div class="card-block text-center">
-                        <div id="divinvestment"></div>
+                        <div id="schart1"></div>
                     </div>
                 </div>
             </div>
@@ -203,45 +203,126 @@
 
 </script>
 <script type="text/javascript">
-   google.charts.load("current", { packages: ["imagebarchart"] });
-   google.charts.setOnLoadCallback(drawChart);
+    /// Start Monthly Booking Chart
+    google.charts.load("current", { packages: ["imagebarchart"] });
+    google.charts.setOnLoadCallback(smallchart1);
 
-   function drawChart() {
-       $.ajax({
-           type: 'POST',
-           dataType: 'json',
-           contentType: 'application/json',
-           url: '/CustomerDashboard/GetPlotBookingOnGraph',
-           data: JSON.stringify(),
-           success:
-           function (response) {
-               var datare = response;
-               var data = new google.visualization.DataTable();
+    function smallchart1() {
 
-               data.addColumn('string', 'Month');
-               data.addColumn('number', 'TotalBooking');
-               for (var i = 0; i < datare.length; i++) {
-                   data.addRow([datare[i].Month, parseInt(datare[i].TotalBooking)]);
-               }
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            url: '/CustomerDashboard/GetPlotBookingOnGraph',
+            data: JSON.stringify(),
+            success:
+            function (d) {
+                var Month = [];
+                var Total = [];
+                var t = JSON.parse(JSON.stringify(d));
+                for (var i = 0; i < t.length; i++) {
+                    Month.push(t[i].Month);
+                    Total.push(parseInt(t[i].TotalBooking));
+                }
 
-               var chart = new google.visualization.ImageBarChart(document.getElementById('divinvestment'));
-               var options = {
-                   pieSliceText: 'value-and-percentage',
-                   format: 'decimal',
-                   is3D: true,
-                   legend: { position: 'bottom' },
-                   animation: {
-                       startup: true,
-                       duration: 1000,
-                       easing: 'out',
-                   }, chartArea: { width: "100%", height: "80%" }
-               };
-               chart.draw(data, options);
-           },
-           error: function () {
-           }
-       });
-   }
+                var options = {
+                    series: [
+                      {
+                          name: "Total Booking",
+                          data: Total,
+                      },
+                    ],
+                    chart: {
+                        type: "bar",
+                        height: 230,
+                        dropShadow: {
+                            enabled: true,
+                            opacity: 0.3,
+                            blur: 2,
+                            left: -5,
+                            top: 5,
+                        },
+                        toolbar: {
+                            show: false,
+                        },
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            columnWidth: "10%",
+                            endingShape: "rounded",
+                        },
+                    },
+                    dataLabels: {
+                        enabled: false,
+                    },
+                    stroke: {
+                        show: true,
+                        width: 0,
+                        colors: ["transparent"],
+                    },
+                    xaxis: {
+                        categories: Month,
+                        labels: {
+                            offsetX: 0,
+                            offsetY: 0,
+                            style: {
+                                fontSize: "12px",
+                                fontFamily: "Segoe UI",
+                                cssClass: "apexcharts-xaxis-title",
+                            },
+                        },
+                    },
+                    yaxis: {
+                        //title: {
+                        //    text: "$ (thousands)",
+                        //},
+                        labels: {
+                            offsetX: 0,
+                            offsetY: 0,
+                            style: {
+                                fontSize: "12px",
+                                fontFamily: "Segoe UI",
+                                cssClass: "apexcharts-yaxis-title",
+                            },
+                        },
+                    },
+                    fill: {
+                        type: "gradient",
+                        gradient: {
+                            shade: "light",
+                            type: "verticle",
+                            shadeIntensity: 0.25,
+                            gradientToColors: undefined,
+                            inverseColors: false,
+                            opacityFrom: 0.85,
+                            opacityTo: 0.85,
+                            stops: [0, 90, 100],
+                        },
+                    },
+                    tooltip: {
+                        theme: "dark",
+                        marker: {
+                            show: true,
+                        },
+                        x: {
+                            show: true,
+                        },
+                        y: {
+                            formatter: function (val) {
+                                return val + " Booked";
+
+                            },
+                        },
+                    },
+                };
+                var chart = new ApexCharts(document.querySelector("#schart1"), options);
+                chart.render();
+            }
+        })
+    }
+
+    /// END Monthly Booking Chart
 
 </script>
 <script>
