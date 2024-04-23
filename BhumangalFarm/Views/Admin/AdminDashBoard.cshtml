@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 col-lg-3 col-xl-4">
+                <div class="col-md-12 col-lg-3 col-xl-3">
                     <div class="card">
                         <div class="card-header">
                             <h6 class="card-title mb-0">
@@ -82,7 +82,7 @@
                     </div>
 
                 </div>
-                <div class="col-md-12 col-lg-3 col-xl-4">
+                <div class="col-md-12 col-lg-3 col-xl-3">
                     <!-- Recent Buyers -->
                     <div class="card">
                         <div class="card-header">
@@ -99,16 +99,16 @@
 
                     </div>
                 </div>
-                <div class="col-md-12 col-lg-3 col-xl-4">
+                <div class="col-md-12 col-lg-3 col-xl-6">
                     <div class="card">
                         <div class="card-header">
                             <h6 class="mb-0 mt-0 display-flex justify-content-between">
                                 Associate Joining Details<i class="material-icons float-right"></i>
                             </h6>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" style="padding-bottom:0px; padding-top:0px;">
                             <div class="current-balance-container">
-                                <div id="divinvestment"></div>
+                                <div id="schart1"></div>
                             </div>
                         </div>
                     </div>
@@ -344,10 +344,12 @@
 
 <script type="text/javascript">
 
+    /// Start Joining Details graph
     google.charts.load("current", { packages: ["imagebarchart"] });
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(smallchart1);
 
-    function drawChart() {
+    function smallchart1() {
+
         $.ajax({
             type: 'POST',
             dataType: 'json',
@@ -355,35 +357,109 @@
             url: '/Admin/GetAssociateJoiningDetails',
             data: JSON.stringify(),
             success:
-            function (response) {
-                var datare = response;
-                var data = new google.visualization.DataTable();
-
-                data.addColumn('string', 'Month');
-                data.addColumn('number', 'TotalUser');
-                for (var i = 0; i < datare.length; i++) {
-                    data.addRow([datare[i].Month, parseInt(datare[i].TotalUser)]);
+            function (d) {
+                var Month = [];
+                var Total = [];
+                var t = JSON.parse(JSON.stringify(d));
+                for (var i = 0; i < t.length; i++) {
+                    Month.push(t[i].Month);
+                    Total.push(parseInt(t[i].TotalUser));
                 }
 
-                var chart = new google.visualization.ImageBarChart(document.getElementById('divinvestment'));
                 var options = {
-                    pieSliceText: 'value-and-percentage',
-                    format: 'decimal',
-                    is3D: true,
-                    legend: { position: 'bottom' },
-                    maintainAspectRatio: false,
-                    responsive:true,
-                    animation: {
-                        startup: true,
-                        duration: 1000,
-                        easing: 'out',
-                    }, chartArea: { width: "100%", height: "100%" }
+                    series: [
+                      {
+                          name: "Total Joining",
+                          data: Total,
+                      },
+                    ],
+                    chart: {
+                        type: "bar",
+                        height: 230,
+                        dropShadow: {
+                            enabled: true,
+                            opacity: 0.3,
+                            blur: 2,
+                            left: -5,
+                            top: 5,
+                        },
+                        toolbar: {
+                            show: false,
+                        },
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            columnWidth: "10%",
+                            endingShape: "rounded",
+                        },
+                    },
+                    dataLabels: {
+                        enabled: false,
+                    },
+                    stroke: {
+                        show: true,
+                        width: 0,
+                        colors: ["transparent"],
+                    },
+                    xaxis: {
+                        categories: Month,
+                        labels: {
+                            offsetX: 0,
+                            offsetY: 0,
+                            style: {
+                                fontSize: "12px",
+                                fontFamily: "Segoe UI",
+                                cssClass: "apexcharts-xaxis-title",
+                            },
+                        },
+                    },
+                    yaxis: {
+                        //title: {
+                        //    text: "$ (thousands)",
+                        //},
+                        labels: {
+                            offsetX: 0,
+                            offsetY: 0,
+                            style: {
+                                fontSize: "12px",
+                                fontFamily: "Segoe UI",
+                                cssClass: "apexcharts-yaxis-title",
+                            },
+                        },
+                    },
+                    fill: {
+                        type: "gradient",
+                        gradient: {
+                            shade: "light",
+                            type: "verticle",
+                            shadeIntensity: 0.25,
+                            gradientToColors: undefined,
+                            inverseColors: false,
+                            opacityFrom: 0.85,
+                            opacityTo: 0.85,
+                            stops: [0, 90, 100],
+                        },
+                    },
+                    tooltip: {
+                        theme: "dark",
+                        marker: {
+                            show: true,
+                        },
+                        x: {
+                            show: true,
+                        },
+                        y: {
+                            formatter: function (val) {
+                                //return "Total: " + val + " Joined";
+                                return val + " Joined";
+                            },
+                        },
+                    },
                 };
-                chart.draw(data, options);
-            },
-            error: function () {
+                var chart = new ApexCharts(document.querySelector("#schart1"), options);
+                chart.render();
             }
-        });
+        })
     }
-
 </script>
