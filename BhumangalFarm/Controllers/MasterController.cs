@@ -1541,7 +1541,6 @@ namespace OmPrabha.Controllers
 
         #endregion
 
-
         #region PlotMaster
         public ActionResult GetSiteDetailsForPlotBooking(string SiteID)
         {
@@ -1711,7 +1710,6 @@ namespace OmPrabha.Controllers
         }
 
         //Site Rate, Sectors & PLC Charge List of the selected Site
-
         public ActionResult GetBlockList(string SiteID, string SectorID)
         {
             List<SelectListItem> lstBlock = new List<SelectListItem>();
@@ -1736,7 +1734,6 @@ namespace OmPrabha.Controllers
 
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-
         #endregion
 
         #region PlotMaster-List-Update-Delete
@@ -2091,7 +2088,6 @@ namespace OmPrabha.Controllers
 
         #endregion
 
-
         public ActionResult GetMenuDetails(string URL)
         {
             try
@@ -2127,8 +2123,6 @@ namespace OmPrabha.Controllers
                 throw ex;
             }
         }
-
-
         public ActionResult PincodeMaster(string Id)
 
         {
@@ -2176,7 +2170,6 @@ namespace OmPrabha.Controllers
             }
             ViewBag.ddlstate = ddlstate;
 
-
             DataSet ds = model.GetPinCode();
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
@@ -2196,7 +2189,6 @@ namespace OmPrabha.Controllers
             }
             return View(model);
         }
-
         [HttpPost]
         public ActionResult PincodeMaster(Master model)
         {
@@ -2249,8 +2241,6 @@ namespace OmPrabha.Controllers
             }
             return RedirectToAction("PincodeMaster", "Master");
         }
-
-
         public ActionResult DeletePincode(string Id)
         {
             Master model = new Master();
@@ -2281,8 +2271,6 @@ namespace OmPrabha.Controllers
             }
             return RedirectToAction("PincodeMaster", "Master");
         }
-
-
         public ActionResult CheckPincode(string PincodeNo)
         {
             try
@@ -2332,9 +2320,6 @@ namespace OmPrabha.Controllers
             }
             return View(model);
         }
-
-
-
         [HttpPost]
         [ActionName("PlanMaster")]
         [OnAction(ButtonName = "btnSave")]
