@@ -1762,14 +1762,8 @@ namespace OmPrabha.Controllers
         public ActionResult TreeView()
         {
             return View();
-        }
-
-
-       
-        /////////////////////////////////////////////////////////////////////////////////////
-      
-
-
+        }      
+        /////////////////////////////////////////////////////////////////////////////////////    
         public ActionResult GetStateCity(string Pincode)
         {
             try
@@ -1798,8 +1792,6 @@ namespace OmPrabha.Controllers
                 return View(ex.Message);
             }
         }
-
-
         public ActionResult GetSponsorName(string SponsorID)
         {
             try
@@ -1851,7 +1843,6 @@ namespace OmPrabha.Controllers
                 return View(ex.Message);
             }
         }
-
         public ActionResult GetSponsorForCustomerRegistraton(string SponsorID)
         {
             try
@@ -1880,9 +1871,7 @@ namespace OmPrabha.Controllers
             {
                 return View(ex.Message);
             }
-        }
-        
-
+        }      
         public ActionResult GetUserList()
         {
             Reports obj = new Reports();
@@ -1900,10 +1889,7 @@ namespace OmPrabha.Controllers
                 }
             }
             return Json(lst, JsonRequestBehavior.AllowGet);
-        }
-
-        
-
+        }     
         public ActionResult GetSponsorNameFOrCustomer(string SponsorID)
         {
             try
@@ -1933,12 +1919,6 @@ namespace OmPrabha.Controllers
                 return View(ex.Message);
             }
         }
-
-
-
-
-
-
         public ActionResult GetSponsorNames(string SponsorID)
         {
             try
@@ -1990,18 +1970,7 @@ namespace OmPrabha.Controllers
                 return View(ex.Message);
             }
         }
-
-
-
-
-
-
-
-
         /////////////////////////////////////////////////////////////////////////////////////
-
-
-
         public ActionResult AssociateRegistration()
         {
 
@@ -2064,10 +2033,7 @@ namespace OmPrabha.Controllers
                 throw ex;
             }
             return View(obj);
-
-        }
-
-        
+        }       
         [HttpPost]
         [ActionName("AssociateRegistration")]
         [OnAction(ButtonName = "btnRegistration")]
@@ -2178,13 +2144,10 @@ namespace OmPrabha.Controllers
 
             return RedirectToAction(FormName, Controller);
         }
-
         public ActionResult ConfirmRegistrationForAssociate()
         {
             return View();
         }
-
-
         public ActionResult CustomerRegistration(string UserID)
         {
             List<SelectListItem> ddlAbbreviation = Common.Abbreviation();
@@ -2192,8 +2155,7 @@ namespace OmPrabha.Controllers
             AssociateBooking obj = new AssociateBooking();
             obj.SponsorID = Session["LoginId"].ToString();
             obj.SponsorName = Session["FullName"].ToString();
-            obj.UserID = Session["Pk_userId"].ToString();
-            
+            obj.UserID = Session["Pk_userId"].ToString();           
             try
             {
                 #region ddlBranch
@@ -2224,11 +2186,7 @@ namespace OmPrabha.Controllers
 
                 throw ex;
             }
-
         }
-
-
-
         [HttpPost]
         [ActionName("CustomerRegistration")]
         [OnAction(ButtonName = "btnRegistration")]
@@ -2251,10 +2209,8 @@ namespace OmPrabha.Controllers
                         try
                         {
                             mailbody = "Dear  " + dsRegistration.Tables[0].Rows[0]["Name"].ToString() + ",You have been successfully registered as RealEstateDemo Customer.Given below are your login details .!<br/>  <b>Login ID</b> :  " + dsRegistration.Tables[0].Rows[0]["LoginId"].ToString() + "<br/> <b>Passoword</b>  : " + Crypto.Decrypt(dsRegistration.Tables[0].Rows[0]["Password"].ToString());
-
                             //var fromAddress = new MailAddress("prakher.afluex@gmail.com");
                             //var toAddress = new MailAddress(model.Email);
-
                             System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient
                             {
                                 Host = "smtp.gmail.com",
@@ -2263,7 +2219,6 @@ namespace OmPrabha.Controllers
                                 DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network,
                                 UseDefaultCredentials = false,
                                 Credentials = new NetworkCredential("tejinfrazone@gmail.com", "awneesh1")
-
                             };
 
                             using (var message = new MailMessage("tejinfrazone@gmail.com", model.Email)
@@ -2301,7 +2256,6 @@ namespace OmPrabha.Controllers
                             BLSMS.SendSMS(mob, str, tempid);
                         }
                         catch { }
-
                     }
                     else
                     {
@@ -2318,14 +2272,10 @@ namespace OmPrabha.Controllers
 
             return RedirectToAction(FormName, Controller);
         }
-
-
         public ActionResult ConfirmRegistrationForCustomer()
         {
             return View();
         }
-
-
         public ActionResult DirectIncome(AssociateBooking model)
         {
             model.UserID = Session["LoginId"].ToString();
@@ -2350,9 +2300,6 @@ namespace OmPrabha.Controllers
             }
             return View(model);
         }
-
-
-
         public ActionResult DifferentialIncome(AssociateBooking model)
         {
             model.UserID = Session["LoginId"].ToString();
@@ -2377,9 +2324,6 @@ namespace OmPrabha.Controllers
             }
             return View(model);
         }
-
-
-
         public ActionResult DirectLeadershipIncome(AssociateBooking model)
         {
             model.UserID = Session["LoginId"].ToString();

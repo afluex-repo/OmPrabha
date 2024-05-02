@@ -430,11 +430,11 @@ namespace OmPrabha.Controllers
                     if (ds.Tables[0].Rows[0][0].ToString() == "0")
                     {
                         TempData["Login"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
-                        //FormName = "Login";
-                        //Controller = "Home";
+                        FormName = "Login";
+                        Controller = "Home";
                         
-                        FormName = "index";
-                        Controller = "website";
+                        //FormName = "index";
+                        //Controller = "website";
                         
                     }
                     else if ((ds.Tables[0].Rows[0]["UserType"].ToString() == "Trad Associate"))
@@ -450,16 +450,17 @@ namespace OmPrabha.Controllers
                             Session["CssClass"] = ds.Tables[0].Rows[0]["StatusColor"].ToString();
                             Session["DesignationName"] = ds.Tables[0].Rows[0]["DesignationName"].ToString();
                             Session["Percentage"] = ds.Tables[0].Rows[0]["Percentage"].ToString();
+                            Session["ProfilePicture"] = ds.Tables[0].Rows[0]["ProfilePicture"].ToString();
                             FormName = "AssociateDashBoard";
                             Controller = "AssociateDashboard";
                         }
                         else
                         {
-                             TempData["Login"] = "Incorrect Password";
-                            //FormName = "Login";
-                            //Controller = "Home";
-                            FormName = "index";
-                            Controller = "website";
+                             TempData["Login"] = "Incorrect LoginID Or Password!!";
+                            FormName = "Login";
+                            Controller = "Home";
+                            //FormName = "index";
+                            //Controller = "website";
                         }
                     }
                     else if ((ds.Tables[0].Rows[0]["UserType"].ToString() == "MLM Associate"))
@@ -478,12 +479,12 @@ namespace OmPrabha.Controllers
                         }
                         else
                         {
-                            TempData["Login"] = "Incorrect Password";
+                            TempData["Login"] = "Incorrect LoginID Or Password!!";
                             
-                            //FormName = "Login";
-                            //Controller = "Home";
-                            FormName = "index";
-                            Controller = "website";
+                            FormName = "Login";
+                            Controller = "Home";
+                            //FormName = "index";
+                            //Controller = "website";
                         }
                     }
                     else if ((ds.Tables[0].Rows[0]["UserType"].ToString() == "Customer"))
@@ -502,11 +503,11 @@ namespace OmPrabha.Controllers
                         }
                         else
                         {
-                            TempData["Login"] = "Incorrect Password";
-                            //FormName = "Login";
-                            //Controller = "Home";
-                            FormName = "index";
-                            Controller = "website";
+                            TempData["Login"] = "Incorrect LoginID Or Password!!";
+                            FormName = "Login";
+                            Controller = "Home";
+                            //FormName = "index";
+                            //Controller = "website";
                         }
                     }
                     else if (ds.Tables[0].Rows[0]["UserType"].ToString() == "Admin")
@@ -543,12 +544,12 @@ namespace OmPrabha.Controllers
      
                 else
                 {
-                   TempData["Login"] = "Incorrect Login Id Or Password";
+                   TempData["Login"] = "Incorrect LoginID Or Password!!";
                     
-                    //FormName = "Login";
-                    //Controller = "Home";
-                    FormName = "index";
-                    Controller = "website";
+                    FormName = "Login";
+                    Controller = "Home";
+                    //FormName = "index";
+                    //Controller = "website";
 
                 }
             }
@@ -556,10 +557,10 @@ namespace OmPrabha.Controllers
             {
                 TempData["Login"] = ex.Message;
 
-                //FormName = "Login";
-                //Controller = "Home";
-                FormName = "index";
-                Controller = "website";
+                FormName = "Login";
+                Controller = "Home";
+                //FormName = "index";
+                //Controller = "website";
             }
 
             return RedirectToAction(FormName, Controller);

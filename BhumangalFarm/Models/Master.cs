@@ -12,6 +12,7 @@ namespace OmPrabha.Models
     {
         #region Properties
       
+        public string CreatedDate { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }
         public string Mobile { get; set; }
@@ -91,10 +92,12 @@ namespace OmPrabha.Models
         #region PLCMaster
         public DataSet SavePLC()
         {
-            SqlParameter[] para = { new SqlParameter("@PLCName", PLCName),
-                                  new SqlParameter("@AddedBy", AddedBy) };
-            DataSet ds = Connection.ExecuteQuery("SavePLC", para);
-            return ds;
+            SqlParameter[] para = {
+                new SqlParameter("@PLCName", PLCName),
+                new SqlParameter("@AddedBy", AddedBy)
+            };
+                DataSet ds = Connection.ExecuteQuery("SavePLC", para);
+                return ds;
         }
 
         public DataSet PLCList()

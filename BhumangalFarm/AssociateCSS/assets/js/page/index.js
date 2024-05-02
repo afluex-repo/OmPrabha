@@ -3,7 +3,7 @@
 $(function () {
   chart1();
   chart2();
-  smallchart1();
+  //smallchart1();
   smallchart2();
   smallchart3();
   vectormap();
@@ -244,101 +244,101 @@ function chart2() {
   chart.render();
 }
 
-function smallchart1() {
-  var options = {
-    series: [
-      {
-        name: "Net Profit",
-        data: [36, 65, 45, 36, 61, 58],
-      },
-    ],
-    chart: {
-      type: "bar",
-      height: 300,
-      dropShadow: {
-        enabled: true,
-        opacity: 0.3,
-        blur: 2,
-        left: -10,
-        top: 22,
-      },
-      toolbar: {
-        show: false,
-      },
-    },
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        columnWidth: "20%",
-        endingShape: "rounded",
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      show: true,
-      width: 2,
-      colors: ["transparent"],
-    },
-    xaxis: {
-      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-      labels: {
-        offsetX: 0,
-        offsetY: 0,
-        style: {
-          fontSize: "12px",
-          fontFamily: "Segoe UI",
-          cssClass: "apexcharts-xaxis-title",
-        },
-      },
-    },
-    yaxis: {
-      title: {
-        text: "$ (thousands)",
-      },
-      labels: {
-        offsetX: 0,
-        offsetY: 0,
-        style: {
-          fontSize: "12px",
-          fontFamily: "Segoe UI",
-          cssClass: "apexcharts-yaxis-title",
-        },
-      },
-    },
-    fill: {
-      type: "gradient",
-      gradient: {
-        shade: "light",
-        type: "verticle",
-        shadeIntensity: 0.25,
-        gradientToColors: undefined,
-        inverseColors: false,
-        opacityFrom: 0.85,
-        opacityTo: 0.85,
-        stops: [0, 90, 100],
-      },
-    },
-    tooltip: {
-      theme: "dark",
-      marker: {
-        show: true,
-      },
-      x: {
-        show: true,
-      },
-      y: {
-        formatter: function (val) {
-          return "$ " + val + " thousands";
-        },
-      },
-    },
-  };
+//function smallchart1() {
+//  var options = {
+//    series: [
+//      {
+//        name: "Net Profit",
+//        data: [36, 65, 45, 36, 61, 58],
+//      },
+//    ],
+//    chart: {
+//      type: "bar",
+//      height: 300,
+//      dropShadow: {
+//        enabled: true,
+//        opacity: 0.3,
+//        blur: 2,
+//        left: -10,
+//        top: 22,
+//      },
+//      toolbar: {
+//        show: false,
+//      },
+//    },
+//    plotOptions: {
+//      bar: {
+//        horizontal: false,
+//        columnWidth: "20%",
+//        endingShape: "rounded",
+//      },
+//    },
+//    dataLabels: {
+//      enabled: false,
+//    },
+//    stroke: {
+//      show: true,
+//      width: 2,
+//      colors: ["transparent"],
+//    },
+//    xaxis: {
+//      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+//      labels: {
+//        offsetX: 0,
+//        offsetY: 0,
+//        style: {
+//          fontSize: "12px",
+//          fontFamily: "Segoe UI",
+//          cssClass: "apexcharts-xaxis-title",
+//        },
+//      },
+//    },
+//    yaxis: {
+//      title: {
+//        text: "$ (thousands)",
+//      },
+//      labels: {
+//        offsetX: 0,
+//        offsetY: 0,
+//        style: {
+//          fontSize: "12px",
+//          fontFamily: "Segoe UI",
+//          cssClass: "apexcharts-yaxis-title",
+//        },
+//      },
+//    },
+//    fill: {
+//      type: "gradient",
+//      gradient: {
+//        shade: "light",
+//        type: "verticle",
+//        shadeIntensity: 0.25,
+//        gradientToColors: undefined,
+//        inverseColors: false,
+//        opacityFrom: 0.85,
+//        opacityTo: 0.85,
+//        stops: [0, 90, 100],
+//      },
+//    },
+//    tooltip: {
+//      theme: "dark",
+//      marker: {
+//        show: true,
+//      },
+//      x: {
+//        show: true,
+//      },
+//      y: {
+//        formatter: function (val) {
+//          return "$ " + val + " thousands";
+//        },
+//      },
+//    },
+//  };
 
-  var chart = new ApexCharts(document.querySelector("#schart1"), options);
-  chart.render();
-}
+//  var chart = new ApexCharts(document.querySelector("#schart1"), options);
+//  chart.render();
+//}
 
 function smallchart2() {
   var options = {
