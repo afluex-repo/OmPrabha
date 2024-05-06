@@ -204,6 +204,7 @@ namespace OmPrabha.Controllers
             model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
             model.LoginId = Session["LoginID"].ToString();
             model.Downline = model.IsDownline == true ? "1" : "0";
+            model.Direct = model.IsDirect == true ? "1" : "0";
             // model.IsDownline = Request["Chk_"].ToString(); 
             DataSet ds11 = model.BusinessReport();
 

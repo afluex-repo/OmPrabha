@@ -24,7 +24,9 @@ namespace OmPrabha.Models
         public string PLCAmount { get; set; }
         public string AllotmentRemark { get; set; }
         public bool IsDownline { get; set; }
+        public bool IsDirect { get; set; }
         public string Downline { get; set; }
+        public string Direct { get; set; }
         public DataTable dtVisitorDetails { get; set; }
         public List<Plot> lstVistor { get; set; }
         public string PK_VisitorId { get; set; }
@@ -822,7 +824,8 @@ namespace OmPrabha.Models
                                  new SqlParameter("@PK_SectorID",SectorID),
                                  new SqlParameter("@PK_BlockID",BlockID),
                                  new SqlParameter("@AssociateName",AssociateName),
-                                 new SqlParameter("@IsDownline",Downline)
+                                 new SqlParameter("@IsDownline",Downline),
+                                 new SqlParameter("@IsDirect",Direct)
                             };
 
             DataSet ds = Connection.ExecuteQuery("GetDetailsForSummaryReport", para);
@@ -1011,6 +1014,7 @@ namespace OmPrabha.Models
             {
                 new SqlParameter("AssociateId",AssociateLoginID),
                 new SqlParameter("@IsDownline",Downline),
+                new SqlParameter("@IsDirect",Direct),
                 new SqlParameter("@FromDate",FromDate),
                 new SqlParameter("@ToDate",ToDate)
             };

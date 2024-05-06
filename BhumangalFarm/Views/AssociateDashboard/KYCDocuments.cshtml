@@ -12,14 +12,13 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
-                            <h6 class="mb-0">Upload KYC Documents</h6>
+                            <h6 class="mb-0">Upload KYC Documents  <span style="color:red;">( Size should be less than 5MB and upload only JPEG,PNG files. ) </span></h6>
                             <span style="color: red">
                                 @TempData["DocumentUpload"]
                             </span>
                             @*<button class="btn btn-info"><a href="#!" class="text-white">Add New News</a></button>*@
                         </div>
                         <p style="color: red;display: block; margin-bottom:0px; text-align:center">
-
                         </p>
                     </div>
                 </div>
@@ -79,7 +78,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-md-12 col-lg-12">
+                <div class="col-12 col-md-12 col-lg-12"> 
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
@@ -170,22 +169,19 @@
                                     <label>Cancelled Cheque/Bank Passbook <span style="color:red">*</span></label>
                                     @Html.TextBoxFor(m => m.DocumentNumber, new { @class = "form-control", @required = "required"})
                                     @Html.ValidationMessageFor(m => m.DocumentNumber)
-                                </div>
-                                
+                                </div>                               
                                 <div class="col-lg-4 col-md-4 mb-3">
                                     <label class="d-block text-dark">Document Image <span style="color:red">*</span></label>
                                     <input type="file" name="postedFile" required="required" />
                                     <img src="@Url.Content(Model.DocumentImage)" height="120" width="180" /> <br />
                                     <label class="text-success mt-2">@Html.DisplayFor(m => m.DocumentStatus)</label>
                                 </div>
-
                                 <div class="col-lg-4 col-md-4 mb-3">
                                     <label class="d-block text-dark">Profile Picture<span style="color:red">*</span></label>
                                     <input type="file" name="postedFile" required="required" />
                                     <img src="@Url.Content(Model.ProfilePic)" height="120" width="120" /> <br />
                                     <label class="text-success mt-2">@Html.DisplayFor(m => m.ProfileStatus)</label>
                                 </div>
-
                                 <div class="col-lg-6 col-md-6 mb-3">
                                     <input type="submit" id="btnUpdate" class="btn btn-success" name="btnUpdate" value="Update" onclick="return validateform()"/>
                                 </div>
@@ -197,7 +193,6 @@
         }
     </section>
 }
-
 <script>
     function isNumberOrDecimal(evt) {
         var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -207,8 +202,6 @@
 
         return true;
     }
-
-
     function validateform() {
         $(".errortext").removeClass("errortext");
 
@@ -229,10 +222,7 @@
         }
         return true;
     }
-
 </script>
-
-
 <style>
     .errortext {
         border: 1px solid red !important;

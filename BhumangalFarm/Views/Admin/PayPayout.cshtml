@@ -42,6 +42,10 @@
                             IsDownline
                             @Html.CheckBoxFor(m => m.IsDownline)
                         </div>
+                        <div class="col-lg-2">
+                            IsDirect
+                            @Html.CheckBoxFor(m => m.IsDirect)
+                        </div>
                         @*<div class="col-lg-2" id="divLeg" style="display: none">
                             Leg
                             @Html.DropDownListFor(m => m.Leg, new SelectList(ViewBag.ddlLeg, "Value", "Text"), new { @class = "form-control" })
