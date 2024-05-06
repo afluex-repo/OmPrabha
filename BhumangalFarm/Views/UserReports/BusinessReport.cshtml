@@ -40,11 +40,15 @@
                         Leg
                         @Html.DropDownListFor(m => m.Leg, new SelectList(ViewBag.Leg, "Value", "Text"), new { @class = "form-control" })
                     </div>*@
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         IsDownline
                         @Html.CheckBoxFor(m => m.IsDownline)
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
+                        IsDirect
+                        @Html.CheckBoxFor(m => m.IsDirect)
+                    </div>
+                    <div class="col-md-2">
                         <br />
                         <input type="submit" class="btn btn-info" value="Get Details" name="GetDetails" />
                     </div>

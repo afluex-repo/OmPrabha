@@ -38,11 +38,18 @@
                             @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "To Date", @readonly = true })
                             <span class="form-bar"></span>
                         </div>
-                        <div class="col-sm-3 mb-3">
+                        <div class="col-sm-2 mb-3">
                             <div class="form-group mt-2">
                                 <label class="d-block">  &nbsp;</label>
                                 <label>  Is DownLine</label>
                                 @Html.CheckBoxFor(m => m.IsDownline)
+                            </div>
+                        </div>
+                        <div class="col-sm-1 mb-3">
+                            <div class="form-group mt-2">
+                                <label class="d-block">  &nbsp;</label>
+                                <label>  Is Direct</label>
+                                @Html.CheckBoxFor(m => m.IsDirect)
                             </div>
                         </div>
                         <div class="col-sm-3 mb-3">
