@@ -37,7 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\MUTILE~1\AppData\Local\Temp\vs4F11.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\DELL\AppData\Local\Temp\vs6FA7.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -46,7 +46,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\MUTILE~1\AppData\Local\Temp\vs4F11.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\DELL\AppData\Local\Temp\vs6FA7.tmp\Release\</IntermediateOutputPath>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
