@@ -41,9 +41,15 @@ namespace OmPrabha.Models
         public List<AssociateBooking> lstdistribute { get; set; }
         public List<Wallet> lstPayoutDetail { get; set; }
 
-   
+        public string TopUpDate { get; set; }
+        public string Description { get; set; }
+        public string PaymentMode { get; set; }
+        public string DDChequeNo { get; set; }
+        public string DDChequeDate { get; set; }
+        public string BankName { get; set; }
+        public string BankBranch { get; set; }
+        public string Name { get; set; }
 
-        
         public string Package { get; set; }
         #region PaidPayout
         public DataSet GetPaidPayout()
@@ -116,6 +122,46 @@ namespace OmPrabha.Models
             return ds;
         }
 
-      
+        public DataSet GetPackage()
+        {
+            DataSet ds = Connection.ExecuteQuery("GetPackage");
+            return ds;
+        }
+
+        public DataSet TopUpIdByAdmin()
+        {
+            SqlParameter[] para = { new SqlParameter("@LoginId", LoginId),
+                                    new SqlParameter("@AddedBy", AddedBy),
+                                    new SqlParameter("@Fk_ProductId", Package),
+                                    new SqlParameter("@TopupDate", TopUpDate),
+                                    new SqlParameter("@Amount", Amount),
+                                    new SqlParameter("@PaymentMode", PaymentMode) ,
+                                    new SqlParameter("@DDChequeNo", DDChequeNo) ,
+                                    new SqlParameter("@DDChequeDate", DDChequeDate) ,
+                                    new SqlParameter("@BankBranch", BankBranch) ,
+                                    new SqlParameter("@BankName", BankName),
+                                    new SqlParameter("@Description", Description)
+                                 };
+            DataSet ds = Connection.ExecuteQuery("TopUpByAdmin", para);
+            return ds;
+        }
+
+        public DataSet GetUserName()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@LoginId",LoginId)
+            };
+            DataSet ds = Connection.ExecuteQuery("GetUserName", para);
+            return ds;
+        }
+        public DataSet BindPriceByProduct()
+        {
+            SqlParameter[] para = {
+                                        new SqlParameter("@Fk_PackageId", Package)
+                                  };
+            DataSet ds = Connection.ExecuteQuery("GetProductAmount", para);
+            return ds;
+        }
     }
 }

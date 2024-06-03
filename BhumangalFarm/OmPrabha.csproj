@@ -37,7 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\MUTILE~1\AppData\Local\Temp\vsED4D.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\MULTIL~1\AppData\Local\Temp\vsBA07.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -46,7 +46,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\MUTILE~1\AppData\Local\Temp\vsED4D.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\MULTIL~1\AppData\Local\Temp\vsBA07.tmp\Release\</IntermediateOutputPath>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
@@ -178,6 +178,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\sessionVars.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\AdminBaseController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdminReportsController.cs" />
@@ -8127,6 +8128,9 @@
     <Content Include="Views\Admin\VisitorForm.cshtml" />
     <Content Include="Views\Admin\VisitorList.cshtml" />
     <Content Include="Views\Admin\PrintVisitor.cshtml" />
+    <Content Include="Views\Accounts\TopUp.cshtml" />
+    <Content Include="Views\AdminReports\TopupReport.cshtml" />
+    <Content Include="Views\AssociateDashboard\AssociateTopupReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

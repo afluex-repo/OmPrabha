@@ -816,19 +816,19 @@ namespace OmPrabha.Controllers
         //        else { obj.Result = "No"; }
         //        return Json(obj, JsonRequestBehavior.AllowGet);
         //    }
-        //    public ActionResult FillAmount(string ProductId)
-        //    {
-        //        Wallet obj = new Wallet();
-        //        obj.Package = ProductId;
-        //        DataSet ds = obj.BindPriceByProduct();
-        //        if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
-        //        {
-        //            obj.Amount = ds.Tables[0].Rows[0]["ProductPrice"].ToString();
-        //        }
-        //        else { }
-        //        return Json(obj, JsonRequestBehavior.AllowGet);
+        public ActionResult FillAmount(string ProductId)
+        {
+            Wallet obj = new Wallet();
+            obj.Package = ProductId;
+            DataSet ds = obj.BindPriceByProduct();
+            if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
+            {
+                obj.Amount = ds.Tables[0].Rows[0]["ProductPrice"].ToString();
+            }
+            else { }
+            return Json(obj, JsonRequestBehavior.AllowGet);
 
-        //    }
+        }
         //    public ActionResult UsedPins()
         //    {
         //        Wallet objewallet = new Wallet();

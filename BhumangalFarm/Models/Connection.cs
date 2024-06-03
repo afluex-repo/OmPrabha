@@ -18,6 +18,10 @@ namespace OmPrabha.Models
             {
                 connectionString = "Data Source=101.53.150.222,1440;Initial Catalog=OmPrabhaDB; User Id=sa; Password=Fx1479LVAPbF; Integrated Security=false;";
 
+                //connectionString = "Data Source=101.53.150.222,1440;Initial Catalog=OmPrabhaDBTest_1June2024; User Id=sa; Password=Fx1479LVAPbF; Integrated Security=false;";
+
+
+
 
                 //connectionString = "Data Source=103.48.51.111,1232;Initial Catalog= OmPrabhaDB; User Id=sa; Password=hytr895#$!^poi(254;Integrated Security=false;";
 
