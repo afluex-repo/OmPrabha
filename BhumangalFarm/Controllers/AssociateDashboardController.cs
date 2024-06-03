@@ -2348,5 +2348,107 @@ namespace OmPrabha.Controllers
             }
             return View(model);
         }
+
+
+        public ActionResult AssociateTopupReport(AssociateBooking model)
+        {
+            List<AssociateBooking> list = new List<AssociateBooking>();
+            model.LoginId = Session["LoginId"].ToString();
+            DataSet ds = model.GetTopupreport();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    AssociateBooking obj = new AssociateBooking();
+                    obj.LoginId = r["LoginId"].ToString();
+                    obj.Name = r["Name"].ToString();
+                    obj.UpgradtionDate = r["UpgradtionDate"].ToString();
+                    obj.Package = r["Package"].ToString();
+                    obj.Amount = r["Amount"].ToString();
+                    obj.BV = r["BV"].ToString();
+                    obj.TopupBy = r["TopupBy"].ToString();
+                    obj.Pk_InvestmentId = r["Pk_InvestmentId"].ToString();
+                    obj.Status = r["Status"].ToString();
+                    list.Add(obj);
+                }
+                model.TopupList = list;
+            }
+
+            #region BindddlPackageName
+
+            List<SelectListItem> ddlPackageName = new List<SelectListItem>();
+            ddlPackageName.Add(new SelectListItem { Text = "Select Package", Value = "0" });
+            DataSet ds1 = model.GetPackage();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    ddlPackageName.Add(new SelectListItem { Text = r["ProductName"].ToString(), Value = r["PK_ProductID"].ToString() });
+                }
+            }
+
+            ViewBag.ddlPackageName = ddlPackageName;
+
+            #endregion BindddlPackageName
+            return View(model);
+        }
+
+        [HttpPost]
+        [OnAction(ButtonName = "GetDetails")]
+        [ActionName("AssociateTopupReport")]
+        public ActionResult GetAssociateTopupReport(AssociateBooking model)
+        {
+            #region BindddlPackageName
+
+            AssociateBooking mod = new AssociateBooking();
+            List<SelectListItem> ddlPackageName = new List<SelectListItem>();
+            ddlPackageName.Add(new SelectListItem { Text = "Select Package", Value = "0" });
+            DataSet ds1 = mod.GetPackage();
+            if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds1.Tables[0].Rows)
+                {
+                    ddlPackageName.Add(new SelectListItem { Text = r["ProductName"].ToString(), Value = r["PK_ProductID"].ToString() });
+                }
+            }
+
+            ViewBag.ddlPackageName = ddlPackageName;
+
+            #endregion BindddlPackageName
+
+            List<AssociateBooking> list = new List<AssociateBooking>();
+            model.LoginId = model.LoginId;
+            if (model.Fk_PackageId == "0")
+            {
+                model.Package = null;
+            }
+            else
+            {
+                model.Package = model.Fk_PackageId;
+            }
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+            model.UserID = Session["LoginId"].ToString();
+            DataSet ds = model.GetTopupreport();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    AssociateBooking obj = new AssociateBooking();
+                    obj.LoginId = r["LoginId"].ToString();
+                    obj.Name = r["Name"].ToString();
+                    obj.UpgradtionDate = r["UpgradtionDate"].ToString();
+                    obj.Package = r["Package"].ToString();
+                    obj.Amount = r["Amount"].ToString();
+                    obj.BV = r["BV"].ToString();
+                    obj.TopupBy = r["TopupBy"].ToString();
+                    obj.Pk_InvestmentId = r["Pk_InvestmentId"].ToString();
+                    obj.Status = r["Status"].ToString();
+                    list.Add(obj);
+                }
+                model.TopupList = list;
+            }
+            return View(model);
+        }
     }
 }

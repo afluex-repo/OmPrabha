@@ -1,0 +1,341 @@
+﻿@model OmPrabha.Models.Wallet
+
+@{
+    ViewBag.Title = "TopUp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("TopUp", "Accounts", FormMethod.Post, new { @id = "form1" }))
+{
+    <div id="divload" class="loader"></div>
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">TopUp</li>
+            <li class="breadcrumb-item">TopUp</li>
+        </ul>
+    </section>
+
+
+    <div class="section-body">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>TopUp</h4>
+                    <p style="color: red">
+                        @TempData["Topup"]
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="input-field col m3 s12">
+                            Login Id <span style="color: red">*</span>
+                           @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Login Id", @onchange = "getmembername(this);" })
+                            <span id="txtname" style="color:red"></span>
+                         </div>
+
+                        <div class="input-field col m3 s12">
+                            Package <span style="color: red">*</span>
+                            @Html.DropDownListFor(m => m.Package, new SelectList(ViewBag.ddlPackageName, "Value", "Text"), new { @class = "form-control form-select", @onchange = "FillAmount();" })
+                        </div>
+
+                        <div class="input-field  col m3 s12">
+                            Amount <span style="color: red">*</span>
+                            @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @placeholder = "Topup Amount", @onkeypress = "return isNumberKey(event);", @readonly = "readonly" })
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="input-field col m3 s12">
+                            Topup Date <span style="color: red">*</span>
+                            @Html.TextBoxFor(m => m.TopUpDate, new { @class = "form-control", @Placeholder = "TopUp Date", @readonly = "readonly" })
+                        </div>
+
+                        <div class="input-field col m3 s12">
+                            Description
+                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @Placeholder = "Description" })
+                        </div>
+
+                        <div class="input-field col m3 s12">
+                            Payment Mode<span style="color: red">*</span>
+                          @Html.DropDownListFor(m => m.PaymentMode, new SelectList(ViewBag.ddlpaymentmode, "Value", "Text"), new { @class = "form-control  form-select", @data_size = "7", @data_style = "select-with-transition", @onchange = "getpaymentdetails();" })
+                        @Html.ValidationMessageFor(m => m.PaymentMode)
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col m3 s12" id="chequeno" style="display: none">
+                           Transaction No<span style="color: red">*</span>
+                            @Html.TextBoxFor(m => m.DDChequeNo, new { @class = "form-control", @placeholder = "Transaction No" })
+                        </div>
+
+                        <div class="input-field col m3 s12" id="chequdate" style="display: none">
+                            Transaction Date <span style="color: red">*</span>
+                            @Html.TextBoxFor(m => m.DDChequeDate, new { @class = "form-control", @placeholder = "Transaction Date" })
+                        </div>
+
+                        <div class="input-field col m3 s12" id="bankname" style="display: none">
+                            Bank Name<span style="color: red">*</span>
+                            @Html.TextBoxFor(m => m.BankName, new { @class = "form-control", @placeholder = "Bank Name" })
+                        </div>
+
+                        <div class="input-field col m3 s12" id="bankbranch" style="display: none">
+                            Branch<span style="color: red">*</span>
+                            @Html.TextBoxFor(m => m.BankBranch, new { @class = "form-control", @placeholder = "Bank Branch" })
+                        </div>
+                    </div>
+
+
+                    <br />
+
+                    <div class="form-group row">
+                        <div class="input-field col m6 s12">
+                            <label class="form-label d-block">&nbsp;</label>
+                            <input type="submit" id="btnsave" name="btnsave" class="btn btn-success px-3" onclick="return validateform()" value="Top Up" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+        var cityuse = [];
+        $("#loader").css({ 'display': '' });
+        $.ajax({
+            url: '/Plot/GetUserList',
+            type: 'Post',
+            success: function (response) {
+                if (response != null) {
+                    $(response).each(function (index, item) {
+                        cityuse.push(item.UserName + "(" + item.LoginIDD + ")");
+                    });
+                    debugger
+                    $('#SponsorID').autocomplete({
+                        source: cityuse,
+                        select: function (event, ui) {
+                            var str = ui.item.label;
+                            var strsplit = str.split("(");
+                            $('#UserID').val(strsplit[1].substr(0, strsplit[1].length - 1));
+                            getSponsorName();
+                        }
+                    })
+                }
+            }, error: function () {
+                alert('Some Thing wrong!');
+                $("#loader").css({ 'display': 'none' });
+            }
+        });
+    });
+
+
+    $('#TopUpDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true
+    });
+    $('#DDChequeDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true
+    });
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+
+
+
+    function getpaymentdetails() {
+        debugger;
+        var paymentmode = ($("#PaymentMode option:selected").text());
+        if (paymentmode == "Cash") {
+            bankname.style.display = "none";
+            chequeno.style.display = "none";
+            chequdate.style.display = "none";
+            bankbranch.style.display = "none";
+        }
+        else if (paymentmode == "UPI") {
+            bankname.style.display = "none";
+            chequdate.style.display = "block";
+            bankbranch.style.display = "none";
+            chequeno.style.display = "block";
+        }
+        else {
+            bankname.style.display = "block";
+            chequeno.style.display = "block";
+            chequdate.style.display = "block";
+            bankbranch.style.display = "block";
+        }
+    }
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#LoginId').val() == '') {
+            $("#LoginId").addClass('errortext');
+            $('#LoginId').focus();
+            return false;
+        }
+        if ($('#Package').val() == '0') {
+            $("#Package").addClass('errortext');
+            $('#Package').focus();
+            return false;
+        }
+
+        if ($('#Package').val() == "4") {
+            if ($('#PlotNumber').val() == '') {
+                $("#PlotNumber").addClass('errortext');
+                $('#PlotNumber').focus();
+                return false;
+            }
+        }
+
+        if ($('#Amount').val() == '') {
+            $("#Amount").addClass('errortext');
+            $('#Amount').focus();
+            return false;
+        }
+        if ($('#TopUpDate').val() == '') {
+            $("#TopUpDate").addClass('errortext');
+            $('#TopUpDate').focus();
+            return false;
+        }
+        if (($("#PaymentMode option:selected").text()) != 'Cash' && ($("#PaymentMode option:selected").text()) != 'UPI') {
+            if ($('#BankName').val() == '') {
+                $("#BankName").addClass('errortext');
+                $('#BankName').focus();
+                return false;
+            }
+            if ($('#DDChequeNo').val() == '') {
+                $("#DDChequeNo").addClass('errortext');
+                $('#DDChequeNo').focus();
+                return false;
+            }
+            if ($('#DDChequeDate').val() == '') {
+                $("#DDChequeDate").addClass('errortext');
+                $('#DDChequeDate').focus();
+                return false;
+            }
+            if ($('#BankBranch').val() == '') {
+                $("#BankBranch").addClass('errortext');
+                $('#BankBranch').focus();
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    function isNumberKey(evt) {
+
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function getmembername() {
+        debugger;
+        var LoginId = $('#LoginId').val();
+        $.ajax({
+            url: '/Accounts/GetMemberName',
+            type: "GET",
+            dataType: "JSON",
+            data: { LoginId: LoginId },
+            success: function (data) {
+                debugger;
+                if (data.Result == "Yes") {
+                    $('#txtname').html(data.Name);
+
+                    divname.style.display = "block";
+                } else {
+                    alert("Invalid Login ID");
+                    $("#LoginId").addClass('errortext');
+                    $('#txtname').html("");
+                    $('#LoginId').val("");
+                    $('#LoginId').focus();
+                }
+            }
+        });
+    }
+
+
+
+    $(document).ready(function () {
+        $('#Amount').change(function () {
+            event.preventDefault(); 
+            var amount = parseFloat($('#Amount').val());
+            if (!isNaN(amount) && amount >= 1000) {
+              
+            } else {
+                alert('Amount should be greater than 1000.');
+                $("#Amount").addClass('errortext');
+                $('#Amount').val("");
+                $('#Amount').focus();
+                return false;
+            }
+        });
+    });
+
+    function FillAmount() {
+        //$("#Fk_CityId").empty();
+        debugger;
+        var Productid = $('#Package').val();
+        //if (Productid == "4") {
+
+        //    $("#divPlotNumber").show();
+        //    $("#Amount").val('');
+        //    $("#Amount").attr("disabled", false);
+        //}
+        //else {
+        //    $("#divPlotNumber").hide();
+        //    $("#Amount").attr("disabled", "disabled");
+        //}
+
+        $.ajax({
+            url: "/Admin/FillAmount",
+            Type: "Get",
+            DataType: "JSON",
+            data: { Productid: Productid },
+            success: function (data) {
+                debugger;
+                $('#Amount').val(parseFloat(data.Amount));
+            }
+
+        });
+    }
+
+</script>
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+
+    .mtt {
+        margin-top: 21px;
+    }
+</style>
+
+

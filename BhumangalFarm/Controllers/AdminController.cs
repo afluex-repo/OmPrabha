@@ -816,19 +816,19 @@ namespace OmPrabha.Controllers
         //        else { obj.Result = "No"; }
         //        return Json(obj, JsonRequestBehavior.AllowGet);
         //    }
-        //    public ActionResult FillAmount(string ProductId)
-        //    {
-        //        Wallet obj = new Wallet();
-        //        obj.Package = ProductId;
-        //        DataSet ds = obj.BindPriceByProduct();
-        //        if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
-        //        {
-        //            obj.Amount = ds.Tables[0].Rows[0]["ProductPrice"].ToString();
-        //        }
-        //        else { }
-        //        return Json(obj, JsonRequestBehavior.AllowGet);
+        public ActionResult FillAmount(string ProductId)
+        {
+            Wallet obj = new Wallet();
+            obj.Package = ProductId;
+            DataSet ds = obj.BindPriceByProduct();
+            if (ds.Tables != null && ds.Tables[0].Rows.Count > 0)
+            {
+                obj.Amount = ds.Tables[0].Rows[0]["ProductPrice"].ToString();
+            }
+            else { }
+            return Json(obj, JsonRequestBehavior.AllowGet);
 
-        //    }
+        }
         //    public ActionResult UsedPins()
         //    {
         //        Wallet objewallet = new Wallet();
@@ -1114,6 +1114,7 @@ namespace OmPrabha.Controllers
            
             model.LoginId = string.IsNullOrEmpty(model.LoginId) ? null : model.LoginId;
             model.Downline = model.IsDownline == true ? "1" : "0";
+            model.Direct = model.IsDirect == true ? "1" : "0";
             List<Reports> lst = new List<Reports>();
             DataSet ds = model.GetPayPayout();
 
@@ -2589,6 +2590,7 @@ namespace OmPrabha.Controllers
             model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
             model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
             model.Downline = model.IsDownline == true ? "1" : "0";
+            model.Direct = model.IsDirect == true ? "1" : "0";
             DataSet ds = model.VisitorList();
             ViewBag.Total = "0";
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)

@@ -13,6 +13,7 @@ namespace OmPrabha.Models
         
         public string ErrorMessage { get; set; }
         public string Downline { get; set; }
+        public string Direct { get; set; }
         public int hdRows1 { get; set; }
         public string ReturnBenefitStartDate { get; set; }
         public string SponsorName { get; set; }
@@ -63,6 +64,7 @@ namespace OmPrabha.Models
         public string NetAmount { get; set; }
         public string ClosingDate { get; set; }
         public bool IsDownline { get; set; }
+        public bool IsDirect { get; set; }
         public string Password { get; set; }
         public List<Reports> lstassociate { get; set; }
         public string PK_BookingId { get; set; }
@@ -152,6 +154,12 @@ namespace OmPrabha.Models
 
         public string OldDesignationPercentage { get; set; }
         public string NewDesignationPercentage { get; set; }
+
+        public string BV { get; set; }
+        public string TopupBy { get; set; }
+        public string Pk_InvestmentId { get; set; }
+        public List<Reports> TopupList { get; set; }
+        public string Fk_PackageId { get; set; }
 
         public DataSet GetBookingDetailsList()
         {
@@ -321,6 +329,7 @@ namespace OmPrabha.Models
 
                                      new SqlParameter("@Leg", Leg),
                                     new SqlParameter("@IsDownline", IsDownline),
+                                    new SqlParameter("@IsDirect", IsDirect)
 
             };
             DataSet ds = Connection.ExecuteQuery("GetBusiness", para);
@@ -535,7 +544,8 @@ namespace OmPrabha.Models
         public DataSet GetPayPayout()
         {
             SqlParameter[] para = { new SqlParameter("@LoginId", LoginId),
-                                    new SqlParameter("@IsDownline", Downline)
+                                    new SqlParameter("@IsDownline", Downline),
+                                       new SqlParameter("@IsDirect", Direct)
             };
             DataSet ds = Connection.ExecuteQuery("GetBalancePayoutforPayment", para);
             return ds;
@@ -584,6 +594,26 @@ namespace OmPrabha.Models
                                  new SqlParameter("@ToDate",ToDate)
                             };
             DataSet ds = Connection.ExecuteQuery("GetAutoUpdateDesignation", para);
+            return ds;
+        }
+
+        public DataSet GetTopupreport()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@LoginID",LoginId),
+                new SqlParameter("@Package",Package),
+                new SqlParameter("@ClaculationStatus",Status),
+                new SqlParameter("@FromDate",FromDate),
+                new SqlParameter("@ToDate",ToDate)
+            };
+            DataSet ds = Connection.ExecuteQuery("GetTopupDetails", para);
+            return ds;
+        }
+
+        public DataSet GetPackage()
+        {
+            DataSet ds = Connection.ExecuteQuery("GetPackage");
             return ds;
         }
     }
