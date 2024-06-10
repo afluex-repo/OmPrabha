@@ -817,6 +817,41 @@ namespace OmPrabha.Models
         }
 
         #endregion
+
+
+
+
+        public string TopUpDate { get; set; }
+        public string Description { get; set; }
+        public string UpgradtionDate { get; set; }
+        public string DDChequeNo { get; set; }
+        public string DDChequeDate { get; set; }
+        public string Package { get; set; }
+        public string BV { get; set; }
+        public string TopupBy { get; set; }
+        public string Pk_InvestmentId { get; set; }
+        public List<AssociateBooking> TopupList { get; set; }
+        public string Fk_PackageId { get; set; }
+
+        public DataSet GetTopupreport()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@LoginID",LoginId),
+                new SqlParameter("@Package",Package),
+                new SqlParameter("@ClaculationStatus",Status),
+                new SqlParameter("@FromDate",FromDate),
+                new SqlParameter("@ToDate",ToDate)
+            };
+            DataSet ds = Connection.ExecuteQuery("GetTopupDetails", para);
+            return ds;
+        }
+
+        public DataSet GetPackage()
+        {
+            DataSet ds = Connection.ExecuteQuery("GetPackage");
+            return ds;
+        }
     }
 
 }

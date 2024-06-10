@@ -155,6 +155,12 @@ namespace OmPrabha.Models
         public string OldDesignationPercentage { get; set; }
         public string NewDesignationPercentage { get; set; }
 
+        public string BV { get; set; }
+        public string TopupBy { get; set; }
+        public string Pk_InvestmentId { get; set; }
+        public List<Reports> TopupList { get; set; }
+        public string Fk_PackageId { get; set; }
+
         public DataSet GetBookingDetailsList()
         {
             SqlParameter[] para = { new SqlParameter("@PK_BookingId", PK_BookingId) };
@@ -588,6 +594,26 @@ namespace OmPrabha.Models
                                  new SqlParameter("@ToDate",ToDate)
                             };
             DataSet ds = Connection.ExecuteQuery("GetAutoUpdateDesignation", para);
+            return ds;
+        }
+
+        public DataSet GetTopupreport()
+        {
+            SqlParameter[] para =
+            {
+                new SqlParameter("@LoginID",LoginId),
+                new SqlParameter("@Package",Package),
+                new SqlParameter("@ClaculationStatus",Status),
+                new SqlParameter("@FromDate",FromDate),
+                new SqlParameter("@ToDate",ToDate)
+            };
+            DataSet ds = Connection.ExecuteQuery("GetTopupDetails", para);
+            return ds;
+        }
+
+        public DataSet GetPackage()
+        {
+            DataSet ds = Connection.ExecuteQuery("GetPackage");
             return ds;
         }
     }
