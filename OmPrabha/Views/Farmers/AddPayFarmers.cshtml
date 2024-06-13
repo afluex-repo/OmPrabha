@@ -152,6 +152,7 @@
     $(document).ready(function () {
         $("#divload").css({ 'display': 'none' });
 
+
     });
     $('#SqMtr').keyup(function () {
         var getacre = parseFloat(0.0002471053815 * $(this).val()).toFixed(2);
@@ -302,20 +303,20 @@
         $('#Paymentdate').datepicker({
             dateFormat: 'dd/mm/yy',
             changeYear: true,
-            changeMonth: true,
-            yearRange: "1900:2021"
+            changeMonth: true
+            //yearRange: "1900:2021"
         });
         $('#CashDate').datepicker({
             dateFormat: 'dd/mm/yy',
             changeYear: true,
-            changeMonth: true,
-            yearRange: "1900:2021"
+            changeMonth: true
+            //yearRange: "1900:2021"
         });
         $('#TransactionDate').datepicker({
             dateFormat: 'dd/mm/yy',
             changeYear: true,
-            changeMonth: true,
-            yearRange: "1900:2021"
+            changeMonth: true
+            //yearRange: "1900:2021"
         });
         function isNumberOrDecimal(evt) {
             var charCode = (evt.which) ? evt.which : evt.keyCode;
