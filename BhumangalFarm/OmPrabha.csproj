@@ -37,7 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\MUTILE~1\AppData\Local\Temp\vs2114.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\MUTILE~1\AppData\Local\Temp\vs55DC.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -46,7 +46,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\MUTILE~1\AppData\Local\Temp\vs2114.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\MUTILE~1\AppData\Local\Temp\vs55DC.tmp\Release\</IntermediateOutputPath>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
@@ -169,7 +169,6 @@
   <ItemGroup>
     <Compile Include="AdminLevelTree.aspx.cs">
       <DependentUpon>AdminLevelTree.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminLevelTree.aspx.designer.cs">
       <DependentUpon>AdminLevelTree.aspx</DependentUpon>
@@ -208,7 +207,6 @@
     </Compile>
     <Compile Include="LevelTree.aspx.cs">
       <DependentUpon>LevelTree.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="LevelTree.aspx.designer.cs">
       <DependentUpon>LevelTree.aspx</DependentUpon>
@@ -250,7 +248,6 @@
     <Compile Include="Models\Wallet.cs" />
     <Compile Include="Models\WebService\AgentServices.asmx.cs">
       <DependentUpon>AgentServices.asmx</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Models\Website.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
