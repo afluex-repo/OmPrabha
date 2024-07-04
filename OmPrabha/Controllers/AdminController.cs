@@ -2537,7 +2537,7 @@ namespace OmPrabha.Controllers
         }
 
         [HttpPost]
-        public JsonResult save(Plot obj, string dataValue, string SiteID, string AssociateID, string AssociateName, string Amount, string VisiteDate)
+        public JsonResult save(Plot obj, string dataValue, string SiteID, string AssociateID, string AssociateName, string Amount, string VisiteDate,string VehicleNo,string FromJourney,string ToJourney)
         {
 
             obj.VisitDate = string.IsNullOrEmpty(VisiteDate) ? null : Common.ConvertToSystemDate(VisiteDate, "dd/MM/yyyy");
@@ -2606,6 +2606,9 @@ namespace OmPrabha.Controllers
                     obj.SiteName = r["SiteName"].ToString();
                     //obj.Address = r["Address"].ToString();
                     obj.VisitDate = r["VisitDate"].ToString();
+                    obj.VehicleNo = r["VehicleNo"].ToString();
+                    obj.FromJourney = r["FromJourney"].ToString();
+                    obj.ToJourney = r["ToJourney"].ToString();
                     obj.Amount = r["Amount"].ToString();
                     Visitorlist.Add(obj);
                     ViewBag.Total = Convert.ToDecimal(ViewBag.Total) + Convert.ToDecimal(r["Amount"].ToString());
@@ -2629,6 +2632,9 @@ namespace OmPrabha.Controllers
                 ViewBag.AssociateName = ds.Tables[0].Rows[0]["AssociateName"].ToString();
                 ViewBag.Amount = ds.Tables[0].Rows[0]["Amount"].ToString();
                 ViewBag.VisitDate = ds.Tables[0].Rows[0]["VisitDate"].ToString();
+                ViewBag.VehicleNo = ds.Tables[0].Rows[0]["VehicleNo"].ToString();
+                ViewBag.FromJourney = ds.Tables[0].Rows[0]["FromJourney"].ToString();
+                ViewBag.ToJourney = ds.Tables[0].Rows[0]["ToJourney"].ToString();
 
                 if (ds.Tables[1].Rows.Count > 0)
                 {
