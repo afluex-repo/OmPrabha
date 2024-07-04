@@ -1,0 +1,153 @@
+﻿@model OmPrabha.Models.Plot
+
+@{
+    ViewBag.Title = "RegistryReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("RegistryReport", "Plot", FormMethod.Post, new { @id = "form1",@autocomplete="off" }))
+{
+    <div class="page-content">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0">Registry Report</h5>
+                </div>
+                <p style="color: red;display: block; margin-bottom:0px; text-align:center">
+                    @TempData["RegistryReport"]
+                </p>
+            </div>
+        </div>
+        <div class="items">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-md-2 mb-3">
+                            <div class="form-group">
+                                <label> Login ID</label>
+                                @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Search by Login ID" })
+                            </div>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <div class="form-group">
+                                <label>   Booking Number</label>
+                                @Html.TextBoxFor(m => m.BookingNo, new { @class = "form-control", @Placeholder = "Booking No" })
+                            </div>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <div class="form-group">
+                                <label>    Plot Number</label>
+                                @Html.TextBoxFor(m => m.PlotNumber, new { @class = "form-control", @Placeholder = "Plot Number" })
+                            </div>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <div class="form-group">
+                                <label>  From Date</label>
+                                @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @readonly = "ds" })
+                            </div>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <div class="form-group">
+                                <label> To Date</label>
+                                @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @readonly = "ds" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="d-block">  &nbsp;</label>
+                                <input class="btn btn-success" type="submit" value="Search" id="btnSearch" name="Search" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example2" class="table table-striped table-bordered">
+                        <thead>
+                            <tr class="table-active">
+                                <th>Sr No.</th>
+                                <th>Login ID</th>
+                                <th>Name</th>
+                                <th>Registry Name</th>
+                                <th>Mobile No</th>
+                                <th>Plot Number</th>
+                                <th>Booking Number</th>
+                                <th>Payment Date</th>
+                                <th>Status</th>
+                                @*<th>Action</th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.lstRegistry != null)
+                                {
+                                    int i = 1;
+                                    foreach (var Item in Model.lstRegistry)
+                                    {
+                                        <tr class="text-left">
+                                            <td>@i</td>
+                                            <td>@Item.LoginId</td>
+                                            <td>@Item.Name</td>
+                                            <td>@Item.RegistryName</td>
+                                            <td>@Item.Contact</td>
+                                            <td>@Item.PlotNumber</td>
+                                            <td>@Item.BookingNo</td>
+                                            <td>@Item.PaymentDate</td>
+                                            @if (Item.Status == "R")
+                                            {
+
+                                                <td>
+                                                    Registered
+                                                </td>
+                                            }
+                                            @*<td>
+                                                @if (Item.FK_BookingId == "")
+                                                {
+
+                                                }
+                                                else
+                                                {
+                                                    <a href="/AdminReports/editRegistryStatus?Fk_BookingId=@Item.FK_BookingId" class="btn btn-info btn-sm">Edit</a>
+                                                }
+                                            </td>*@
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script>
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+    });
+
+</script>
+
+

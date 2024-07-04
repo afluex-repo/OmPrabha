@@ -1,0 +1,512 @@
+﻿@model OmPrabha.Models.Plot
+
+@{
+    ViewBag.Title = "UpdateRegistryStatus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+    }
+</style>
+
+@using (Html.BeginForm("UpdateRegistryStatus", "Plot", FormMethod.Post, new { @id = "form1", @autocomplete = "off" }))
+{
+
+    <div class="page-content">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0">Update Registry Status</h5>
+                </div>
+                <p style="color: red;display: block; margin-bottom:0px; text-align:center">
+                    @TempData["UpdateRegistryStatus"]
+                </p>
+            </div>
+        </div>
+        <div class="items">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2 mb-3">
+                            <div class="form-group">
+                                <label>Select Site <span style="color: red">*</span></label>
+                                @Html.DropDownListFor(m => m.SiteID, new SelectList(ViewBag.ddlSite, "Value", "Text"), new { @class = "form-control form-select", @onchange = "return onSiteChange();" })
+                            </div>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <div class="form-group">
+                                <label>Select Sector <span style="color: red">*</span></label>
+                                @Html.DropDownListFor(m => m.SectorID, new SelectList(ViewBag.ddlSector, "Value", "Text"), new { @class = "form-control form-select", @onchange = "return onSectorChange();" })
+                            </div>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <div class="form-group">
+                                <label> Select Block <span style="color: red">*</span></label>
+                                @Html.DropDownListFor(m => m.BlockID, new SelectList(ViewBag.ddlBlock, "Value", "Text"), new { @class = "form-control form-select" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 mb-3">
+                            <div class="form-group">
+                                <label> Plot Number <span style="color: red">*</span></label>
+                                @Html.TextBoxFor(m => m.PlotNumber, new { @class = "form-control", @Placeholder = "Plot Number" })
+                                @Html.HiddenFor(m => m.PlotID)
+                            </div>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <div class="form-group">
+                                <label> Booking Number</label>
+                                @Html.TextBoxFor(m => m.BookingNumber, new { @class = "form-control", @Placeholder = "Booking Number" })
+                                @Html.HiddenFor(m => m.PK_BookingId)
+                                @Html.HiddenFor(m => m.BookingNo)
+                            </div>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <label class="d-block">  &nbsp;</label>
+                            <div class="form-group">
+                                <input type="button" name="SearchPlot" value="Search" id="btnSearchPlot" class="btn btn-success" onclick="return GetDetails(); " />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="Details1" style="display: none;">
+            <div class="card-body">
+                <div class="row ">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><b>Branch :</b></label>
+                            <label id="BranchName"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><b>Booking No :</b></label>
+                            <label id="BookingNo1"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><b> Booking Date :</b></label>
+                            <label id="BookingDate"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label> <b>Plot No :</b></label>
+                            <label id="PlotNo"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><b>Payment Plan :</b></label>
+                            <label id="Payplan"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><b>Customer Name :</b></label>
+                            <label id="CustomerName"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><b>Associate Name :</b></label>
+                            <label id="AssociateName"></label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><b>Plot Amount :</b></label>
+                            <label id="PlotAmount"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><b>PLC Charges :</b></label>
+                            <label id="PK_PLCCharge"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><b>Net Plot Amount :</b></label>
+                            <label id="NetPlotAmount"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-3" hidden="hidden">
+                        <div class="form-group">
+                            <label><b>BookingAmount :</b></label>
+                            <label id="BookingAmount"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-3" hidden="hidden">
+                        <div class="form-group">
+                            <label><b>Fk_UserId:</b></label>
+                            @Html.HiddenFor(m => m.Fk_UserId)
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><b>Paid Amount:</b></label>
+                            <label id="PaidAmount"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><b>Booking Status :</b></label>
+                            <label id="BookingStatus"></label>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                            <label> isRegistry<span style="color: red">*</span></label>
+                            <input type="checkbox" id="chkisRegistry" onchange="openpop();" />
+                            @Html.HiddenFor(m => m.isRegistry)
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                            <label>  Registry Name</label>
+                            @Html.TextBoxFor(m => m.RegistryName, new { @class = "form-control"})
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                            <label> Gata No.</label>
+                            @Html.TextBoxFor(m => m.gata, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                            <label> Rakba No.</label>
+                            @Html.TextBoxFor(m => m.Rakbano, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="form-group">
+                            <label>  Registry Date</label>
+                            @Html.TextBoxFor(m => m.RegistryDate, new { @class = "form-control", @readonly = "ds" })
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="form-group">
+                            <label> Dakhil Kharij Date</label>
+                            @Html.TextBoxFor(m => m.kharijdate, new { @class = "form-control", @readonly = "ds" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="form-group">
+                            <label>  Remark<span style="color: red">*</span></label>
+                            @Html.TextAreaFor(m => m.Remarks, new { @class = "form-control", @Placeholder = "Remarks", @onchange = "getLoggerName();", @rows = "3", @col = "10" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="d-block">  &nbsp;</label>
+                        <input type="submit" name="btnSave" value="Save" id="btnSave" class="btn btn-success" onclick="return validateform();" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+
+<script>
+
+
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+       // GetDetails();
+    });
+
+
+    function validateform() {
+        if ($('#isRegistry').val() == '') {
+            $("#isRegistry").addClass('errortext');
+            $('#isRegistry').focus();
+            alert('Please check isRegistry First');
+            return false;
+        }
+        if ($('#Remarks').val() == '') {
+            $("#Remarks").addClass('errortext');
+            $('#Remarks').focus();
+            return false;
+        }
+    }
+
+
+    function GetDetails() {
+        $("#divload").css({ 'display': '' });
+        if ($('#PlotNumber').val() == '' && $('#BookingNumber').val() == '') {
+            alert(" Please, either select Site ID,Sector ID,Block ID and fill Plot Number OR fill Booking Number");
+            $("#divload").css({ 'display': 'none' });
+        }
+        else if ($('#BookingNumber').val() != '') {
+
+
+            var siteID = $('#SiteID').val();
+            var sectorID = $('#SectorID').val();
+            var block = $('#BlockID').val();
+            var plotno = $('#PlotNumber').val();
+            var bookno = $('#BookingNumber').val();
+            $.ajax({
+
+                url: '/Plot/PlotBookingDetails', type: 'get', dataType: 'json',
+                data: { 'SiteID': siteID, 'SectorID': sectorID, 'BlockID': block, 'PlotNumber': plotno, 'BookingNumber': bookno },
+                success: function (data) {
+                    $("#divload").css({ 'display': 'none' });
+                    if (data.Result == "yes") {
+                        $("#Details1").show();
+                        $("#BookingStatus").text(data.BookingStatus);
+                        $("#PK_BookingId").text(data.PK_BookingId);
+                        $("#BranchID").text(data.BranchID);
+                        $("#BranchName").text(data.BranchName);
+
+                        $("#CustomerID").text(data.CustomerID);
+                        $("#CustomerLoginID").text(data.CustomerLoginID);
+                        $("#Fk_UserId").text(data.Fk_UserId);
+                        $('#Fk_UserId').val(data.Fk_UserId);
+                        $("#CustomerName").text(data.CustomerName);
+                        $("#AssociateID").text(data.AssociateID);
+                        $("#AssociateLoginID").text(data.AssociateLoginID);
+                        $("#AssociateName").text(data.AssociateName);
+                        $("#PlotNo").text(data.PlotNumber);
+                        $("#Payplan").text(data.PlanName);
+                        $("#BookingDate").text(data.BookingDate);
+                        $("#BookingAmount").val(data.BookingAmount);
+                        $("#PaymentPlanID").val(data.PaymentPlanID);
+                        $("#BookingNumber").text(data.BookingNumber);
+                        $("#BookingNo").val(data.BookingNumber);
+                        $("#RegistryName").val(data.RegistryName);
+
+                        $("#BookingNo1").text(data.BookingNumber);
+                        $("#PaidAmount").text(data.PaidAmount);
+                        $("#PlotArea").text(data.PlotArea);
+                        $("#PlotAmount").text(data.PlotAmount);
+                        $("#NetPlotAmount").text(data.NetPlotAmount);
+                        $("#PK_PLCCharge").text(data.PLC);
+                        $("#PlotRate").text(data.PlotRate);
+
+                    }
+                    else {
+                        alert(data.Result);
+                        //    alert("Invalid Request")
+                        $("#SiteID").val('0');
+                        $("#SectorID").val('0');
+                        $("#BlockID").val('0');
+                        $("#PlotNumber").val('');
+                    }
+
+                }
+
+            });
+        }
+
+        else if ($('#SiteID').val() != '0' && $('#SectorID').val() != '0' && $('#BlockID').val() != '0' && $('#PlotNumber').val() != '') {
+            $("#divload").css({ 'display': 'none' });
+            var siteID = $('#SiteID').val();
+            var sectorID = $('#SectorID').val();
+            var block = $('#BlockID').val();
+            var plotno = $('#PlotNumber').val();
+            var bookno = $('#BookingNumber').val();
+            $.ajax({
+
+                url: '/Plot/PlotBookingDetails', type: 'get', dataType: 'json',
+                data: { 'SiteID': siteID, 'SectorID': sectorID, 'BlockID': block, 'PlotNumber': plotno, 'BookingNumber': bookno },
+                success: function (data) {
+                    $("#divload").css({ 'display': 'none' });
+                    if (data.Result == "yes") {
+
+                        $("#Details1").show();
+
+                        $("#BookingStatus").text(data.BookingStatus);
+                        $("#PK_BookingId").val(data.PK_BookingId);
+                        $("#BranchID").text(data.BranchID);
+                        $("#BranchName").text(data.BranchName);
+                        $("#Payplan").text(data.PlanName);
+                        $('#Fk_UserId').val(data.Fk_UserId);
+                        $("#CustomerID").text(data.CustomerID);
+                        $("#CustomerLoginID").text(data.CustomerLoginID);
+                        $("#Fk_UserId").text(data.Fk_UserId);
+                        $("#RegistryName").val(data.RegistryName);
+                        $("#CustomerName").text(data.CustomerName);
+                        $("#AssociateID").text(data.AssociateID);
+                        $("#AssociateLoginID").text(data.AssociateLoginID);
+                        $("#AssociateName").text(data.AssociateName);
+                        $("#PlotNo").text(data.PlotNumber);
+                        $("#BookingDate").text(data.BookingDate);
+                        $("#BookingAmount").val(data.BookingAmount);
+                        $("#PaymentPlanID").val(data.PaymentPlanID);
+                        $("#BookingNumber").text(data.BookingNumber);
+                        $("#BookingNo1").text(data.BookingNumber);
+                        $("#BookingNo").val(data.BookingNumber);
+                        $("#PaidAmount").text(data.PaidAmount);
+                        $("#PlotArea").text(data.PlotArea);
+                        $("#PlotAmount").text(data.PlotAmount);
+                        $("#NetPlotAmount").text(data.NetPlotAmount);
+                        $("#PK_PLCCharge").text(data.PLC);
+                        $("#PlotRate").text(data.PlotRate);
+
+                    }
+                    else {
+                        alert(data.Result);
+                        // alert("Invalid Request")
+                        $("#SiteID").val('0');
+                        $("#SectorID").val('0');
+                        $("#BlockID").val('0');
+                        $("#PlotNumber").val('');
+
+                    }
+
+                }
+
+            });
+        }
+    }
+
+
+
+
+    function openpop() {
+        if ($('#chkisRegistry').prop("checked") == true) {
+            $('#isRegistry').val(1);
+
+        }
+        else {
+            $('#isRegistry').val(0);
+            return true;
+        }
+
+    }
+
+    function EditPlot() {
+        $.ajax({
+            url: "/Plot/UpdatePlotBooking",
+            Type: "Get",
+            DataType: "JSON",
+            data: { PK_BookingId: $("#PK_BookingId").val() },
+            success: function (data) {
+                //   alert(data.Result);
+                window.location.href = '@Url.Action("PlotBooking", "Plot")';
+
+            }
+
+        });
+    }
+    function CancelPlot() {
+        $.ajax({
+            url: "/Plot/CancelPlotBooking",
+            Type: "Get",
+            DataType: "JSON",
+            data: { PK_BookingId: $("#PK_BookingId").val() },
+            success: function (data) {
+                //     alert(data.Result);
+                window.location.href = '@Url.Action("PlotBooking", "Plot")';
+
+            }
+
+        });
+    }
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy'
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy'
+    });
+
+    function onSiteChange() {
+
+        $("#divload").css({ 'display': '' });
+        var value = $('#SiteID').val();
+        var values = $('#SectorID').val();
+        var tr = [];
+        $.ajax({
+            url: "/Master/GetSiteDetails",
+            Type: "Get",
+            DataType: "JSON",
+            data: { SiteID: value },
+            success: function (data) {
+
+                $("#divload").css({ 'display': 'none' });
+                var j = 1;
+                if (data.Result == "yes") {
+                    $('#Rate').val(data.Rate);
+                    $("#SectorID").html(""); // clear before appending new list
+                    $("#SectorID").empty();
+                    $("#SectorID").append(
+                          $('<option></option>').val(0).html('Select Sector'));
+                    $.each(data.ddlSector, function (index, Sectorcount) {
+                        $("#SectorID").append(
+                              $('<option></option>').val(Sectorcount.Value).html(Sectorcount.Text));
+
+                    });
+
+                }
+                else {
+                    $("#SectorID").empty();
+                    $('#Rate').val('');
+                }
+
+
+            }
+
+        });
+
+    }
+
+    function onSectorChange() {
+
+        $("#divload").css({ 'display': '' });
+        var siteID = $('#SiteID').val();
+        var sectorID = $('#SectorID').val();
+        $.ajax({
+            url: '/Master/GetBlockList', type: 'post', dataType: 'json',
+            data: { 'SiteID': siteID, 'sectorID': sectorID },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                $("#BlockID").html(""); // clear before appending new list
+                $("#BlockID").empty();
+                $("#BlockID").append(
+                      $('<option></option>').val(0).html('Select Block'));
+                $.each(data.lstBlock, function (index, BlockCount) {
+                    $("#BlockID").append(
+                          $('<option></option>').val(BlockCount.Value).html(BlockCount.Text));
+                });
+
+            }
+
+        });
+    }
+
+</script>
+<script>
+
+    $('#kharijdate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+    });
+    $('#RegistryDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+    });
+
+</script>
+
+
+
