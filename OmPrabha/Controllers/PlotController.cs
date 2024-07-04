@@ -1540,6 +1540,9 @@ namespace OmPrabha.Controllers
                     model.Result = "yes";
 
                     // model.PlotID = dsblock.Tables[0].Rows[0]["PK_PlotID"].ToString();
+                    model.Fk_UserId = dsblock.Tables[0].Rows[0]["Fk_CustomerId"].ToString();
+                    model.BookingStatus = dsblock.Tables[0].Rows[0]["BookingStatus"].ToString();
+                    model.BranchName = dsblock.Tables[0].Rows[0]["BranchName"].ToString();
                     model.PlotAmount = dsblock.Tables[0].Rows[0]["PlotAmount"].ToString();
                     model.ActualPlotRate = dsblock.Tables[0].Rows[0]["ActualPlotRate"].ToString();
                     model.PlotRate = dsblock.Tables[0].Rows[0]["PlotRate"].ToString();
@@ -3681,6 +3684,7 @@ namespace OmPrabha.Controllers
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
         #region  IsKharijDakhil
         public ActionResult IsKharijDakhil(string PK_BookingId)
         {
@@ -3873,6 +3877,8 @@ namespace OmPrabha.Controllers
             return RedirectToAction(FormName, Controller);
         }
         #endregion
+
+        #region CheckUTR
         public ActionResult CheckUTR(string UtrNumber)
         {
             Plot model = new Plot();
@@ -3912,10 +3918,229 @@ namespace OmPrabha.Controllers
             else
             {
                 model.Result = "Invalid";
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
 
+        public ActionResult UpdateRegistryStatus(string PK_BookingId)
+        {
+            Plot model = new Plot();
+            if (PK_BookingId != null)
+            {
+                model.PK_BookingId = PK_BookingId;
+                DataSet dsBookingDetails = model.GetBookingDetailsList();
+
+                if (dsBookingDetails != null && dsBookingDetails.Tables.Count > 0)
+                {
+                    model.PK_BookingId = PK_BookingId;
+
+                    model.PlotID = dsBookingDetails.Tables[0].Rows[0]["Fk_PlotId"].ToString();
+                    model.SiteID = dsBookingDetails.Tables[0].Rows[0]["FK_SiteID"].ToString();
+
+
+                    #region GetSectors
+                    List<SelectListItem> ddlSector = new List<SelectListItem>();
+                    DataSet dsSector = model.GetSectorList();
+
+                    if (dsSector != null && dsSector.Tables.Count > 0)
+                    {
+                        foreach (DataRow r in dsSector.Tables[0].Rows)
+                        {
+                            ddlSector.Add(new SelectListItem { Text = r["SectorName"].ToString(), Value = r["PK_SectorID"].ToString() });
+
+                        }
+                    }
+                    ViewBag.ddlSector = ddlSector;
+                    #endregion
+                    model.SectorID = dsBookingDetails.Tables[0].Rows[0]["FK_SectorID"].ToString();
+                    #region BlockList
+                    List<SelectListItem> lstBlock = new List<SelectListItem>();
+                    Plot objmodel = new Plot();
+                    objmodel.SiteID = dsBookingDetails.Tables[0].Rows[0]["FK_SiteID"].ToString();
+                    objmodel.SectorID = dsBookingDetails.Tables[0].Rows[0]["FK_SectorID"].ToString();
+                    DataSet dsblock = model.GetBlockList();
+
+                    if (dsblock != null && dsblock.Tables.Count > 0 && dsblock.Tables[0].Rows.Count > 0)
+                    {
+
+                        foreach (DataRow dr in dsblock.Tables[0].Rows)
+                        {
+                            lstBlock.Add(new SelectListItem { Text = dr["BlockName"].ToString(), Value = dr["PK_BlockID"].ToString() });
+                        }
+
+                    }
+
+                    ViewBag.ddlBlock = lstBlock;
+                    #endregion
+                    
+                }
+            }
+            else
+            {
+                List<SelectListItem> ddlSector = new List<SelectListItem>();
+                ddlSector.Add(new SelectListItem { Text = "Select Sector", Value = "0" });
+                ViewBag.ddlSector = ddlSector;
+
+                List<SelectListItem> ddlBlock = new List<SelectListItem>();
+                ddlBlock.Add(new SelectListItem { Text = "Select Block", Value = "0" });
+                ViewBag.ddlBlock = ddlBlock;
+            }
+            #region ddlBranch
+            Plot obj = new Plot();
+            int count = 0;
+            List<SelectListItem> ddlBranch = new List<SelectListItem>();
+            DataSet dsBranch = obj.GetBranchList();
+            if (dsBranch != null && dsBranch.Tables.Count > 0 && dsBranch.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in dsBranch.Tables[0].Rows)
+                {
+                    if (count == 0)
+                    {
+                        ddlBranch.Add(new SelectListItem { Text = "Select Branch", Value = "0" });
+                    }
+                    ddlBranch.Add(new SelectListItem { Text = r["BranchName"].ToString(), Value = r["PK_BranchID"].ToString() });
+                    count = count + 1;
+                }
+            }
+            ViewBag.ddlBranch = ddlBranch;
+            #endregion
+
+            #region ddlSite
+            int count1 = 0;
+            List<SelectListItem> ddlSite = new List<SelectListItem>();
+            DataSet dsSite = obj.GetSiteList();
+            if (dsSite != null && dsSite.Tables.Count > 0 && dsSite.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in dsSite.Tables[0].Rows)
+                {
+                    if (count1 == 0)
+                    {
+                        ddlSite.Add(new SelectListItem { Text = "Select Site", Value = "0" });
+                    }
+                    ddlSite.Add(new SelectListItem { Text = r["SiteName"].ToString(), Value = r["PK_SiteID"].ToString() });
+                    count1 = count1 + 1;
+
+                }
+            }
+            ViewBag.ddlSite = ddlSite;
+            #endregion
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("UpdateRegistryStatus")]
+        [OnAction(ButtonName = "btnSave")]
+        public ActionResult SaveUpdateRegistryStatus(Plot model)
+        {
+            model.kharijdate = string.IsNullOrEmpty(model.kharijdate) ? null : Common.ConvertToSystemDate(model.kharijdate, "dd/MM/yyyy");
+            model.RegistryDate = string.IsNullOrEmpty(model.RegistryDate) ? null : Common.ConvertToSystemDate(model.RegistryDate, "dd/MM/yyyy");
+            model.gata = model.gata == "0" ? null : model.gata;
+            model.Rakbano = model.Rakbano == "0" ? null : model.Rakbano;
+            if (model.isRegistry == "1")
+            {
+                try
+                {
+                    model.AddedBy = Session["Pk_AdminId"].ToString();
+                    if (model.BookingStatus != "Registered")
+                    {
+                        DataSet ds = model.UpdatingRegistryStatus();
+                        if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                        {
+                            if (ds.Tables[0].Rows[0]["Msg"].ToString() == "1")
+                            {
+                                TempData["UpdateRegistryStatus"] = "Registry Updated";
+                            }
+                            else if (ds.Tables[0].Rows[0]["Msg"].ToString() == "0")
+                            {
+                                TempData["UpdateRegistryStatus"] = ds.Tables[0].Rows[0]["ErrorMessage"].ToString();
+                                return RedirectToAction("UpdateRegistryStatus");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        TempData["UpdateRegistryStatus"] = "Already Registered";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["UpdateRegistryStatus"] = ex.Message;
+                    return RedirectToAction("UpdateRegistryStatus");
+                }
+            }
+            else
+            {
+                TempData["UpdateRegistryStatus"] = "Please Check isRegistry";
+                return RedirectToAction("UpdateRegistryStatus");
             }
 
-            return Json(model, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("UpdateRegistryStatus");
+        }
+
+
+        public ActionResult RegistryReport(Plot model)
+        {
+            List<Plot> lst = new List<Plot>();
+            DataSet ds = model.GetRegistryList();
+
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in ds.Tables[0].Rows)
+                {
+                    Plot obj = new Plot();
+                    obj.LoginId = r["LoginId"].ToString();
+                    obj.Fk_UserId = r["PK_UserId"].ToString();
+                    obj.Name = r["Name"].ToString();
+                    obj.RegistryName = r["RegistryName"].ToString();
+                    obj.Status = r["PlotStatus"].ToString();
+                    obj.Contact = r["Mobile"].ToString();
+                    obj.BookingNo = r["BookingNo"].ToString();
+                    obj.PaymentDate = r["PaymentDate"].ToString();
+                    obj.PlotNumber = r["PlotNumber"].ToString();
+                    obj.FK_BookingId = r["Fk_BookingId"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstRegistry = lst;
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("RegistryReport")]
+        [OnAction(ButtonName = "Search")]
+        public ActionResult FilterRegistryReport(Plot model)
+        {
+            List<Plot> lst = new List<Plot>();
+            model.BookingNo = string.IsNullOrEmpty(model.BookingNo) ? null : model.BookingNo;
+            model.PlotNumber = string.IsNullOrEmpty(model.PlotNumber) ? null : model.PlotNumber;
+            model.FromDate = string.IsNullOrEmpty(model.FromDate) ? null : Common.ConvertToSystemDate(model.FromDate, "dd/MM/yyyy");
+            model.ToDate = string.IsNullOrEmpty(model.ToDate) ? null : Common.ConvertToSystemDate(model.ToDate, "dd/MM/yyyy");
+
+            DataSet dsblock = model.GetRegistryList();
+
+            if (dsblock != null && dsblock.Tables.Count > 0 && dsblock.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow r in dsblock.Tables[0].Rows)
+                {
+                    Plot obj = new Plot();
+                    obj.LoginId = r["LoginId"].ToString();
+                    obj.Fk_UserId = r["PK_UserId"].ToString();
+                    obj.Name = r["Name"].ToString();
+                    obj.Status = r["PlotStatus"].ToString();
+                    obj.Contact = r["Mobile"].ToString();
+                    obj.RegistryName = r["RegistryName"].ToString();
+                    obj.BookingNo = r["BookingNo"].ToString();
+                    obj.PaymentDate = r["PaymentDate"].ToString();
+                    obj.PlotNumber = r["PlotNumber"].ToString();
+                    obj.FK_BookingId = r["Fk_BookingId"].ToString();
+                    lst.Add(obj);
+                }
+                model.lstRegistry = lst;
+            }
+            return View(model);
+
         }
     }
 }

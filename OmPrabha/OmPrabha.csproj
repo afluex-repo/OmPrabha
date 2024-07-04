@@ -8131,6 +8131,8 @@
     <Content Include="Views\Accounts\TopUp.cshtml" />
     <Content Include="Views\AdminReports\TopupReport.cshtml" />
     <Content Include="Views\AssociateDashboard\AssociateTopupReport.cshtml" />
+    <Content Include="Views\Plot\UpdateRegistryStatus.cshtml" />
+    <Content Include="Views\Plot\RegistryReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

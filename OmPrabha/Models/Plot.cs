@@ -10,6 +10,15 @@ namespace OmPrabha.Models
 {
     public class Plot : Common
     {
+        public List<Plot> lstRegistry { get; set; }
+        public string Remarks { get; set; }
+        public string kharijdate { get; set; }
+        public string RegistryDate { get; set; }
+        public string Rakbano { get; set; }
+        public string gata { get; set; }
+        public string RegistryName { get; set; }
+        public string isRegistry { get; set; }
+        public string BookingNo { get; set; }
         public string VehicleNo { get; set; }
         public string FromJourney { get; set; }
         public string ToJourney { get; set; }
@@ -1048,6 +1057,39 @@ namespace OmPrabha.Models
             DataSet ds = Connection.ExecuteQuery("DeleteVisitor", para);
             return ds;
         }
+
+        public DataSet UpdatingRegistryStatus()
+        {
+            SqlParameter[] para = { new SqlParameter("@BookingNo",BookingNo),
+                                    new SqlParameter("@Fk_UserId", Fk_UserId),
+                                    new SqlParameter("@RegistryName",RegistryName),
+                                    new SqlParameter("@Remarks", Remarks),
+                                    new SqlParameter("@isRegister", isRegistry),
+                                    new SqlParameter("@AddedBy", AddedBy),
+                                    new SqlParameter("@RegistryDate", RegistryDate),
+                                    new SqlParameter("@KharijDate", kharijdate),
+                                    new SqlParameter("@Rakbano", Rakbano),
+                                    new SqlParameter("@gata", gata),
+                                  };
+            DataSet ds = Connection.ExecuteQuery("UpdateRegistryStatus", para);
+            return ds;
+        }
+
+        public DataSet GetRegistryList()
+        {
+            SqlParameter[] para =
+                            {
+
+                                new SqlParameter("@LoginId",LoginId),
+                                new SqlParameter("@FromDate",FromDate),
+                                new SqlParameter("@ToDate",ToDate),
+                                new SqlParameter("@BookingNo",BookingNo),
+                                new SqlParameter("@PlotNumber",PlotNumber)
+                            };
+            DataSet ds = Connection.ExecuteQuery("GetRegisteredPlot", para);
+            return ds;
+        }
+
     }
 }
 
