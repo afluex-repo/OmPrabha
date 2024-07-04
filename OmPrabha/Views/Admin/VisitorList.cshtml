@@ -73,6 +73,9 @@
                                 <th>Amount</th>
                                 @*<th>Mobile</th>*@
                                 <th>Visit Date</th>
+                                <th>Vehicle No</th>
+                                <th>From Journey</th>
+                                <th>To Journey</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -93,6 +96,9 @@
                                             <td>@Item.Amount</td>
                                             @*<td>@Item.Mobile</td>*@
                                             <td>@Item.VisitDate</td>
+                                            <td>@Item.VehicleNo</td>
+                                            <td>@Item.FromJourney</td>
+                                            <td>@Item.ToJourney</td>
                                             <td>
                                                 <a href="/Admin/PrintVisitor?Id=@Item.EncryptKey" class="btn btn-success btn-sm" target="_blank">Print</a>
                                                 <a href="/Admin/DeleteVisitor?Id=@Item.EncryptKey" class="btn btn-danger btn-sm" target="_blank" onclick="return confirm('Are you sure you want to delete this visitor?')">Delete</a>
@@ -112,6 +118,9 @@
                                 <td></td>
                                 <th style="text-align:right">Total</th>
                                 <th>@ViewBag.Total</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                             </tr>

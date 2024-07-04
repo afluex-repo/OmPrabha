@@ -264,7 +264,7 @@
                 $.ajax({
                     type: 'POST',
                     url: 'Save',
-                    data: JSON.stringify({ dataValue: JSON.stringify(data), SiteID: $("#SiteID").val(), AssociateID: $("#UserID").val(), AssociateName: $("#AssociateName").val(), Amount: $("#Amount").val(), VisiteDate: $("#VisitDate").val() }),
+                    data: JSON.stringify({ dataValue: JSON.stringify(data), SiteID: $("#SiteID").val(), AssociateID: $("#UserID").val(), AssociateName: $("#AssociateName").val(), Amount: $("#Amount").val(), VisiteDate: $("#VisitDate").val(), VehicleNo: $("#VehicleNo").val(), FromJourney: $("#FromJourney").val(), ToJourney: $("#ToJourney").val() }),
                     contentType: 'application/json',
                     success: function (data) {
                         if (data.status) {

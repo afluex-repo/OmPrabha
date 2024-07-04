@@ -1005,6 +1005,9 @@ namespace OmPrabha.Models
                                        new SqlParameter("@Amount", Amount),
                                         new SqlParameter("@AddedBy", AddedBy),
                                        new SqlParameter("@VisiteDate", VisitDate),
+                                       new SqlParameter("@VehicleNo", VehicleNo),
+                                       new SqlParameter("@FromJourney", FromJourney),
+                                       new SqlParameter("@ToJourney", ToJourney),
                                       new SqlParameter("@DtVisitorDetail",dtVisitorDetails)
                                   };
             DataSet ds = Connection.ExecuteQuery("SaveVisitor", para);
