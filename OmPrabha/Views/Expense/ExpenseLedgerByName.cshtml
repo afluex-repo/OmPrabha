@@ -1,0 +1,110 @@
+﻿@model OmPrabha.Models.Expenses
+
+@{
+    ViewBag.Title = "ExpenseLedgerByName";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="loader" id="divload"></div>
+@using (Html.BeginForm("ExpenseLedgerByName", "Expense", FormMethod.Post, new { @id = "form1" }))
+{
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Expenses</li>
+            <li class="breadcrumb-item">Expense Ledger</li>
+        </ul>
+    </section>
+    <div class="section-body">
+
+        <div class="card">
+            <div class="card-header">
+                <h4>Expense Ledger</h4>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-md" data-page-length='15' id="table-1" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>S No.</th>
+                                        <th>Expense Type</th>
+                                        <th>Expense Name</th>
+                                        <th>Remarks</th>
+                                        <th>Bank</th>
+                                        <th>Transaction Type</th>
+                                        <th>Dr Amount</th>
+                                        <th>Cr Amount</th>
+                                        <th>Cheque Status</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>Total</th>
+                                        <th style="text-align:right;color:red">@ViewBag.TotalDrAmount</th>
+                                        <th style="text-align:right;color:green">@ViewBag.TotalCrAmount</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.ClearedListItem != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var Item in Model.ClearedListItem)
+                                            {
+                                                <tr class="text-left">
+                                                    <td>@i</td>
+                                                    <td class="ExpenseType_@Item.Pk_ExpenseDetailsId">@Item.ExpenseID</td>
+                                                    <td class="ExpenseName_@Item.Pk_ExpenseDetailsId">@Item.ExpenseName</td>
+                                                    <td>@Item.</td>
+                                                    <td>@Item.Remarks</td>
+                                                   
+                                                    <td>
+                                                        @if (Item.TransactionTy == "cr")
+                                                        {
+                                                            <strong><span style="color:green">@Item.TransactionTy</span></strong>
+                                                        }
+                                                        else
+                                                        {
+                                                            <strong>
+                                                                <span style="color:red">@Item.TransactionTy</span>
+                                                            </strong>
+                                                        }
+                                                    </td>
+                                                    <td style="color:#527552"><strong>@Item.CrAmount</strong></td>
+                                                    <td style="color:red"><strong>@Item.DrAmount</strong></td>
+                                                    @*<td style="text-align:right;color:red">@Item.DrAmount</td>
+                                                    <td style="text-align:right;color:green">@Item.CrAmount</td>*@
+                                                    <td>@Item.ChequeStatus</td>
+                                                    <td>@Item.Date</td>
+                                                </tr>
+                                                i++;
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

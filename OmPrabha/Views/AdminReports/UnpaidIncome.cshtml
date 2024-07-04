@@ -1,0 +1,149 @@
+﻿@model OmPrabha.Models.TraditionalAssociate
+
+@{
+    ViewBag.Title = "UnpaidIncome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("UnpaidIncome", "AdminReports", FormMethod.Post, new { @id = "form1" }))
+{
+
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Reports</li>
+            <li class="breadcrumb-item">Unpaid Income Reports</li>
+        </ul>
+    </section>
+
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Unpaid Income Reports</h4>
+                        <br />
+                        <p>@Model.AssociateName</p>
+                    </div>
+                    <div class="card-body">
+                        @if (TempData["Plot"] != "UNPAID")
+                        {
+                            <div class="row">
+                                <div class="input-field col m2 s12">
+                                    <div class="form-group">
+                                        FromID
+                                        @Html.TextBoxFor(m => m.FromID, new { @class = "form-control", @Placeholder = "Search by FromID" })
+                                    </div>
+                                </div>
+                                <div class="input-field col m2 s12">
+                                    <div class="form-group">
+                                        ToID
+                                        @Html.TextBoxFor(m => m.ToID, new { @class = "form-control", @Placeholder = "Search by To ID" })
+                                    </div>
+                                </div>
+                                <div class="input-field col m2 s12">
+                                    <div class="form-group">
+                                        From Date
+                                        @Html.TextBoxFor(m => m.JoiningFromDate, new { @class = "form-control", @readonly = "ds" })
+                                    </div>
+                                </div>
+                                <div class="input-field col m2 s12">
+                                    <div class="form-group">
+                                        To Date
+                                        @Html.TextBoxFor(m => m.JoiningToDate, new { @class = "form-control", @readonly = "ds" })
+                                    </div>
+                                </div>
+
+                                <div class="input-field col m2 s12">
+                                    <div class="form-group">
+                                        <br />
+                                        <input class="btn btn-success" type="submit" value="Search" id="btnSearch" name="Search" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="dt-responsive table-responsive">
+                            <table id="basic-btn" class="table table-striped table-bordered nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>S No.</th>
+                                        <th>Current Date</th>
+                                        <th>From ID</th>
+                                        <th>From Name</th>
+                                        <th>To ID</th>
+                                        <th>To Name</th>
+                                        <th>Business Amount</th>
+                                        <th>Difference Percentage</th>
+                                        <th>Income</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstTrad != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var Item in Model.lstTrad)
+                                            {
+                                                <tr class="text-left">
+                                                    <td>@i</td>
+                                                    <td>@Item.JoiningFromDate</td>
+                                                    <td>@Item.FromID</td>
+                                                    <td>@Item.FromName</td>
+                                                    <td>@Item.ToID</td>
+                                                    <td>@Item.ToName</td>
+                                                    <td>@Item.Amount</td>
+                                                    <td>@Item.DifferencePercentage</td>
+                                                    <td>@Item.Income</td>
+                                                    <td>@Item.Status</td>
+                                                </tr>
+
+                                                i++;
+                                            }
+                                        }
+                                    }
+
+                                </tbody>
+                                @*<tfoot>
+                                    <tr>
+                                        <th>S No.</th>
+                                        <th>Cosing Date</th>
+                                        <th>From ID</th>
+                                        <th>From Name</th>
+                                        <th>To ID</th>
+                                        <th>To Name</th>
+                                        <th>Business Amount</th>
+                                        <th>Difference Percentage</th>
+                                        <th>Income</th>
+                                    </tr>
+                                </tfoot>*@
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script>
+
+    $('#JoiningFromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+    });
+    $('#JoiningToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+    });
+
+</script>

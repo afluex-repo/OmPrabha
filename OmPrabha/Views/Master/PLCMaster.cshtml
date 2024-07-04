@@ -1,0 +1,230 @@
+﻿@model OmPrabha.Models.Master
+
+@{
+    ViewBag.Title = "PLCMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("PLCMaster", "Master", FormMethod.Post, new { @id = "form1" }))
+{
+
+
+
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Master</li>
+            <li class="breadcrumb-item">PLC Master</li>
+        </ul>
+    </section>
+
+    @*<div class="card-header">
+            <h4>News Master</h4>
+        </div>*@
+
+    <div class="section-body">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>PLC Master</h4>
+
+                    <p style="color: red">
+                        @TempData["PLC"]
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="row " id="divsave">
+                        <div class="input-field col row-cols-lg-3">
+                            PLC<span style="color:red">*</span>
+
+                            @Html.TextBoxFor(m => m.PLCName, new { @class = "form-control", @Placeholder = "PLC Name", maxlength = "50" })
+                            @Html.ValidationMessageFor(m => m.PLCName)
+                            @Html.HiddenFor(m => m.PLCID, new { @class = "form-control", @Placeholder = "PLC Name" })
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="form-group row">
+                        <div class="input-field col m6 s12">
+
+                            <input class="btn cyan waves-effect waves-light left btn-primary" type="submit" onclick="return validateform();" value="Save" id="btnSave" name="btnSave" />
+                            <a href="#" class="btn btn-success pull-left" onclick="return updatePLC()" id="btnUpdate" style="display: none">Update</a>
+                            <input type="hidden" id="UserType" value="@Session["UserType"]" />
+                            <input type="hidden" id="UserTypeName" value="@Session["UserTypeName"]" />
+                        </div>
+
+
+                    </div>
+                    <br />
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-md" data-page-length='50' id="tableExport" style="width:100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>S No.</th>
+                                            <th>PLC Name</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model != null)
+                                        {
+                                            if (Model.lstPLC != null)
+                                            {
+                                                int i = 1;
+                                                foreach (var Item in Model.lstPLC)
+                                                {
+                                                    <tr class="text-left">
+                                                        <td>@i</td>
+                                                        <td>@Item.PLCName</td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-primary btn-sm edit" onclick="editPLC('@Item.PLCName','@Item.PLCID')">Edit</a>
+                                                            <a href="/Master/DeletePLC/@Item.PLCID" class="btn btn-danger btn-sm delete" onclick="return confirm('Are you sure you wish to delete this PLC?');">Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                    i++;
+                                                }
+                                            }
+                                        }
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    @*<div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <br />
+                                    <input class="btn btn-success" type="submit" value="Change" id="btnChange" name="Change" onclick="return validate();" />
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script>
+    $(document).ready(function () {
+        var UserType = $('#UserType').val();
+        var UserTypeName = $('#UserTypeName').val();
+        if (UserType == 'Admin' && UserTypeName != 'Admin' && UserTypeName != "") {
+            GetMenuDetails();
+        }
+
+    });
+    function GetMenuDetails() {
+        debugger
+        var URL = "/Master/PLCMaster";
+        $.ajax({
+            type: "POST",
+            url: "/Master/GetMenuDetails",
+            data: { URL: URL },
+            dataType: "json",
+            //contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var obj = jQuery.parseJSON(data);
+                console.log(obj)
+                for (var i = 0; i < obj.length; i++) {
+                    if (obj[i].FormSave == true) {
+                        $('#btnSave').show();
+                      
+                        $("#btnSave").removeAttr('disabled');
+                    }
+                    else {
+                        $('#btnSave').hide();
+                      
+                        $("#btnSave").attr('disabled', 'disabled');
+                    }
+                    if (obj[i].FormUpdate == true && $('#PLCID').val() != "") {
+                        $('#btnUpdate').show();
+                    
+                        $("#btnUpdate").removeAttr('disabled');
+                    }
+                    else {
+                        $('#btnUpdate').hide();
+                        $("#btnUpdate").attr('disabled', 'disabled');
+                    }
+                    if (obj[i].FormDelete == true) {
+                        $(".delete").show();
+                    }
+                    else {
+                        $(".delete").hide();
+                    }
+                    if (obj[i].FormUpdate == true) {
+                        $(".edit").show();
+                    }
+                    else {
+                        $(".edit").hide();
+                    }
+                }
+            },
+            error: function () {
+                alert("Error occured!!")
+            }
+        });
+    }
+    function editPLC(plcname, plcid) {
+        $('#PLCName').val(plcname);
+        $('#PLCID').val(plcid);
+        $('#btnSave').hide();
+        $('#btnUpdate').show();
+    }
+
+    function updatePLC() {
+        $("#divload").css({ 'display': '' });
+        $(".errortext").removeClass("errortext");
+        if ($('#PLCName').val() == '') {
+            $("#PLCName").addClass('errortext');
+            $('#PLCName').focus();
+            return false;
+        }
+
+        $.ajax({
+            url: "/Master/UpdatePLC",
+            Type: "Get",
+            DataType: "JSON",
+            data: { PLCID: $("#PLCID").val(), PLCName: $("#PLCName").val() },
+            success: function (data) {
+                alert(data.Result);
+                window.location.href = '@Url.Action("PLCMaster", "Master")';
+
+            }
+
+        });
+    }
+
+    function validateform() {
+        $("#divload").css({ 'display': '' });
+        $(".errortext").removeClass("errortext");
+        if ($('#PLCName').val() == '') {
+            $("#PLCName").addClass('errortext');
+            $('#PLCName').focus();
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
+
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>

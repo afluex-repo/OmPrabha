@@ -1,0 +1,147 @@
+﻿@model OmPrabha.Models.Plot
+
+@{
+    ViewBag.Title = "VisitorList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("VisitorList", "Admin", FormMethod.Post, new { @id = "form1" }))
+{
+    <div class="page-content">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0">Visitor List</h5>
+                    <a class="btn btn-primary repeater-add-btn px-4" href="/Admin/VisitorForm">Add New</a>
+                </div>
+                <p style="color: red;display: block; margin-bottom:0px; text-align:center">
+                    @TempData["VisitMsg"]
+                </p>
+            </div>
+        </div>
+        <div class="items">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3 mb-3">
+                            <label class="float-label">Associate Id</label>
+                            @Html.TextBoxFor(m => m.AssociateLoginID, new { @class = "form-control", @Placeholder = "Associate Id" })
+                            <span class="form-bar"></span>
+                        </div>
+                        <div class="col-sm-3 mb-3">
+                            <label class="float-label">Visting From Date</label>
+                            @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "From Date", @readonly = true })
+                            <span class="form-bar"></span>
+                        </div>
+                        <div class="col-sm-3 mb-3">
+                            <label class="float-label">Visting To Date</label>
+                            @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "To Date", @readonly = true })
+                            <span class="form-bar"></span>
+                        </div>
+                        <div class="col-sm-2 mb-3">
+                            <div class="form-group mt-2">
+                                <label class="d-block">  &nbsp;</label>
+                                <label>  Is DownLine</label>
+                                @Html.CheckBoxFor(m => m.IsDownline)
+                            </div>
+                        </div>
+                        <div class="col-sm-1 mb-3">
+                            <div class="form-group mt-2">
+                                <label class="d-block">  &nbsp;</label>
+                                <label>  Is Direct</label>
+                                @Html.CheckBoxFor(m => m.IsDirect)
+                            </div>
+                        </div>
+                        <div class="col-sm-3 mb-3">
+                            <input class="btn btn-success" type="submit" value="Search" id="btnSearchCustomer" name="Search" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example2" class="table table-striped table-bordered">
+                        <thead>
+                            <tr class="table-active">
+                                <th>Sr No.</th>
+                                <th>Site </th>
+                                <th>Associate</th>
+                                <td>Associate Name</td>
+                                @*<th>Customer</th>*@
+                                <th>Amount</th>
+                                @*<th>Mobile</th>*@
+                                <th>Visit Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.lstVistor != null)
+                                {
+                                    int i = 1;
+                                    foreach (var Item in Model.lstVistor)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@Item.SiteName</td>
+                                            <td>@Item.AssociateLoginID</td>
+                                            <td>@Item.AssociateName</td>
+                                            @*<td>@Item.CustomerName</td>*@
+                                            <td>@Item.Amount</td>
+                                            @*<td>@Item.Mobile</td>*@
+                                            <td>@Item.VisitDate</td>
+                                            <td>
+                                                <a href="/Admin/PrintVisitor?Id=@Item.EncryptKey" class="btn btn-success btn-sm" target="_blank">Print</a>
+                                                <a href="/Admin/DeleteVisitor?Id=@Item.EncryptKey" class="btn btn-danger btn-sm" target="_blank" onclick="return confirm('Are you sure you want to delete this visitor?')">Delete</a>
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+
+
+                                }
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr class="table-active">
+                                <th> </th>
+                                <th></th>
+                                <td></td>
+                                <th style="text-align:right">Total</th>
+                                <th>@ViewBag.Total</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script>
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        maxDate: 0,
+        changeYear: true,
+        changeMonth: true
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        maxDate: 0,
+        changeYear: true,
+        changeMonth: true
+    });
+
+</script>
+
+

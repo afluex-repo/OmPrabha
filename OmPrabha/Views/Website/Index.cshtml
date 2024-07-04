@@ -1,0 +1,557 @@
+﻿@model OmPrabha.Models.Website
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/WebsiteLayout.cshtml";
+}
+<!-- ============================ Hero Banner  Start================================== -->
+
+
+<section class="main-banner-wrap1 main-banner-wrap4 parallaxie" data-bg-image="/AssetsWeb/img/hero_banner.jpg" style="background-image: url(&quot;img/banner/banner2.jpg&quot;); background-size: cover; background-repeat: no-repeat; background-attachment: fixed; background-position: center 85.5px;">
+    <div class="container">
+        <div class="row justify-content-end">
+            <div class="col-xl-5 col-sm-12">
+                <div class="main-banner-box4 wow slideInUp" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: slideInUp;">
+                    <div class="banner-style-1">
+                        <div class="item-category-box1">
+                            <div class="item-category">Plot</div>
+                        </div>
+                    </div>
+                    <h3 class="item-title">Furnished Plot</h3>
+                    <p>
+                        Welcome to <b>OM PRABHA INFRATECH PVT. LTD.</b>, where we redefine the landscape of real estate with innovation, integrity, and excellence. Established with a vision to craft spaces that inspire and endure,
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- <section class="main-banner-wrap2">
+    <ul class="section-cloud">
+        <li><img src="~/AssetsWeb/img/figure/banner5.png" alt="shape" width="147" height="51"></li>
+        <li><img src="~/AssetsWeb/img/figure/banner6.png" alt="shape" width="184" height="50"></li>
+        <li><img src="~/AssetsWeb/img/figure/banner7.png" alt="shape" width="92" height="32"></li>
+    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="main-banner-box2 wow slideInUp" data-wow-delay=".3s">
+                    <div class="item-img">
+                        <img src="~/AssetsWeb/img/banner/banner3.png" alt="banner" width="751" height="451">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-section-wrap1 motion-effects-wrap wow bounceInDown" data-wow-delay=".3s">
+                    <ul class="element-list">
+
+                        <li>
+                            <img class="motion-effects6 wow fadeInUp d-none d-xl-block" data-wow-delay="400ms"
+                                 data-wow-duration="800ms" src="~/AssetsWeb/img/figure/banner3.png" alt="shape" width="87"
+                                 height="87">
+                        </li>
+                        <li>
+                            <img class="motion-effects7 wow fadeInUp d-none d-xl-block" data-wow-delay="400ms"
+                                 data-wow-duration="800ms" src="~/AssetsWeb/img/figure/banner2.png" alt="shape" width="177"
+                                 height="110">
+                        </li>
+                    </ul>
+                    <h2 class="item-title"><a href="#!">Find Your Accessible Homes For Rent</a></h2>
+                    <form action="index.html" class="rent-form">
+                        <div class="form-check-box">
+                            <label class="checkbox-button checkbox-button-2">
+                                <input type="checkbox" class="checkbox-button__input" id="choice1-1"
+                                       name="choice1">
+                                <span class="checkbox-button__control checkbox-button__control-2 active"></span>
+                                <span class="checkbox-button__label checkbox-button__label-2">For Rent</span>
+                            </label>
+                            <label class="checkbox-button checkbox-button-2">
+                                <input type="checkbox" class="checkbox-button__input" id="choice1-2"
+                                       name="choice2">
+                                <span class="checkbox-button__control checkbox-button__control-2"></span>
+                                <span class="checkbox-button__label checkbox-button__label-2">For Sell</span>
+                            </label>
+                            <label class="checkbox-button checkbox-button-2">
+                                <input type="checkbox" class="checkbox-button__input" id="choice1-3"
+                                       name="choice3">
+                                <span class="checkbox-button__control checkbox-button__control-2"></span>
+                                <span class="checkbox-button__label checkbox-button__label-2">For Buy</span>
+                            </label>
+                        </div>
+                        <div class="form-grid">
+                            <div class="row">
+                                <div class="form-group col-lg-12">
+                                    <input type="text" class="form-control" placeholder="Keywords">
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <div class="form-icon-area">
+                                        <input type="text" class="form-control" placeholder="Property Location">
+                                        <div class="form-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="select-area">
+                            <div class="row gutters-15">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="price-content">
+                                        <select name="MinPrice" id="MinPrice">
+                                            <option value="Price">Min Price</option>
+                                            <option value="$">$25,000</option>
+                                            <option value="$">$20,000</option>
+                                            <option value="$">$15,000</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="price-content">
+                                        <select name="MaxPrice" id="MaxPrice">
+                                            <option value="Price">Max Price</option>
+                                            <option value="$">$50,000</option>
+                                            <option value="$">$45,000</option>
+                                            <option value="$">$40,000</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="space-content">
+                                        <select name="SpaceSize" id="SpaceSize">
+                                            <option value="Space">Space Size</option>
+                                            <option value="$">931 Sqf</option>
+                                            <option value="$">550 Sqf</option>
+                                            <option value="$">700 Sqf</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="room-content">
+                                        <select name="BedRooms" id="BedRooms">
+                                            <option value="Room">Bed Rooms</option>
+                                            <option value="$">5</option>
+                                            <option value="$">4</option>
+                                            <option value="$">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group-button col-lg-12">
+                                <a href="#!" class="form-btn">Search Now</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+
+<section class="about-wrap2" id="overview">
+    <div class="container">
+        <div class="row flex-row-reverse flex-lg-row">
+            <div class="col-xl-6 col-lg-6">
+                <div class="about-img">
+                    <img src="~/AssetsWeb/img/about.jpg" alt="about" width="746" height="587">
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6">
+                <div class="about-box3 wow fadeInUp" data-wow-delay=".2s">
+                    <span class="item-subtitle">Overview</span>
+                    <h2 class="item-title">About OmPrabha</h2>
+                    <p class="mb-2">
+                        Welcome to OM PRABHA INFRATECH PVT. LTD., where we redefine the landscape of real estate
+                        with innovation, integrity, and excellence. Established with a vision to craft spaces
+                        that inspire and endure, we are committed to delivering unparalleled quality and value
+                        to our clients.
+                    </p>
+                    <p>
+                        At OM PRABHA INFRATECH, we believe in the power of imagination to shape the world around
+                        us. With a team of dedicated professionals and industry experts, we embark on a journey
+                        to create living spaces that transcend expectations and enrich lives. Whether it's
+                        residential, commercial, or mixed-use developments, our projects are meticulously
+                        planned and executed to reflect our unwavering commitment to excellence.
+                    </p>
+                    <div class="heading-button">
+                        <a class="heading-btn item-btn-2" href="about.html">Read More...</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<section class="why-choose-wrap1">
+    <div class="container">
+        <div class="item-heading-center mb-20">
+            <span class="section-subtitle">What We Do</span>
+            <h2 class="section-title">Our Main Speciality</h2>
+            <div class="bg-title-wrap" style="display: block;">
+                <span class="background-title solid">Speciality</span>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6">
+                <div class="choose-box1 choose-box2 wow fadeInUp" data-wow-delay=".2s">
+                    <div class="choose-shape1">
+                        <a href="#!"><img src="~/AssetsWeb/img/figure/shape3.svg" alt="shape" width="59" height="63"></a>
+                    </div>
+                    <h3 class="item-title"><a href="#!">Buy a New Home</a></h3>
+                    <p>
+                        Discover your dream home with OM PRABHA INFRATECH. Quality, comfort, and luxury await
+                        you.
+                    </p>
+                    <div class="choose-button">
+                        <a href="property.html" class="item-btn">
+                            Check Property<i class="fas fa-chevron-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="choose-box1  choose-box2 wow fadeInUp" data-wow-delay=".4s">
+                    <div class="choose-shape1">
+                        <a href="#!"><img src="~/AssetsWeb/img/figure/shape4.svg" alt="shape" width="59" height="63"></a>
+                    </div>
+                    <h3 class="item-title"><a href="#!">Sell a Home</a></h3>
+                    <p>
+                        "Discover your dream home: spacious, modern, and nestled in a vibrant community. Welcome
+                        home!"
+                    </p>
+                    <div class="choose-button">
+                        <a href="property.html" class="item-btn">
+                            Check Property<i class="fas fa-chevron-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="choose-box1  choose-box2 wow fadeInUp" data-wow-delay=".6s">
+                    <div class="choose-shape1 choose-shape2">
+                        <a href="#!"><img src="~/AssetsWeb/img/figure/shape3.svg" alt="shape" width="59" height="63"></a>
+                    </div>
+                    <h3 class="item-title"><a href="#!">Rent a Home</a></h3>
+                    <p>
+                        "Find your perfect space with Rent a Home. Comfort, convenience, and affordability await
+                        you."
+                    </p>
+                    <div class="choose-button">
+                        <a href="property.html" class="item-btn">
+                            Check Property<i class="fas fa-chevron-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="location-wrap1 bg-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-7">
+                <div class="item-heading-left">
+                    <span class="section-subtitle">Top Areas</span>
+                    <h2 class="section-title">Find Your Neighborhood</h2>
+                    <div class="bg-title-wrap" style="display: block;">
+                        <span class="background-title solid">Locations</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-5">
+                <div class="heading-button">
+                    <a href="#!" class="heading-btn item-btn-2">Explore More</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="location-box3 wow zoomIn" data-wow-delay=".2s">
+                            <div class="item-img">
+                                <a href="#!">
+                                    <img src="~/AssetsWeb/img/property/0001.jpg" alt="location"
+                                         width="520" height="440">
+                                </a>
+                            </div>
+                            <div class="item-content">
+                                <div class="content-body">
+                                    <div class="item-category">02 properties</div>
+                                    <div class="item-title">
+                                        <h3><a href="#!">Lucknow</a></h3>
+                                    </div>
+                                </div>
+                                <div class="location-button">
+                                    <a href="#!" class="location-btn">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="location-box3 wow zoomIn" data-wow-delay=".2s">
+                            <div class="item-img">
+                                <a href="#!">
+                                    <img src="~/AssetsWeb/img/property/0002.jpg" alt="location"
+                                         width="520" height="440">
+                                </a>
+                            </div>
+                            <div class="item-content">
+                                <div class="content-body">
+                                    <div class="item-category">05 properties</div>
+                                    <div class="item-title">
+                                        <h3><a href="#!">Lucknow</a></h3>
+                                    </div>
+                                </div>
+                                <div class="location-button">
+                                    <a href="#!" class="location-btn">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="location-box3 wow zoomIn" data-wow-delay=".2s">
+                    <div class="item-img">
+                        <a href="#!">
+                            <img src="~/AssetsWeb/img/property/001.jpg" alt="location"
+                                 width="690" height="280">
+                        </a>
+                    </div>
+                    <div class="item-content">
+                        <div class="content-body">
+                            <div class="item-category">03 properties</div>
+                            <div class="item-title">
+                                <h3><a href="#!">Lucknow</a></h3>
+                            </div>
+                        </div>
+                        <div class="location-button">
+                            <a href="#!" class="location-btn">
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="location-box3 wow zoomIn" data-wow-delay=".3s">
+                    <div class="item-img">
+                        <a href="#!">
+                            <img src="~/AssetsWeb/img/property/002.jpg" alt="location"
+                                 width="690" height="280">
+                        </a>
+                    </div>
+                    <div class="item-content">
+                        <div class="content-body">
+                            <div class="item-category">04 properties</div>
+                            <div class="item-title">
+                                <h3><a href="#!">Lucknow</a></h3>
+                            </div>
+                        </div>
+                        <div class="location-button">
+                            <a href="#!" class="location-btn">
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="location-box3 wow zoomIn" data-wow-delay=".2s">
+                            <div class="item-img">
+                                <a href="#!">
+                                    <img src="~/AssetsWeb/img/property/0004.jpg" alt="location"
+                                         width="520" height="440">
+                                </a>
+                            </div>
+                            <div class="item-content">
+                                <div class="content-body">
+                                    <div class="item-category">02 properties</div>
+                                    <div class="item-title">
+                                        <h3><a href="#!">Lucknow</a></h3>
+                                    </div>
+                                </div>
+                                <div class="location-button">
+                                    <a href="#!" class="location-btn">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="location-box3 wow zoomIn" data-wow-delay=".2s">
+                            <div class="item-img">
+                                <a href="#!">
+                                    <img src="~/AssetsWeb/img/property/0003.jpg" alt="location"
+                                         width="520" height="440">
+                                </a>
+                            </div>
+                            <div class="item-content">
+                                <div class="content-body">
+                                    <div class="item-category">07 properties</div>
+                                    <div class="item-title">
+                                        <h3><a href="#!">Lucknow</a></h3>
+                                    </div>
+                                </div>
+                                <div class="location-button">
+                                    <a href="#!" class="location-btn">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="newsletter-wrap1">
+    <div class="shape-img1">
+        <img src="~/AssetsWeb/img/figure/shape13.png" alt="figure" width="356" height="130">
+    </div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5">
+                <div class="newsletter-layout1">
+                    <div class="item-heading">
+                        <h2 class="item-title">Sign up for newsletter </h2>
+                        <h3 class="item-subtitle">Get latest news and update</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="newsletter-form">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter e-mail addess">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="blog-wrap1 blog-wrap3">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6 col-sm-8">
+                <div class="item-heading-left">
+                    <h2 class="section-title">Latest Blog & Posts</h2>
+                    <div class="bg-title-wrap" style="display: block;">
+                        <span class="background-title solid">Blogs</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-4">
+                <div class="heading-button">
+                    <a href="#!" class="heading-btn">See All Blogs</a>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-box1 wow fadeInUp" data-wow-delay=".4s">
+                    <div class="item-img">
+                        <a href="#!"><img src="~/AssetsWeb/img/blog/A1.JPG" alt="blog" width="520" height="350"></a>
+                    </div>
+                    <div class="thumbnail-date">
+                        <div class="popup-date">
+                            <span class="day">13</span><span class="month">Aug</span>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <div class="entry-meta">
+                            <ul>
+                                <li><a href="#!">Apartment, Room</a></li>
+                                <li><a href="#!">5 min</a></li>
+                            </ul>
+                        </div>
+                        <div class="heading-title">
+                            <h3><a href="#!">How To Do Market Research For to Sell Faster</a></h3>
+                        </div>
+                        <div class="blog-button">
+                            <a href="#!" class="item-btn">Read More<i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-box1 wow fadeInUp" data-wow-delay=".3s">
+                    <div class="item-img">
+                        <a href="#!"><img src="~/AssetsWeb/img/blog/A2.JPG" alt="blog" width="520" height="350"></a>
+                    </div>
+                    <div class="thumbnail-date">
+                        <div class="popup-date">
+                            <span class="day">13</span><span class="month">Aug</span>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <div class="entry-meta">
+                            <ul>
+                                <li><a href="#!">Building, Room</a></li>
+                                <li><a href="#!">4 min</a></li>
+                            </ul>
+                        </div>
+                        <div class="heading-title">
+                            <h3><a href="#!">Develop Relationships With Human Resource</a></h3>
+                        </div>
+                        <div class="blog-button">
+                            <a href="#!" class="item-btn">Read More<i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-box1 wow fadeInUp" data-wow-delay=".2s">
+                    <div class="item-img">
+                        <a href="#!"><img src="~/AssetsWeb/img/blog/A3.JPG" alt="blog" width="520" height="350"></a>
+                    </div>
+                    <div class="thumbnail-date">
+                        <div class="popup-date">
+                            <span class="day">13</span><span class="month">Aug</span>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <div class="entry-meta">
+                            <ul>
+                                <li><a href="#!">Entertainment, Room</a></li>
+                                <li><a href="#!">3 min</a></li>
+                            </ul>
+                        </div>
+                        <div class="heading-title">
+                            <h3><a href="#!">Unique Real Estate Marketing: Have A Tent Business Card</a></h3>
+                        </div>
+                        <div class="blog-button">
+                            <a href="#!" class="item-btn">Read More<i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+

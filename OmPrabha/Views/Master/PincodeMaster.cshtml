@@ -1,0 +1,160 @@
+﻿@model HMGreenCityCRM.Models.Master
+
+@{
+    ViewBag.Title = "PincodeMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("PincodeMaster", "Master", FormMethod.Post, new { @id = "form1" }))
+{
+
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Master</li>
+            <li class="breadcrumb-item">Pincode Master</li>
+        </ul>
+    </section>
+    <div class="section-body">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Pincode Master</h4>
+
+                    <p style="color: red">
+                        @TempData["success"]
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="row ">
+                        <div class="col-sm-4">
+                            <input type="hidden" id="PinCodeId" name="PinCodeId" value="@Model.PinCodeId" />
+                            Pin Code@*<span style="color:red">*</span>*@
+                            @Html.TextBoxFor(m =>m.Pincode, new { @class = "form-control" ,@placeholder= "Pin Code",@maxlength="6", @onkeypress = "return isNumberOrDecimal(event);",@onchange="return CheckPincode();" })
+                        </div>
+                        @*<div class="col-sm-4">
+                            Region Name
+                            @Html.TextBoxFor(m =>m.RegionName, new { @class = "form-control", @placeholder = "Region Name", @onkeypress = "return onlyAlphabets(event);" })
+                        </div>*@
+                        @*<div class="col-sm-4">
+                            Taluk
+                            @Html.TextBoxFor(m =>m.Taluk, new { @class = "form-control", @placeholder = "Taluk", @onkeypress = "return onlyAlphabets(event);" })
+                        </div>*@
+                        <div class="col-sm-4">
+                            District Name@*<span style="color:red">*</span>*@
+                            @Html.TextBoxFor(m =>m.District, new { @class = "form-control", @placeholder = "District Name", @onkeypress = "return onlyAlphabets(event);" })
+                        </div>
+                        <div class="col-sm-4">
+                            State Name@*<span style="color:red">*</span>*@
+                            @*@Html.DropDownListFor(m =>m.fK_StateID, new SelectList(ViewBag.ddlstate, "Value", "Text"), new { @class = "form-control"})*@
+                        </div>
+                        </div>
+                    <br />
+                    <input type="submit"  value="Submit" name="btnsave" id="btnsave" class="btn btn-success" onclick="return validateform();" />
+                    <a href="/Master/PincodeList" class="btn btn-info">Back To List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    var PinCodeId = $("#PinCodeId").val();
+    if (PinCodeId != 0)
+    {
+        $("#btnsave").val("Update");
+    }
+
+
+    function validateform() {
+        //$("#divload").css({ 'display': '' });
+        $(".errortext").removeClass("errortext");
+        if ($('#Pincode').val() == '') {
+            $("#Pincode").addClass('errortext');
+            $('#Pincode').focus();
+            return false;
+        }
+        if ($('#RegionName').val() == '') {
+            $("#RegionName").addClass('errortext');
+            $('#RegionName').focus();
+            return false;
+        }
+        if ($('#Taluk').val() == '') {
+            $("#Taluk").addClass('errortext');
+            $('#Taluk').focus();
+            return false;
+        }
+        if ($('#District').val() == '') {
+            $("#District").addClass('errortext');
+            $('#District').focus();
+            return false;
+        }
+        if ($('#StateName').val() == '') {
+            $("#StateName").addClass('errortext');
+            $('#StateName').focus();
+            return false;
+        }
+        return true;
+    }
+
+        function onlyAlphabets(e, t) {
+            try {
+                if (window.event) {
+                    var charCode = window.event.keyCode;
+                }
+                else if (e) {
+                    var charCode = e.which;
+                }
+                else { return true; }
+                if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+                    return true;
+                else
+                    return false;
+            }
+            catch (err) {
+                alert(err.Description);
+            }
+        }
+
+
+        function isNumberOrDecimal(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode != 46 && charCode > 31
+              && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function CheckPincode() {
+            var PincodeNo = $('#Pincode').val();
+            $.ajax({
+                url: '/Master/CheckPincode', type: 'post', dataType: 'json',
+                data: { 'PincodeNo': PincodeNo },
+                success: function (data) {
+                    if (data.Result == "yes") {
+                        $('#Pincode').val(PincodeNo);
+                    }
+                    else if (data.Result == "no") {
+                        alert("PinCode No already registred try another no.!!");
+                        $("#Pincode").val('');
+                        $("#Pincode").addClass('errortext');
+                    }
+                }
+            });
+        }
+
+</script>
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+

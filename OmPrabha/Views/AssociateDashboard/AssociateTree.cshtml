@@ -1,0 +1,117 @@
+﻿@model OmPrabha.Models.AssociateBooking
+
+@{
+    ViewBag.Title = "AssociateTree";
+    Layout = "~/Views/Shared/AssociateLayout.cshtml";
+}
+
+@using (Html.BeginForm("AssociateTree", "AssociateDashboard", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Tree</li>
+            <li class="breadcrumb-item">Down Team Tree</li>
+        </ul>
+    </section>
+    <div class="section-body">
+        <div class="card">
+            <div class="card-header">
+                <h4>Down Team Tree</h4>
+            </div>
+            @*<div class="input-field col s12">
+                <a href="/AssociateDashboard/AssociateTree?AssociateID=@ViewBag.Fk_SponsorId" id="btnDown" class="btn btn-info btn-sm">Back</a>
+            </div>*@
+
+
+            @*//////////////////////////////////////////////////*@
+
+            @if (Model.Fk_UserId == Session["Pk_UserId"].ToString())
+            {
+
+                <div class="input-field col s12" style="display:none;">
+                    <a href="/AssociateDashboard/AssociateTree?AssociateID=@ViewBag.Fk_SponsorId" id="btnDown" class="btn btn-info btn-sm">Back</a>
+                </div>
+            }
+            else
+            {
+
+                <div class="input-field col s12">
+                    <a href="/AssociateDashboard/AssociateTree?AssociateID=@ViewBag.Fk_SponsorId" id="btnDown" class="btn btn-info btn-sm">Back</a>
+                </div>
+            }
+
+
+            @*//////////////////////////////////////////////////*@
+
+
+
+
+            <div class="card-body">
+               
+                <table id="basic-btn" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>S No.</th>
+                            <th></th>
+
+                            <th>LoginId</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       @if (Model != null)
+                       {
+                           if (Model.lstPlot != null)
+                           {
+                               int i = 1;
+                               foreach (var Item in Model.lstPlot)
+                               {
+                                <tr class="text-left">
+
+                                    <td>@i</td>
+                                    <td>
+                                        @if (Item.Status == "Down")
+                                        {
+
+                                            <a href="/AssociateDashboard/AssociateTree?AssociateID=@Item.Fk_UserId" id="btnDown" class="btn btn-success btn-sm">Down</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#" id="btnDown" class="btn btn-success btn-sm">Self</a>
+                                        }
+
+
+                                    </td>
+                                    <td>@Item.LoginId</td>
+                                    <td>@Item.FirstName  </td>
+                                    <td>
+                                        @if (Item.ActiveStatus == "Inactive")
+                                        {
+                                            <a href="#" id="btnDown" class="label label-danger">@Item.ActiveStatus</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#" id="btnDown" class="label label-success">@Item.ActiveStatus</a>
+                                        }
+
+                                    </td>
+
+                                </tr>
+                                   i++;
+                               }
+                           }
+                       }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+}
+

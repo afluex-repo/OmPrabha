@@ -1,0 +1,100 @@
+﻿@model OmPrabha.Models.AssociateBooking
+
+@{
+    ViewBag.Title = "Team Building Bonus";
+    Layout = "~/Views/Shared/AssociateLayout.cshtml";
+}
+
+
+<style>
+    #divload {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 9999;
+        background: url("../files/assets/images/login-gif-11.gif") no-repeat center center rgba(0,0,0,0.25);
+    }
+
+    .errortext {
+        border: 1px solid red !important;
+    }
+</style>
+<div class="loader" id="divload"></div>
+@using (Html.BeginForm("DirectLeadershipIncome", "AssociateDashboard", FormMethod.Post, new { @id = "formI" }))
+{    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">MyIncome</li>
+            <li class="breadcrumb-item">Team Building Bonus</li>
+
+        </ul>
+    </section>
+
+
+    <div class="section-body">
+
+        <div class="card">
+            <div class="card-header">
+                <h4>Team Building Bonus</h4>
+
+                <p style="color: red">
+
+                </p>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-md" data-page-length='50' id="tableExport" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>S No.</th>
+                                        <th>Date</th>
+                                        <th>From LoginID</th>
+                                        <th>From Name</th>
+                                        <th>Amount</th>
+                                        <th>Income </th>
+                                        <th>Income Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstDirectLeadershipIncome != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var item in Model.lstDirectLeadershipIncome)
+                                            {
+                                                <tr class="text-left">
+
+                                                    <td>@i</td>
+                                                    <td>@item.Date</td>
+                                                    <td>@item.FromID</td>
+                                                    <td>@item.FromName</td>
+                                                    <td>@item.Amount</td>
+                                                    <td>@item.Income</td>
+                                                    <td>@item.IncomeType</td>
+                                                    
+                                                </tr>
+                                                i++;
+                                            }
+                                        }
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

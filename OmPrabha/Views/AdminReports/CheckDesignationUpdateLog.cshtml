@@ -1,0 +1,147 @@
+﻿@model OmPrabha.Models.Reports
+
+@{
+    ViewBag.Title = "CheckDesignationUpdateLog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="loader" id="divload"></div>
+@using (Html.BeginForm("CheckDesignationUpdateLog", "AdminReports", FormMethod.Post, new { @id = "form1" ,@autocomplete="off"}))
+{
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Report</li>
+            <li class="breadcrumb-item">Check Designation Update Log Report</li>
+        </ul>
+    </section>
+
+
+    <div class="section-body">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Check Designation Update Log</h4>
+                    <p style="color: red">
+
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="row ">
+                        <div class="input-field col-md-3 m3 s12">
+                            <div class="form-group">
+                                LoginID
+                                @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @Placeholder = "Login ID" })
+                            </div>
+                        </div>
+                        <div class="input-field col-md-3 m3 s12">
+                            <div class="form-group">
+                                Designation
+                                @Html.DropDownListFor(m => m.DesignationID, new SelectList(ViewBag.ddlDesignation, "Value", "Text"), new { @class = "form-control", @onchange = "return onSiteChange();" })
+                            </div>
+                        </div>
+                        <div class="input-field col-md-3 m3 s12">
+                            <div class="form-group">
+                                From Date
+                                @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "From Date", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="input-field col-md-3 m3 s12">
+                            <div class="form-group">
+                                ToDate
+                                @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "To Date", @readonly = "readonly" })
+                            </div>
+                        </div>
+
+                        <div class="input-field col-md-3 m3 s12">
+                            <div class="form-group">
+
+                                <input class="btn btn-success pull-left" type="submit" value="Search" id="btnSearch" name="btnSearch" />
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="row">*@
+
+                    @*</div>*@
+                    <br />
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-md" data-page-length='50' id="tableExport" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>Sr No.</th>
+                                    <th>LoginId</th>
+                                    <th>Old Designation</th>
+                                    <th>Old Business</th>
+                                    <th>New Designation</th>
+                                    <th>New Business</th>
+                                    <th>Designation Upgrade Date</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @if (Model != null)
+                                {
+                                    if (Model.lstAutoUpdateDesignation != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var Item in Model.lstAutoUpdateDesignation)
+                                        {
+                                            <tr class="text-left">
+                                                <td>@i</td>
+                                                <td>@Item.LoginId</td>
+                                                <td>@Item.OldDesignationName (@Item.OldDesignationPercentage)</td>
+                                                <td>@Item.OldBusiness</td>
+                                                <td>@Item.NewDesignationName (@Item.NewDesignationPercentage)</td>
+                                                <td>@Item.NewBusiness</td>
+                                                <td>@Item.DesignationUpgradeDate</td>
+                                            </tr>
+                                            i++;
+                                        }
+
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+}
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+
+<script>
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+
+
+</script>
+<style>
+    .btn-success {
+        margin-top: 23px;
+    }
+</style>

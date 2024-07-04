@@ -1,0 +1,181 @@
+﻿@model OmPrabha.Models.Reports
+
+@{
+    ViewBag.Title = "ReturnBenefitReport";
+    Layout = "~/Views/Shared/AssociateLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("ReturnBenefitReport", "AssociateDashboard", FormMethod.Post, new { @id = "form1" }))
+{
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Report</li>
+            <li class="breadcrumb-item">Rental Benefit Report</li>
+        </ul>
+    </section>
+
+
+    <div class="section-body">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Rental Benefit Report</h4>
+
+
+                </div>
+                <div class="card-body">
+                    @*<div class="row ">
+                        <div class="col-md-3">
+                            Login Id
+                            @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @placeholder = "Login Id" })
+                        </div>
+                        <div class="col-md-3">
+                            Name
+                            @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control", @placeholder = " Name" })
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                From Date
+                                @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "From Date", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                To Date
+                                @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "To Date", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+
+                            Status
+                            @Html.DropDownListFor(m => m.Ispaid, new SelectList(ViewBag.Status, "Value", "Text"), new { @class = "form-control" })
+
+                        </div>
+                        <div class="col-md-3">
+                            <br />
+                            <input type="submit" class="btn btn-info" value="Get Details" name="GetDetails" />
+                        </div>
+
+
+                    </div>
+
+
+                    <br />*@
+                    <div class="dt-responsive table-responsive">
+                        <table id="basic-btn" class="table table-striped table-bordered nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Sr No.</th>
+                                    <th>LoginId</th>
+                                    <th>Name</th>
+                                    <th>Associate LoginId</th>
+                                    <th>Associate Name</th>
+                                    @*   <th>Plot Number</th>*@
+                                    <th>Rental Start Date</th>
+                                    @*<th>Status</th>*@
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    if (Model.lstassociate != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var Item in Model.lstassociate)
+                                        {
+                                            if (Item.Status == "Paid")
+                                            {
+                                                <tr class="text-left">
+                                                    <td>@i</td>
+                                                    <td>@Item.LoginId</td>
+                                                    <td>@Item.DisplayName</td>
+                                                    <td>@Item.AssociateLoginID</td>
+                                                    <td>@Item.AssociateName</td>
+                                                    @*  <td>@Item.PlotNumber</td>*@
+                                                    <td>@Item.ReturnBenefitStartDate</td>
+                                                    @*<td>@Item.Status</td>*@
+
+                                                    <td>
+                                                        <a href="/AssociateDashboard/ReturnBenefitByLogin?LoginId=@Item.LoginId" class="btn btn-success-" name="btnUpdate">"View"</a>
+
+                                                    </td>
+
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr class="text-left">
+                                                    <td>@i</td>
+                                                    <td>@Item.LoginId</td>
+                                                    <td>@Item.DisplayName</td>
+                                                    <td>@Item.AssociateLoginID</td>
+                                                    <td>@Item.AssociateName</td>
+                                                    @*  <td>@Item.PlotNumber</td>*@
+                                                    <td>@Item.ReturnBenefitStartDate</td>
+                                                    @*<td>@Item.Status</td>*@
+                                                    <td>
+                                                        <a href="/AssociateDashboard/ReturnBenefitByLogin?LoginId=@Item.LoginId" class="btn btn-success" name="btnUpdate">View</a>
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                            i++;
+                                        }
+
+                                    }
+                                }
+                            </tbody>
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script>
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+</script>
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+
+
+

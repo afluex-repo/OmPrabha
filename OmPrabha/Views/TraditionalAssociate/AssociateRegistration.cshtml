@@ -1,0 +1,422 @@
+﻿@model OmPrabha.Models.TraditionalAssociate
+
+@{
+    ViewBag.Title = "AssociateRegistration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("AssociateRegistration", "TraditionalAssociate", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div id="divload" class="loader"></div>
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Associate</li>
+            <li class="breadcrumb-item">Traditional Associate Registration</li>
+        </ul>
+    </section>
+    <div class="section-body">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Traditional Associate Registration</h4>
+
+                    <p style="color: red">
+                        @TempData["Registration"]
+                        <br />
+                        @TempData["AssociateDetails"]
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="input-field col m6 s12">
+                            Branch<span style="color:red">*</span>
+                            @Html.DropDownListFor(m => m.BranchID, new SelectList(ViewBag.ddlBranch, "Value", "Text"), new { @class = "form-control", @onchange = "return onSiteChange();" })
+                        </div>
+                             <div class="input-field col m6 s12">
+                                Sponsor Code<span style="color:red">*</span>
+                                @if (Model.UserID == null)
+                {
+                                    @Html.TextBoxFor(m => m.SponsorID, new { @class = "form-control", @Placeholder = "Sponsor ID", @onchange = "return getSponsorName();" })
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(m => m.SponsorID, new { @class = "form-control", @Placeholder = "Sponsor ID", @readonly = "readonly" })
+                                }
+                                @Html.HiddenFor(m => m.UserID)
+                            </div>
+                            <div class="input-field col m6 s12">
+                                Sponsor Name<span style="color:red">*</span>
+                                @Html.TextBoxFor(m => m.SponsorName, new { @class = "form-control", @Placeholder = "Sponsor Name", @readonly = "readonly" })
+                            </div>
+                            <div class="input-field col m6 s12">
+                                Designation<span style="color:red">*</span>
+                                @Html.DropDownListFor(m => m.DesignationID, new SelectList(ViewBag.ddlDesignation, "Value", "Text"), new { @class = "form-control", @onchange = "return onSiteChange();" })
+                            </div>
+                      
+
+                    </div>
+                    <div class="row">
+                        <div class="input-field col m3 s12">
+                            First Name<span style="color:red">*</span>
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @Placeholder = "First Name" })
+                            @Html.HiddenFor(m => m.LoginID)
+                        </div>
+
+                        <div class="input-field col m3 s12">
+                            Last Name
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @Placeholder = "Last Name" })
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="input-field col m3 s12">
+                            Mobile<span style="color:red">*</span>
+                            @Html.TextBoxFor(m => m.Contact, new { @class = "form-control", @Placeholder = "Mobile Number", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "10" })
+                        </div>
+
+                        <div class="input-field col m3 s12">
+                            Email
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @Placeholder = "Email" })
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="input-field col m3 s12">
+                            Pan No.
+                            @Html.TextBoxFor(m => m.PanNo, new { @class = "form-control", @Placeholder = "PAN Number", @maxlength = "10", @onchange = "return validatePan();" })
+                        </div>
+
+                        <div class="input-field col m3 s12">
+                            Pin Code<span style="color:red">*</span>
+                            @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control", @Placeholder = "Pincode", @onchange = "return getStateCity();", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "6" })
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="input-field col m3 s12">
+                            State
+                            @Html.TextBoxFor(m => m.State, new { @class = "form-control", @Placeholder = "State", @readonly = "readonly" })
+                        </div>
+
+                        <div class="input-field col m3 s12">
+                            City
+                            @Html.TextBoxFor(m => m.City, new { @class = "form-control", @Placeholder = "City", @readonly = "readonly" })
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="input-field col m3 s12">
+                            Address
+                            @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @Placeholder = "Address" })
+
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="input-field col m3 s12">
+                            Adhar Number
+                            @Html.TextBoxFor(m => m.AdharNumber, new { @class = "form-control", @Placeholder = "AdharNumber", @maxlength = "12" })
+                        </div>
+
+                        <div class="input-field col m3 s12">
+                            Bank Account No
+                            @Html.TextBoxFor(m => m.BankAccountNo, new { @class = "form-control", @Placeholder = "Bank Account No" })
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="input-field col m3 s12">
+                            Bank Name
+                            @Html.TextBoxFor(m => m.BankName, new { @class = "form-control", @Placeholder = "Bank Name" })
+                        </div>
+
+                        <div class="input-field col m3 s12">
+                            Bank Branch
+                            @Html.TextBoxFor(m => m.BankBranch, new { @class = "form-control", @Placeholder = "Bank Branch" })
+                        </div>
+                        <div class="input-field col m3 s12">
+                            IFSC Code
+                            @Html.TextBoxFor(m => m.IFSCCode, new { @class = "form-control", @Placeholder = "IFSC Code" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+
+                        @*<div class="input-field col m3 s12">
+                                Bank Branch
+                                @Html.TextBoxFor(m => m.BankBranch, new { @class = "form-control", @Placeholder = "Bank Branch" })
+                            </div>*@
+
+                    </div><br />
+                    <div class="form-group row">
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                                @*<img src="@Model.ProfilePicture" height="190" width="250" />*@
+                                Profile Image
+                                <input type="file" name="postedFile" id="Image" />
+                            </div>
+                        </div>
+                        <div class="input-field col m3 s12">
+                            <div class="form-group">
+                                @*<img src="@Model.ProfilePicture" height="190" width="250" />*@
+                                Signature @*<span style="color: red">*</span>*@
+                                <input type="file" name="postedFile1" id="Image1" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group row">
+                        <div class="input-field col m6 s12">
+                            @if (Model.UserID == null)
+                            {
+                                <input class="btn btn-success" type="submit" onclick="return validateform();" value="Save" id="btnSave" name="btnRegistration" />
+                            }
+                            else
+                            {
+                                @Html.HiddenFor(m => m.UserID, new { @Value = @Model.UserID })
+                                <input class="btn btn-success" type="submit" onclick="return validateform();" value="Update" id="btnUpdate" name="btnUpdate" />
+                            }
+                            <a class="btn btn-info" href="/TraditionalAssociate/AssociateList">Back To List</a>
+                        </div>
+                        <input type="hidden" id="UserType" value="@Session["UserType"]" />
+                        <input type="hidden" id="UserTypeName" value="@Session["UserTypeName"]" />
+
+                    </div>
+
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+        var UserType = $('#UserType').val();
+        var UserTypeName = $('#UserTypeName').val();
+        if (UserType == 'Admin' && UserTypeName != 'Admin' && UserTypeName != "") {
+            GetMenuDetails();
+        }
+    });
+    function GetMenuDetails() {
+        debugger
+        var URL = "/TraditionalAssociate/AssociateRegistration";
+        $.ajax({
+            type: "POST",
+            url: "/Master/GetMenuDetails",
+            data: { URL: URL },
+            dataType: "json",
+            //contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var obj = jQuery.parseJSON(data);
+                console.log(obj)
+                for (var i = 0; i < obj.length; i++) {
+                    if (obj[i].FormSave == true) {
+                        $('#btnRegistration').show();
+
+                        $("#btnRegistration").removeAttr('disabled');
+                    }
+                    else {
+                        $('#btnRegistration').hide();
+
+                        $("#btnRegistration").attr('disabled', 'disabled');
+                    }
+                    debugger
+                    if (obj[i].FormUpdate == true && $('#PlotSizeID').val() != "") {
+                        $('#btnUpdate').show();
+
+                        $("#btnUpdate").removeAttr('disabled');
+                    }
+                    else {
+                        $('#btnUpdate').hide();
+                        $("#btnUpdate").attr('disabled', 'disabled');
+                    }
+                }
+            },
+            error: function () {
+                alert("Error occured!!")
+            }
+        });
+    }
+    function getStateCity() {
+        debugger
+        var pincode = $('#Pincode').val();
+        $.ajax({
+            url: '/Master/GetStateCity', type: 'post', dataType: 'json',
+            data: { 'Pincode': pincode },
+            success: function (data) {
+
+                if (data.Result == "yes") {
+                    $("#State").val(data.State);
+                    $("#City").val(data.City);
+                    $("#State").removeClass('errortext');
+                    $("#City").removeClass('errortext');
+                    $("#Pincode").removeClass('errortext');
+                }
+                else if (data.Result == "no") {
+                    $("#State").val('');
+                    $("#City").val('');
+                    $("#State").addClass('errortext');
+                    $("#City").addClass('errortext');
+                    $("#Pincode").addClass('errortext');
+                    $('#Pincode').focus();
+                    $('#Pincode').val('');
+                    alert("Enter Valid Pin Code")
+                }
+            }
+
+        });
+    }
+
+    function getSponsorName() {
+        $("#divload").css({ 'display': '' });
+        var sponsorID = $('#SponsorID').val();
+        $.ajax({
+            url: '/TraditionalAssociate/GetSponsorName', type: 'post', dataType: 'json',
+            data: { 'SponsorID': sponsorID },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                if (data.Result == "yes") {
+                    $("#SponsorName").val(data.SponsorName);
+                    $("#UserID").val(data.UserID);
+                    $("#SponsorName").removeClass('errortext');
+                    $("#SponsorID").removeClass('errortext');
+
+                    $("#DesignationID").html(""); // clear before appending new list
+                    $("#DesignationID").empty();
+
+                    $.each(data.ddlDesignation, function (index, Sectorcount) {
+                        $("#DesignationID").append(
+                              $('<option></option>').val(Sectorcount.Value).html(Sectorcount.Text));
+
+                    });
+                }
+                else if (data.Result == "no") {
+                    $("#SponsorName").val('');
+                    $("#SponsorName").addClass('errortext');
+                    $("#SponsorID").addClass('errortext');
+
+                    $('#SponsorID').focus();
+                    $('#SponsorID').val('');
+                    alert("Invalid Sponsor Id");
+                }
+            }
+
+        });
+    }
+
+    function validateform() {
+       // $("#divload").css({ 'display': '' });
+        $(".errortext").removeClass("errortext");
+        if ($('#BranchID').val() == '0') {
+            $("#BranchID").addClass('errortext');
+            $('#BranchID').focus();
+            //   alert("Please Select Branch .")
+            return false;
+        }
+        if ($('#SponsorID').val() == '') {
+            $("#SponsorID").addClass('errortext');
+            $('#SponsorID').focus();
+            $('#SponsorID').val('');
+            //   alert("Please Fill Sponsor ID .")
+            return false;
+        }
+        if ($('#DesignationID').val() == '0') {
+            $("#DesignationID").addClass('errortext');
+            $('#DesignationID').focus();
+            //   alert("Please Select Designation .")
+            return false;
+        }
+        if ($('#FirstName').val() == '') {
+            $("#FirstName").addClass('errortext');
+            $('#FirstName').focus();
+            //  alert("Please Fill First Name .")
+            return false;
+        }
+        if ($('#Contact').val() == '') {
+            $("#Contact").addClass('errortext');
+            $('#Contact').focus();
+            //  alert("Please Fill Mobile Number .")
+            return false;
+        }
+        //if ($('#PanNo').val() == '') {
+        //    $("#PanNo").addClass('errortext');
+        //    $('#PanNo').focus();
+        //    //    alert("Please Fill PAN .")
+        //    return false;
+        //}
+        if ($('#Pincode').val() == '') {
+            $("#Pincode").addClass('errortext');
+            $('#Pincode').focus();
+            //    alert("Please Enter Pin Code")
+            return false;
+        }
+       // $("#divload").css({ 'display': '' });
+        return true;
+    }
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function onlyAlphabets(e, t) {
+        try {
+            if (window.event) {
+                var charCode = window.event.keyCode;
+            }
+            else if (e) {
+                var charCode = e.which;
+            }
+            else { return true; }
+            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+                return true;
+            else
+                return false;
+        }
+        catch (err) {
+            alert(err.Description);
+        }
+    }
+    function validatePan() {
+        var panVal = $('#PanNo').val();
+        var regpan = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/;
+
+        if (regpan.test(panVal)) {
+            $("#PanNo").removeClass('errortext');
+        } else {
+            alert("Invalid PAN Number");
+            $("#PanNo").val('');
+            $("#PanNo").addClass('errortext');
+        }
+    }
+</script>
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+

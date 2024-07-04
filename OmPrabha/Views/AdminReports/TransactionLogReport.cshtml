@@ -1,0 +1,193 @@
+﻿@model OmPrabha.Models.AssociateBooking
+
+@{
+    ViewBag.Title = "TransactionLogReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("TransactionLogReport", "AdminReports", FormMethod.Post, new { @id = "form1" }))
+{
+
+
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Reports</li>
+            <li class="breadcrumb-item">Transaction Log</li>
+        </ul>
+    </section>
+
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Transaction Log</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="input-field col m2 s12">
+                                <div class="form-group">
+                                    Customer id
+                                    @Html.DropDownListFor(m => m.CustomerID, new SelectList(ViewBag.CustomerLoginId, "Value", "Text"), new { @class = "form-control select2" })
+                                </div>
+                            </div>
+                            <div class="input-field col m2 s12">
+                                <div class="form-group">
+                                    Assocaite id
+                                    @Html.DropDownListFor(m => m.AssociateID, new SelectList(ViewBag.AssociateloginId, "Value", "Text"), new { @class = "form-control select2" })
+                                </div>
+                            </div>
+                            <div class="input-field col m2 s12">
+                                <div class="form-group">
+                                    Employee id
+                                    @Html.DropDownListFor(m => m.AdminId, new SelectList(ViewBag.EmployeeLoginId, "Value", "Text"), new { @class = "form-control select2", })
+                                </div>
+                            </div>
+                            <div class="input-field col m2 s12">
+                                <div class="form-group">
+                                    Farmer id
+                                    @Html.DropDownListFor(m => m.FarmerId, new SelectList(ViewBag.FarmerloginId, "Value", "Text"), new { @class = "form-control select2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col m2 s12">
+                                <div class="form-group">
+                                     Expense
+                                    @Html.DropDownListFor(m => m.ExpenseID, new SelectList(ViewBag.ExpenseName, "Value", "Text"), new { @class = "form-control select2" })
+                                </div>
+                            </div>
+                            <div class="input-field col m2 s12">
+                                <div class="form-group">
+                                    From Date
+                                    @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @readonly = "ds" })
+                                </div>
+                            </div>
+                            <div class="input-field col m2 s12">
+                                <div class="form-group">
+                                    To Date
+                                    @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @readonly = "ds" })
+                                </div>
+                            </div>
+
+                            <div class="input-field col m2 s12">
+                                <div class="form-group">
+                                    <br />
+                                    <input class="btn btn-success" type="submit" value="Search" id="btnSearch" name="Search" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dt-responsive table-responsive">
+                            <table data-page-length='100' id="tableExport" class="table table-striped table-bordered nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>S No.</th>
+                                        <th>Action DateTime</th>
+                                        <th>Action</th>
+                                        <th>Remarks</th>
+                                        <th>Transaction By</th>
+                                        <th>Emp/AdminID</th>
+                                        <th>Customer Info</th>
+                                        <th>Associate Info</th>
+                                        <th>Farmer Ledger</th>
+                                        <th>BookingNo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstPlot != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var Item in Model.lstPlot)
+                                            {
+                                                <tr class="text-left">
+                                                    <td>@i</td>
+                                                    <td>@Item.ActionDateTime</td>
+                                                    <td>@Item.FormAction</td>
+                                                    <td>@Item.Remarks</td>
+                                                    <td>@Item.TransactionBy</td>
+                                                    <td>@Item.AdminId </td>
+                                                    <td>@Item.CustomerLoginID</td>
+                                                    <td>@Item.AssociateLoginID</td>
+                                                   
+                                                    <td>
+                                                        @if(Item.FarmerId == "")
+                                                        {
+                                                            @Item.Name
+                                                        }
+                                                        else
+                                                        {
+                                                            <a target="_blank" href="/Farmers/PaymetFarmers?fid=@Item.EncryptFarmerId" class="badge badge-success badge-shadow" data-original-title="Click to Payment">@Item.Name</a>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (Item.BookingNumber == "N/A")
+                                                        {
+                                                            @Item.BookingNumber
+                                                        }
+                                                        else
+                                                        {
+                                                            <a target="_blank" class="badge badge-success badge-shadow" href="/Plot/BookingCustomerLedger?BookingNumber=@Item.BookingNumber"><span>View Ledger</span></a>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                i++;
+                                            }
+                                        }
+                                    }
+
+                                </tbody>
+                                @*<tfoot>
+                                    <tr>
+
+                                        <th>S No.</th>
+
+                                        <th>Transaction Date</th>
+                                        <th> Action</th>
+                                        <th>Transaction By</th>
+                                        <th> Remark</th>
+
+
+                                    </tr>
+                                </tfoot>*@
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+
+
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script>
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+    });
+
+</script>
+
+
+

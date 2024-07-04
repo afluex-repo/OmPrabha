@@ -1,0 +1,149 @@
+﻿@model OmPrabha.Models.Reports
+
+@{
+    ViewBag.Title = "BusinessReport";
+    Layout = "~/Views/Shared/AssociateLayout.cshtml";
+}
+
+@using (Html.BeginForm("BusinessReport", "UserReports", FormMethod.Post, new { @id = "form1" }))
+{
+
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Report</li>
+            <li class="breadcrumb-item">Business Report</li>
+        </ul>
+    </section>
+
+    <div class="section-body">
+        <div class="card">
+            <div class="card-header">
+                <h4>Business Report</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        From Date
+                        @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @placeholder = "From  Date", @readonly = "read" })
+                    </div>
+                    <div class="col-md-3">
+                        To Date
+                        @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @placeholder = "To  Date", @readonly = "read" })
+                    </div>
+
+                    @*<div class="col-md-3">
+                        Leg
+                        @Html.DropDownListFor(m => m.Leg, new SelectList(ViewBag.Leg, "Value", "Text"), new { @class = "form-control" })
+                    </div>*@
+                    <div class="col-md-2">
+                        IsDownline
+                        @Html.CheckBoxFor(m => m.IsDownline)
+                    </div>
+                    <div class="col-md-2">
+                        IsDirect
+                        @Html.CheckBoxFor(m => m.IsDirect)
+                    </div>
+                    <div class="col-md-2">
+                        <br />
+                        <input type="submit" class="btn btn-info" value="Get Details" name="GetDetails" />
+                    </div>
+                </div>
+                <br />
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" data-page-length='50' id="tableExport" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Sr No.</th>
+                                <th>Customer Id</th>
+                                <th>Associate</th>
+                                <th>Site</th>
+                                <th>PhaseName</th>
+                                <th>PlotNumber</th>
+                                <th>Payment Date</th>
+                                <th>Paid Amount</th>
+                                @*<th style="text-align:right">Amount</th>*@
+                                <th hidden="hidden" style="text-align:right">BV</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.lstassociate != null)
+                                {
+                                    int i = 1;
+                                    foreach (var Item in Model.lstassociate)
+                                    {
+                                        <tr class="text-left">
+                                            <td>@i</td>
+                                            <td><spa>@Item.Customername</spa>(@Item.CustomerLoginID)</td>
+                                            <td>@Item.AssociateName (@Item.AssociateID)</td>
+                                            <td>@Item.SiteName</td>
+                                            <td>@Item.SectorName</td>
+                                            @*<td>@Item.BlockName</td>*@
+                                            <td>@Item.PlotNumber</td>
+                                            <td>@Item.PaymentDate</td>
+                                            <td>@Item.PaidAmount</td>
+                                            @*<td style="text-align:right">@Item.NetAmount</td>*@
+                                            <td hidden="hidden" style="text-align:right">@Item.LeadershipBonus</td>
+                                        </tr>
+                                        i++;
+                                    }
+
+                                }
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Total</td>
+                                <td ><b style="color:blue;">@ViewBag.TotalNetAmount</b></td>
+                                @*<td style="text-align:right"> <b style="color:blue;text-align:right">@ViewBag.TotalBV</b></td>*@
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+                </div>
+            </div>
+    </div>
+}
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+
+<script src="../..//WebsiteCss/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+
+    $('#ClosingDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+    });
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+    });
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+</script>
+

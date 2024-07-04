@@ -1,0 +1,149 @@
+﻿@model OmPrabha.Models.Master
+
+@{
+    ViewBag.Title = "BlockList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("BlockList", "Master", FormMethod.Post, new { @id = "form1" }))
+{
+
+
+
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Master</li>
+            <li class="breadcrumb-item">Block List</li>
+        </ul>
+    </section>
+
+
+    <div class="section-body">
+
+        <div class="card">
+            <div class="card-header">
+                <h4>Block List</h4>
+
+                <p style="color: red">
+                    @TempData["BlockMaster"]
+                </p>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- HTML5 Export Buttons table start -->
+                    
+                            <div class="card-header table-card-header">
+
+                                <a class="btn btn-primary btn-sm" style="margin-left:75%;margin-top:5px;" href="/Master/BlockMaster">Add New</a>
+                            </div>
+                            <div class="card-block">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-md" data-page-length='50' id="tableExport" style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>S No.</th>
+                                                <th>SiteName</th>
+                                                <th>Phase Name</th>
+                                                <th>Block Name</th>
+                                                <th>Action</th>
+                                                <th>Delete</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model != null)
+                                            {
+                                                if (Model.lstBlock1 != null)
+                                                {
+                                                    int i = 1;
+                                                    foreach (var Item in Model.lstBlock1)
+                                                    {
+                                                        <tr class="text-left">
+                                                            <td>@i</td>
+                                                            <td>@Item.SiteName</td>
+                                                            <td>@Item.SectorName</td>
+                                                            <td>@Item.BlockName</td>
+                                                            <td>
+                                                                <a href="/Master/BlockMaster?BlockID=@Item.BlockID" class="btn btn-info btn-sm edit">Edit</a>
+                                                            </td>
+                                                            <td>
+                                                                <a href="/Master/DeleteBlock?id=@Item.BlockID" class="btn btn-danger btn-sm delete" onclick="return confirm('Are you sure you wish to delete this Block?');">Delete</a>
+                                                            </td>
+
+                                                        </tr>
+
+                                                        i++;
+                                                    }
+                                                }
+                                            }
+
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                                <input type="hidden" id="UserType" value="@Session["UserType"]" />
+                                <input type="hidden" id="UserTypeName" value="@Session["UserTypeName"]" />
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+}
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+    $(document).ready(function () {
+        var UserType = $('#UserType').val();
+        var UserTypeName = $('#UserTypeName').val();
+        if (UserType == 'Admin' && UserTypeName != 'Admin') {
+            GetMenuDetails();
+        }
+
+    });
+    function GetMenuDetails() {
+        var URL = "/Master/BlockMaster";
+        $.ajax({
+            type: "POST",
+            url: "/Master/GetMenuDetails",
+            data: { URL: URL },
+            dataType: "json",
+            //contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var obj = jQuery.parseJSON(data);
+                console.log(data)
+                for (var i = 0; i < obj.length; i++) {
+                    if (obj[i].FormDelete == true) {
+                        $(".delete").show();
+                    }
+                    else {
+                        $(".delete").hide();
+                    }
+                    if (obj[i].FormUpdate == true) {
+                        $(".edit").show();
+                    }
+                    else {
+                        var table = $('#tableExport').DataTable();
+                        table.column(7).visible(false);
+                    }
+
+                }
+            },
+            error: function () {
+                alert("Error occured!!")
+            }
+        });
+    }
+    </script>
+

@@ -1,0 +1,108 @@
+﻿@model OmPrabha.Models.TraditionalAssociate
+
+@{
+    ViewBag.Title = "AdvisorDownlineDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("AdvisorDownlineDetail", "TraditionalAssociate", FormMethod.Post, new { @id = "form1" }))
+{
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Associate</li>
+            <li class="breadcrumb-item">Associate Downline Details</li>
+        </ul>
+    </section>
+    <div class="section-body">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Associate Downline Details</h4>
+
+                   
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="input-field col m3 s12">
+                            Associate Id
+                            @Html.TextBoxFor(m => m.AssociateID, new { @class = "form-control", @Placeholder = "Search by Associate ID" })
+                        </div>
+
+                        <div class="input-field col m3 s12">
+                            <br />
+                            <input class="btn btn-success" type="submit" value="Search" id="btnSearch" name="Search" onclick="return validateform();" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="dt-responsive table-responsive">
+                        <table id="basic-btn" class="table table-striped table-bordered nowrap">
+                            <thead>
+                                <tr>
+                                    <th>S No.</th>
+                                    <th>Associate ID</th>
+                                    <th>Associate Name</th>
+                                    <th>Rank Name</th>
+                                    <th>Rank</th>
+                                    <th>Branch Name</th>
+                                    <th>Mobile Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    if (Model.lstTrad != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var Item in Model.lstTrad)
+                                        {
+                                            <tr class="text-left">
+                                                <td>@i</td>
+                                                <td>@Item.AssociateID</td>
+                                                <td>@Item.AssociateName  </td>
+                                                <td>@Item.DesignationName </td>
+                                                <td>@Item.Percentage</td>
+                                                <td>@Item.BranchName</td>
+                                                <td>@Item.Contact</td>
+
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>S No.</th>
+                                    <th>Associate ID</th>
+                                    <th>Associate Name</th>
+                                    <th>Rank Name</th>
+                                    <th>Rank</th>
+                                    <th>Branch Name</th>
+                                    <th>Mobile Number</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+<script>
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#AssociateID').val() == '') {
+            $("#AssociateID").addClass('errortext');
+            $('#AssociateID').focus();
+            alert("Please fill Associate ID");
+            return false;
+        }
+        return true;
+    }
+</script>

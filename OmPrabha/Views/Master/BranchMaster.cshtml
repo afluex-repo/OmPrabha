@@ -1,0 +1,91 @@
+﻿@model OmPrabha.Models.Master
+
+@{
+    ViewBag.Title = "BranchMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("BranchMaster", "Master", FormMethod.Post, new { @id = "form1" }))
+{
+
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Master</li>
+            <li class="breadcrumb-item">Branch Master</li>
+        </ul>
+    </section>
+
+    @*<div class="card-header">
+            <h4>News Master</h4>
+        </div>*@
+
+    <div class="section-body">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Branch Master</h4>
+
+                    <p style="color: red">
+                        @TempData["Branch"]
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="row ">
+                        <div class="input-field col row-cols-lg-3">
+                            Branch Name<span style="color:red">*</span>
+                            @Html.TextBoxFor(m => m.BranchName, new { @class = "form-control" })
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="form-group row">
+                        <div class="input-field col s12">
+                            @if (Model.BranchID == null)
+                {
+                                <input class="btn cyan waves-effect waves-light left btn-primary" type="submit" onclick="return validateform();" value="Save" id="btnSave" name="btnSave" />
+                            }
+                            else
+                            {
+                                @Html.HiddenFor(m => m.BranchID, new { @Value = @Model.BranchID })
+                                <input class="btn cyan waves-effect waves-light left btn-primary" type="submit" onclick="return validateform();" value="Update" id="btnUpdate" name="btnUpdate" />
+                            }
+                            <a class="btn btn-info" href="/Master/BranchList">Back To List</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+            <script>
+
+                function validate() {
+                    $(".errortext").removeClass("errortext");
+
+                    if ($('#BranchName').val() == '') {
+                        $("#BranchName").addClass('errortext');
+                        $('#BranchName').focus();
+                        return false;
+                    }
+
+                    return true;
+                }
+
+            </script>
+
+
+
+
+
+
+

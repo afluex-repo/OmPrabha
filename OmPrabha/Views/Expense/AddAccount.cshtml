@@ -1,0 +1,131 @@
+﻿@model OmPrabha.Models.Expenses
+
+@{
+    ViewBag.Title = "AddAccount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("AddAccount", "Expense", FormMethod.Post, new { @id = "form1", @autocomplete = "off", enctype = "multipart/form-data" }))
+{
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Expense Management</li>
+            <li class="breadcrumb-item">Add Account</li>
+        </ul>
+    </section>
+    <div class="section-body">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Add Account</h4>
+
+                    <p style="color: red">
+                        @TempData["MsgAccount"]
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="row ">
+                        <div class="col-md-4 col-lg-4">
+                            Account Holder Name<span style="color:red">*</span>
+                            @Html.TextBoxFor(m => m.AcountHolder, new { @class = "form-control", @placeholder = "Account Holder Name" })
+                            @Html.HiddenFor(m=>m.Pk_BankId)
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            Account Number<span style="color:red">*</span>
+                            @Html.TextBoxFor(m => m.AccountNumber, new { @class = "form-control", @Placeholder = "Account Number"})
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            IFSC Code<span style="color:red">*</span>
+                            @Html.TextBoxFor(m => m.IFSCCode, new { @class = "form-control", @Placeholder = "IFSC Code" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4">
+                            Bank Name <span style="color:red">*</span>
+                            @Html.TextBoxFor(m => m.BankName, new { @class = "form-control", @Placeholder = " Bank Name" })
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                           Branch Name <span style="color:red">*</span>
+                            @Html.TextBoxFor(m => m.BranchName, new { @class = "form-control", @Placeholder = "Branch Name" })
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            Amount <span style="color:red">*</span>
+                            @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @Placeholder = "Amount", @onkeypress = "return isNumberOrDecimal(event);" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group row">
+                        <div class="col-md-4 col-lg-4">
+                            @if (Model.EncryptKey == null)
+                            {
+                                <input class="btn btn-success pull-left" type="submit" onclick="return validateform();" value="Save" id="btnSave" name="btnSave" />
+                            }
+                            else
+                            {
+                                <input class="btn btn-success pull-left" type="submit" onclick="return validateform();" value="Update" id="btnUpdate" name="btnUpdate" />
+                            }
+
+                            <a class="btn btn-info" href="/Expense/AccountList" style="margin-left:5px;">Back To List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+
+    });
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+    function validateform() {
+        $("#divload").css({ 'display': 'none' });
+        $(".errortext").removeClass("errortext");
+        if ($('#AcountHolder').val() == '') {
+            $("#AcountHolder").addClass('errortext');
+            $('#AcountHolder').focus();
+            return false;
+        }
+        if ($('#AccountNumber').val() == '') {
+            $("#AccountNumber").addClass('errortext');
+            $('#AccountNumber').focus();
+            return false;
+        }
+        if ($('#IFSCCode').val() == '') {
+            $("#IFSCCode").addClass('errortext');
+            $('#IFSCCode').focus();
+            return false;
+        }
+        if ($('#BankName').val() == '') {
+            $("#BankName").addClass('errortext');
+            $('#BankName').focus();
+            return false;
+        }
+        if ($('#BranchName').val() == '') {
+            $("#BranchName").addClass('errortext');
+            $('#BranchName').focus();
+            return false;
+        }
+        if ($('#Amount').val() == '') {
+            $("#Amount").addClass('errortext');
+            $('#Amount').focus();
+            return false;
+        }
+        $("#divload").css({ 'display': '' });
+        return true;
+    }
+</script>

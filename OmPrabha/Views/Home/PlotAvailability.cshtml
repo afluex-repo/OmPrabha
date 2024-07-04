@@ -1,0 +1,291 @@
+﻿@model OmPrabha.Models.Master
+@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/WebsiteLayout.cshtml";
+}
+<div class="breadcrumb-wrap">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/Website/Index">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Plot Availability</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<section class="py-5">
+    <div class="container">
+        <div class="item-heading-center mb-20">
+            <h2 class="section-title">Plot Availability</h2>
+        </div>
+        <div class="row">
+            @using (Html.BeginForm("PlotAvailability", "Home", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+            {
+                <div class="row">
+                    @*<div class="col-md-4">
+                        <div class="rld-single-select">
+                            <select class="select single-select mr-0">
+                                <option value="1">Property Type</option>
+                                <option value="2">Family House</option>
+                                <option value="3">Apartment</option>
+                                <option value="3">Condo</option>
+                            </select>
+                        </div>
+                    </div>*@
+                    <div class="col-md-4 col-lg-3">
+                        <div class="rld-single-select">
+                            <label> Select Site <span style="color: red">*</span></label>
+                            @Html.DropDownListFor(m => m.SiteID, new SelectList(ViewBag.ddlSite, "Value", "Text"), new { @class = "form-control select single-select", @onchange = "return onSiteChange();" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3">
+                        <div class="rld-single-select">
+                            <label class="d-block"> Select Phase <span style="color: red"></span></label>
+                            @Html.DropDownListFor(m => m.SectorID, new SelectList(ViewBag.ddlSector, "Value", "Text"), new { @class = "form-control select single-select", @onchange = "return onSectorChange();" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="rld-single-select">
+                            <label class="d-block"> Select Block <span style="color: red"></span></label>
+                            @Html.DropDownListFor(m => m.BlockID, new SelectList(ViewBag.ddlBlock, "Value", "Text"), new { @class = "form-control select single-select" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="form-group">
+                            <label class="d-block">Plot Number <span style="color: red"></span></label>
+                            @Html.TextBoxFor(m => m.PlotNumber, new { @class = "form-control", @placeholder = "Plot Number" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <label class="d-block">&nbsp; <span style="color: red"></span></label>
+                        <div class="form-group">
+                            <input type="submit" name="Search" value="Search" id="btnSearchPlot" class="btn btn-success" onclick="return GetDetails(); " />
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row g-3 justify-content-center my-3">
+                    <div class="col-lg-2 col-md-6">
+                        <div class="d-flex justify-content-between align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded">
+                            <div class="ms-2"><b>Availability Status</b></div>
+                            <div class="font-22 text-primary">
+                                <i class="lni lni-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-6">
+                        <div class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded">
+                            <div class="font-22 text-primary">
+                                <span class="badge rounded-pill" style="background:#e66b6b">&nbsp;</span>
+                            </div>
+                            <div class="ms-2">Booked</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-6">
+                        <div class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded">
+                            <div class="font-22 text-primary">
+                                <span class="badge rounded-pill" style="background:#69ce69">&nbsp;</span>
+                            </div>
+                            <div class="ms-2">Available</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-6">
+                        <div class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded">
+                            <div class="font-22 text-primary">
+                                <span class="badge rounded-pill" style="background:#ffff00">&nbsp;</span>
+                            </div>
+                            <div class="ms-2"> On Hold</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-6">
+                        <div class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded">
+                            <div class="font-22 text-primary">
+                                <span class="badge rounded-pill" style="background:#e470e4"> &nbsp;</span>
+                            </div>
+                            <div class="ms-2">Allotted</div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    @if (Model != null)
+                    {
+                        if (Model.lstPlot != null)
+                        {
+                            foreach (var Item in Model.lstPlot)
+                            {
+                                <div class="col-md-3">
+                                    @*
+                                        <a href="#" data-toggle="tooltip" title="Plot Amount :@Item.PlotAmount ; Plot Area :@Item.PlotArea">
+                                    *@
+                                    <div style="margin-left:0.5%;color:black;background: @Item.ColorCSS; border:Solid; height:100px; margin-bottom:10px; text-align:center; padding-top:0.5%">
+                                        <input type="hidden" value="@Item.PlotID" />
+                                        <input type="hidden" value="@Item.SiteID" />
+                                        <input type="hidden" value="@Item.SectorID" />
+                                        <b>Plot Number : </b>@Item.PlotNumber
+                                        <br />
+                                        <b>Plot Area : </b>@Item.PlotArea
+                                        @*<b>Plot Area : </b>@Item.PlotArea
+                                            <br />*@
+                                        (@Item.SectorName@*,@Item.BlockName*@)
+                                    </div>
+                                    @*
+                                        </a>
+                                    *@
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<script src="../../WebsiteCss/js/script.js"></script>
+<!-- Color Setting -->
+<script src="../../WebsiteCss/js/color-settings.js"></script>
+<!--Clients Section-->
+<script src="~/files/bower_components/jquery/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script>
+   $(document).ready(function () {
+       $('[data-toggle="tooltip"]').tooltip();
+   });
+</script>
+<script>
+   $(document).ready(function () {
+       $("#divload").css({ 'display': 'none' });
+   });
+
+   function GetDetails() {
+
+       $(".errortext").removeClass("errortext");
+
+       if ($('#SiteID').val() == '0') {
+           $("#SiteID").addClass('errortext');
+           $('#SiteID').focus();
+           return false;
+       }
+       //if ($('#SectorID').val() == '0') {
+       //    $("#SectorID").addClass('errortext');
+       //    $('#SectorID').focus();
+       //    return false;
+       //}
+       //if ($('#BlockID').val() == '0') {
+       //    $("#BlockID").addClass('errortext');
+       //    $('#BlockID').focus();
+       //    return false;
+       //}
+       //if ($('#PlotNumber').val() == '') {
+       //    $("#PlotNumber").addClass('errortext');
+       //    $('#PlotNumber').focus();
+       //    return false;
+       //}
+       return true;
+   }
+
+   function onSiteTypeChange() {
+       //  $("#divload").css({ 'display': '' });
+
+       var value = $('#SiteTypeID').val();
+       var values = $('#SiteID').val();
+       var tr = [];
+       $.ajax({
+           url: "/Home/GetSiteBySiteType",
+           Type: "Get",
+           DataType: "JSON",
+           data: { SiteTypeID: value },
+           success: function (data) {
+               var j = 1;
+
+               //   $("#divload").css({ 'display': 'none' });
+
+               $("#SiteID").html(""); // clear before appending new list
+               $("#SiteID").empty();
+               $("#SiteID").append(
+                     $('<option></option>').val(0).html('Select Site'));
+               $.each(data.ddlSite, function (index, Sectorcount) {
+                   $("#SiteID").append(
+                         $('<option></option>').val(Sectorcount.Value).html(Sectorcount.Text));
+               });
+
+           }
+
+       });
+
+   }
+   function onSiteChange() {
+       $("#divload").css({ 'display': '' });
+
+       var value = $('#SiteID').val();
+       var values = $('#SectorID').val();
+       var tr = [];
+       $.ajax({
+           url: "/Home/GetSiteDetails",
+           Type: "Get",
+           DataType: "JSON",
+           data: { SiteID: value },
+           success: function (data) {
+               var j = 1;
+               if (data.Result == "yes") {
+                   $("#divload").css({ 'display': 'none' });
+                   $('#Rate').val(data.Rate);
+                   $("#SectorID").html(""); // clear before appending new list
+                   $("#SectorID").empty();
+                   $("#SectorID").append(
+                         $('<option></option>').val(0).html('Select Phase'));
+                   $.each(data.ddlSector, function (index, Sectorcount) {
+                       $("#SectorID").append(
+                             $('<option></option>').val(Sectorcount.Value).html(Sectorcount.Text));
+                   });
+
+               }
+               else {
+                   $("#SectorID").empty();
+                   $('#Rate').val('');
+               }
+           }
+
+       });
+
+   }
+
+   function onSectorChange() {
+
+       $("#divload").css({ 'display': '' });
+       var siteID = $('#SiteID').val();
+       var sectorID = $('#SectorID').val();
+       $.ajax({
+           url: '/Home/GetBlockList', type: 'post', dataType: 'json',
+           data: { 'SiteID': siteID, 'sectorID': sectorID },
+           success: function (data) {
+               $("#divload").css({ 'display': 'none' });
+               $("#BlockID").html(""); // clear before appending new list
+               $("#BlockID").empty();
+               $("#BlockID").append(
+                     $('<option></option>').val(0).html('Select Block'));
+               $.each(data.lstBlock, function (index, BlockCount) {
+                   $("#BlockID").append(
+                         $('<option></option>').val(BlockCount.Value).html(BlockCount.Text));
+               });
+
+           }
+
+       });
+   }
+
+
+</script>
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>

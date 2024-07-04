@@ -1,0 +1,81 @@
+﻿@model OmPrabha.Models.Reports
+
+@{
+    ViewBag.Title = "TopupList";
+    Layout = "~/Views/Shared/AssociateLayout.cshtml";
+}
+
+@using (Html.BeginForm("TopupList", "UserReports", FormMethod.Post, new { @id = "form1" }))
+{
+
+    <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+                <a href="#">
+                    <i data-feather="home"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item">Report</li>
+            <li class="breadcrumb-item">Topup List</li>
+        </ul>
+    </section>
+
+    <div class="section-body">
+        <div class="card">
+            <div class="card-header">
+                <h4>Topup List</h4>
+            </div>
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-md" data-page-length='50' id="tableExport" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Sr No.</th>
+                                <th>Customer Id</th>
+                                <th>Name</th>
+                                <th>Associate</th>
+                                @*<th>Upgradation Date</th>*@
+                                @*<th>Product Name</th>*@
+                                <th>Plot Details</th>
+                                <th>Paid Amount</th>
+                                <th>Payment Date</th>
+                                @*<th>Action</th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.lsttopupreport != null)
+                                {
+                                    int i = 1;
+                                    foreach (var Item in Model.lsttopupreport)
+                                    {
+                                        <tr class="text-left">
+                                            <td>@i</td>
+                                            <td>@Item.LoginId</td>
+                                            <td>@Item.Name</td>
+                                            <td></td>
+                                            <td>@Item.SiteName,@Item.SectorName,@Item.BlockName,@Item.PlotNumber</td>
+                                            @*<td>@Item.UpgradtionDate</td>
+                                            <td>@Item.ProductName</td>*@
+                                            <td>@Item.PaidAmount</td>
+                                            <td>@Item.PaymentDate</td>
+                                            @*<td>
+                                            <a href="/User/PrintTopup?invid=@Item.FK_InvestmentID" target="_blank" class="btn btn-sm btn-primary">Print</a>
+                                        </td>*@
+                                        </tr>
+
+                                        i++;
+                                    }
+                                }
+                            }
+
+                        </tbody>
+
+                    </table>
+                    </div>
+                </div>
+            </div>
+    </div>
+}

@@ -1,0 +1,315 @@
+﻿@model OmPrabha.Models.Master
+
+@{
+    ViewBag.Title = "UpdatePlot";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("UpdatePlot", "Master", FormMethod.Post, new { @id = "form1" }))
+{
+
+
+    <div class="card-header">
+        <h4>Update Plot</h4>
+    </div>
+    <div class="card-body">
+
+
+
+        <p style="color: red">
+            @TempData["Plot"]
+        </p>
+        <div class="row ">
+            <div class="input-field col m6 s12">
+                <label class="float-label">Plot Number</label>
+                @Html.TextBoxFor(m => m.PlotNumber, new { @class = "form-control" })
+                @Html.HiddenFor(m => m.PlotID)
+
+            </div>
+
+            <div class="input-field col m6 s12">
+                <label class="float-label">Site</label>
+
+                @Html.TextBoxFor(m => m.SiteName, new { @class = "form-control", @readonly = "readonly" })
+                @Html.HiddenFor(m => m.SiteID)
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="input-field col m6 s12">
+                <label class="float-label">Rate</label>
+                @Html.TextBoxFor(m => m.PlotRate, new { @class = "form-control", @Placeholder = "Rate",@onchange = "return calculatePlotAmount();" })
+            </div>
+            <div class="input-field col m6 s12">
+                <label class="float-label">Sector</label>
+                @Html.TextBoxFor(m => m.SectorName, new { @class = "form-control", @readonly = "readonly" })
+                @Html.HiddenFor(m => m.SectorID)
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-md" data-page-length='50' id="tableExport" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>S No.</th>
+                                <th>PLC NAME</th>
+                                <th>PLC Charge(%)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="plccharge"></tbody>
+
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-group row">
+
+            <div class="input-field col m3 s12">
+                <label class="float-label">Block</label>
+                @Html.TextBoxFor(m => m.BlockName, new { @class = "form-control", @readonly = "readonly" })
+                @Html.HiddenFor(m => m.BlockID)
+            </div>
+
+            <div class="input-field col m3 s12">
+                <label class="float-label">Plot Rate</label>
+                @Html.TextBoxFor(m => m.Rate, new { @class = "form-control", @Placeholder = "Plot Rate", @onkeypress = "return isNumberOrDecimal(event);", @onchange = "return calculatePlotAmount();" })
+            </div>
+
+            <div class="input-field col m3 s12">
+                <label class="float-label">Plot Size</label>
+                @Html.DropDownListFor(m => m.PlotSizeID, new SelectList(ViewBag.ddlPlotSize, "Value", "Text"), new { @class = "form-control", @onchange = "return calculatePlotAmount();" })
+            </div>
+
+            <div class="input-field col m3 s12">
+                <label class="float-label">Booking Percentage</label>
+                @Html.TextBoxFor(m => m.BookingPercent, new { @class = "form-control", @Placeholder = "Booking Percent", @onkeypress = "return isNumberOrDecimal(event);" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+            <div class="input-field col m3 s12">
+                <label class="float-label">Plot Amount</label>
+                @Html.TextBoxFor(m => m.PlotAmount, new { @class = "form-control", @Placeholder = "Plot Amount", @Readonly = "readonly", @onkeypress = "return isNumberOrDecimal(event);" })
+            </div>
+
+            <div class="input-field col m3 s12">
+                <label class="float-label">Allotment Percentage</label>
+                @Html.TextBoxFor(m => m.AllottmentPercent, new { @class = "form-control", @Placeholder = "Allottment Percent", @onkeypress = "return isNumberOrDecimal(event);" })
+            </div>
+
+        </div>
+
+        <br />
+
+        <div class="form-group row">
+
+            <div class="col-md-6">
+                <input class="btn btn-success pull-right" type="submit" onclick="return validateform();" value="Update" id="btnUpdate" name="btnUpdate" />
+                <a class="btn btn-info" href="/Master/PlotList" style="margin-left:5px">Back To List</a>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+}
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        onSiteChange();
+    });
+
+    function calculatePlotAmount() {
+        var ddlSize = document.getElementById("PlotSizeID");
+        var selectedPlotSize = ddlSize.options[ddlSize.selectedIndex].text;
+
+        var plotSize = selectedPlotSize.split(" ");
+        var plotRate = Number(document.getElementById("PlotRate").value);
+
+        var plotAmount = Number(plotSize[0]) * plotRate;
+        //alert(plotArea);
+        document.getElementById("PlotAmount").value = plotAmount;
+    }
+
+    function onSiteChange() {
+        var value = $('#SiteID').val();
+        var values = $('#SectorID').val();
+        var tr = [];
+        $.ajax({
+            url: "/Master/GetSiteDetails",
+            Type: "Get",
+            DataType: "JSON",
+            data: { SiteID: value },
+            success: function (data) {
+                var j = 1;
+                if (data.Result == "yes") {
+                    $('#Rate').val(data.Rate);
+                    $("#SectorID").html(""); // clear before appending new list
+                    $("#SectorID").empty();
+                    $("#SectorID").append(
+                          $('<option></option>').val(0).html('Select Phase'));
+                    $.each(data.ddlSector, function (index, Sectorcount) {
+                        $("#SectorID").append(
+                              $('<option></option>').val(Sectorcount.Value).html(Sectorcount.Text));
+
+                    });
+
+                    var plcTotal = 0;
+                    $('#plccharge').empty();
+                    for (var i = 0; i < data.lstPLC.length; i++) {
+                        tr.push('<tr>');
+                        tr.push("<td>" + j + "</td>");
+                        tr.push("<td>" + data.lstPLC[i].PLCName + "</td>");
+                        tr.push("<td><input type='number' value='" + data.lstPLC[i].PLCCharge + "' id='txtCharge_ " + i + "' name='txtCharge_ " + i + "' required='required'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstPLC[i].PLCID + "' id='plcid_ " + i + "' name='plcid_ " + i + "'></td>");
+                        tr.push('</tr>');
+                        j++;
+                        plcTotal = plcTotal + parseInt(data.lstPLC[i].PLCCharge);
+                    }
+                    tr.push('<tr style="display:none">');
+                    tr.push("<td><input type='hidden' value='" + j + "' id='hdrows' name='hdrows'></td>");
+                    tr.push('</tr>');
+                    $('#plccharge').append($(tr.join('')));
+
+                    $('#PLCCharge').val(plcTotal);
+
+                }
+                else {
+                    $('#Rate').val('');
+                }
+
+
+            }
+
+        });
+
+    }
+
+    function onSectorChange() {
+        debugger;
+
+        var siteID = $('#SiteID').val();
+        var sectorID = $('#SectorID').val();
+        $.ajax({
+            url: '/Master/GetBlockList', type: 'post', dataType: 'json',
+            data: { 'SiteID': siteID, 'sectorID': sectorID },
+            success: function (data) {
+
+                $("#BlockID").html(""); // clear before appending new list
+                $("#BlockID").empty();
+                $("#BlockID").append(
+                      $('<option></option>').val(0).html('Select Block'));
+                $.each(data.lstBlock, function (index, BlockCount) {
+                    $("#BlockID").append(
+                          $('<option></option>').val(BlockCount.Value).html(BlockCount.Text));
+
+                });
+
+            }
+
+        });
+    }
+
+    function validateform() {
+        $("#divload").css({ 'display': '' });
+        $(".errortext").removeClass("errortext");
+        if ($('#SiteID').val() == '') {
+            $("#SiteID").addClass('errortext');
+            $('#SiteID').focus();
+            return false;
+        }
+        if ($('#SectorID').val() == '0') {
+            $("#SectorID").addClass('errortext');
+            $('#SectorID').focus();
+            return false;
+        }
+
+        if ($('#BlockID').val() == '0') {
+            $("#BlockID").addClass('errortext');
+            $('#BlockID').focus();
+            return false;
+        }
+
+        if ($('#PlotRate').val() == '') {
+            $("#PlotRate").addClass('errortext');
+            $('#PlotRate').focus();
+            return false;
+        }
+        if ($('#PlotSizeID').val() == '') {
+            $("#PlotSizeID").addClass('errortext');
+            $('#PlotSizeID').focus();
+            return false;
+        }
+        if ($('#AllottmentPercent').val() == '') {
+            $("#AllottmentPercent").addClass('errortext');
+            $('#AllottmentPercent').focus();
+            return false;
+        }
+        //if ($('#PlotPrefix').val() == '') {
+        //    $("#PlotPrefix").addClass('errortext');
+        //    $('#PlotPrefix').focus();
+        //    return false;
+        //}
+        if ($('#FromPlot').val() == '') {
+            $("#FromPlot").addClass('errortext');
+            $('#FromPlot').focus();
+            return false;
+        }
+        if ($('#ToPlot').val() == '') {
+            $("#ToPlot").addClass('errortext');
+            $('#ToPlot').focus();
+            return false;
+        }
+
+        return true;
+    }
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function onlyAlphabets(e, t) {
+        try {
+            if (window.event) {
+                var charCode = window.event.keyCode;
+            }
+            else if (e) {
+                var charCode = e.which;
+            }
+            else { return true; }
+            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+                return true;
+            else
+                return false;
+        }
+        catch (err) {
+            alert(err.Description);
+        }
+    }
+
+</script>
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+
