@@ -10,6 +10,9 @@ namespace OmPrabha.Models
 {
     public class Plot : Common
     {
+        public string VehicleNo { get; set; }
+        public string FromJourney { get; set; }
+        public string ToJourney { get; set; }
         public string VisitDate { get; set; }
         public List<SelectListItem> ddlPLC { get; set; }
         public List<SelectListItem> ddlRate { get; set; }
