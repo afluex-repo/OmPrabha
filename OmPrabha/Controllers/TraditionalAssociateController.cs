@@ -557,8 +557,8 @@ namespace OmPrabha.Controllers
                     obj.AssociateName = r["AssociateName"].ToString();
                     obj.SponsorID = r["SponsorId"].ToString();
                     obj.SponsorName = r["SponsorName"].ToString();
-                    //   obj.LoginID = r["LoginId"].ToString();
-                    //  obj.DesignationID = r["FK_DesignationID"].ToString();
+                    //obj.LoginID = r["LoginId"].ToString();
+                    //obj.DesignationID = r["FK_DesignationID"].ToString();
                     obj.Status = r["Status"].ToString();
                     obj.isBlocked = r["isBlocked"].ToString();
                     obj.Contact = r["Mobile"].ToString();
@@ -572,6 +572,7 @@ namespace OmPrabha.Controllers
                     obj.DesignationName = r["DesignationName"].ToString();
                     obj.EncryptKey = Crypto.Encrypt(r["PK_UserId"].ToString());
                     obj.Password = Crypto.Decrypt(r["Password"].ToString());
+                    obj.JoiningDate = r["JoiningDate"].ToString();
                     lst.Add(obj);
                 }
                 model.lstTrad = lst;

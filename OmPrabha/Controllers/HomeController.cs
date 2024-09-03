@@ -451,6 +451,7 @@ namespace OmPrabha.Controllers
                             Session["DesignationName"] = ds.Tables[0].Rows[0]["DesignationName"].ToString();
                             Session["Percentage"] = ds.Tables[0].Rows[0]["Percentage"].ToString();
                             Session["ProfilePicture"] = ds.Tables[0].Rows[0]["ProfilePicture"].ToString();
+                            Session["JoiningDate"] = ds.Tables[0].Rows[0]["JoiningDate"].ToString();
                             FormName = "AssociateDashBoard";
                             Controller = "AssociateDashboard";
                         }
@@ -474,6 +475,7 @@ namespace OmPrabha.Controllers
                             Session["ProfilePic"] = ds.Tables[0].Rows[0]["ProfilePic"].ToString();
                             Session["Status"] = ds.Tables[0].Rows[0]["Status"].ToString();
                             Session["CssClass"] = ds.Tables[0].Rows[0]["StatusColor"].ToString();
+                            Session["JoiningDate"] = ds.Tables[0].Rows[0]["JoiningDate"].ToString();
                             FormName = "AssociateDashBoard";
                             Controller = "AssociateDashboard";
                         }
@@ -498,6 +500,7 @@ namespace OmPrabha.Controllers
                             Session["ProfilePic"] = ds.Tables[0].Rows[0]["ProfilePic"].ToString();
                             Session["Status"] = ds.Tables[0].Rows[0]["Status"].ToString();
                             Session["CssClass"] = ds.Tables[0].Rows[0]["StatusColor"].ToString();
+
                             FormName = "CustomerDashBoard";
                             Controller = "CustomerDashboard";
                         }
