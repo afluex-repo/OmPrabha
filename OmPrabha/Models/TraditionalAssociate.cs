@@ -222,8 +222,9 @@ namespace OmPrabha.Models
         public string Char { get; set; }
         public string Sms { get; set; }
 
-       
-       
+        public string JoiningDate { get; set; }
+
+
 
         #region claim report
         public DataSet ClaimRewardReport()
