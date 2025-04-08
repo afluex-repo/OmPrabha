@@ -768,12 +768,12 @@ namespace OmPrabha.Models
                                  new SqlParameter("@AssociateID",AssociateID),
                                  new SqlParameter("@FromDate",FromDate),
                                  new SqlParameter("@ToDate",ToDate),
-                                  new SqlParameter("@PK_SiteID",SiteID),
-                                   new SqlParameter("@PK_SectorID",SectorID),
-                                    new SqlParameter("@PK_BlockID",BlockID),
-                                     new SqlParameter("@PlotNumber",PlotNumber),
-                                       new SqlParameter("@BookingNo",BookingNumber),
-                                         new SqlParameter("@PK_BookingDetailsId",PK_BookingDetailsId),
+                                 new SqlParameter("@PK_SiteID",SiteID),
+                                 new SqlParameter("@PK_SectorID",SectorID),
+                                 new SqlParameter("@PK_BlockID",BlockID),
+                                 new SqlParameter("@PlotNumber",PlotNumber),
+                                 new SqlParameter("@BookingNo",BookingNumber),
+                                 new SqlParameter("@PK_BookingDetailsId",PK_BookingDetailsId),
 
 
                             };

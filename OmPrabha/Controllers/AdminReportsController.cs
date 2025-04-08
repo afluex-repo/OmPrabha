@@ -767,6 +767,7 @@ namespace OmPrabha.Controllers
             //return Json(model, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
         public ActionResult GetBookingNoByName(string CustomerName)
         {
             Plot model = new Plot();
@@ -1278,9 +1279,9 @@ namespace OmPrabha.Controllers
                     ViewBag.customerMobile = ds.Tables[0].Rows[0]["customerMobile"].ToString();
                     ViewBag.PLC = string.IsNullOrEmpty(ds.Tables[0].Rows[0]["PLC"].ToString()) ? "N/A" : ds.Tables[0].Rows[0]["PLC"].ToString();
                     ViewBag.AmountInWords = ds.Tables[0].Rows[0]["PaidAmountInWords"].ToString();
-                    //ViewBag.NetPlotAmount = ds.Tables[0].Rows[0]["NetPlotAmount"].ToString();
+                    ViewBag.NetPlotAmount = ds.Tables[0].Rows[0]["NetPlotAmount"].ToString();
                     ViewBag.NetPlotAmountInWords = ds.Tables[0].Rows[0]["NetPlotAmountInWords"].ToString();
-
+                  
                     ViewBag.TransactionNo = ds.Tables[0].Rows[0]["TransactionNo"].ToString();
                     ViewBag.TransactionDate = ds.Tables[0].Rows[0]["TransactionDate"].ToString();
                     ViewBag.BankName = ds.Tables[0].Rows[0]["BankName"].ToString();
