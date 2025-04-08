@@ -767,6 +767,7 @@ namespace OmPrabha.Controllers
             //return Json(model, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
         public ActionResult GetBookingNoByName(string CustomerName)
         {
             Plot model = new Plot();
