@@ -126,7 +126,7 @@
                 <td colspan="2" style="border: 1px solid black;"><b>Total Deposit:     </b> @ViewBag.TotalDeposit</td>
                 <td colspan="2" style="border: 1px solid black;"><b>Balance:     </b>@ViewBag.RemainingAmount</td>
                 <td colspan="2" style="border: 1px solid black;"><b>Plot Booking Rate: </b>@ViewBag.PlotRate</td>
-                <td colspan="1" style="border: 1px solid black;"><b>Installment No.:</b> @ViewBag.InstallmentNo </td>
+                <td style="border: 1px solid black;" colspan="1"><b>Net Plot Amount:     </b>@ViewBag.NetPlotAmount</td>
             </tr>
             <tr>
                 @*<td style="border: 1px solid black;" colspan="2"></td>
@@ -134,9 +134,9 @@
                     <td style="border: 1px solid black;" colspan="5"><b>Adjustment LoginId:     </b>@ViewBag.AdjustmentloginId</td>*@
 
 
-                <td style="border: 1px solid black;" colspan="9"><b>In Words:     </b>@ViewBag.NetPlotAmountInWords</td>
+                <td style="border: 1px solid black;" colspan="6"><b>In Words:     </b>@ViewBag.NetPlotAmountInWords</td>
                 @*<td style="border: 1px solid black;" colspan="3"><b>Adjustment LoginId:     </b>@ViewBag.AdjustmentloginId</td>*@
-
+                <td colspan="3" style="border: 1px solid black;"><b>Installment No.:</b> @ViewBag.InstallmentNo </td>
             </tr>
             <tr>
                 @if (ViewBag.PaymentMode == "Cash")
@@ -433,7 +433,7 @@
                 <td colspan="2" style="border: 1px solid black;"><b>Total Deposit:     </b> @ViewBag.TotalDeposit</td>
                 <td colspan="2" style="border: 1px solid black;"><b>Balance:     </b>@ViewBag.RemainingAmount</td>
                 <td colspan="2" style="border: 1px solid black;"><b>Plot Booking Rate: </b>@ViewBag.PlotRate</td>
-                <td colspan="1" style="border: 1px solid black;"><b>Installment No.:</b> @ViewBag.InstallmentNo </td>
+                <td style="border: 1px solid black;" colspan="1"><b>Net Plot Amount:     </b>@ViewBag.NetPlotAmount</td>
             </tr>
             <tr>
                 @*<td style="border: 1px solid black;" colspan="2"></td>
@@ -441,9 +441,10 @@
                     <td style="border: 1px solid black;" colspan="5"><b>Adjustment LoginId:     </b>@ViewBag.AdjustmentloginId</td>*@
 
 
-                <td style="border: 1px solid black;" colspan="9"><b>In Words:     </b>@ViewBag.NetPlotAmountInWords</td>
+                <td style="border: 1px solid black;" colspan="6"><b>In Words:     </b>@ViewBag.NetPlotAmountInWords</td>
                 @*<td style="border: 1px solid black;" colspan="3"><b>Adjustment LoginId:     </b>@ViewBag.AdjustmentloginId</td>*@
-
+              
+                <td colspan="3" style="border: 1px solid black;"><b>Installment No.:</b> @ViewBag.InstallmentNo </td>
 
             </tr>
             <tr>
